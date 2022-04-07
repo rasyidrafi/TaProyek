@@ -1,7 +1,7 @@
 let profile = localStorage.getItem("ta-proyek");
 if (profile) profile = JSON.parse(profile);
 let isLocal = false;
-let baseUrl = isLocal ? "" : "https://okok.my.id/ta-kel1/";
+let baseUrl = isLocal ? "" : "https://okok.my.id/ta-kel1";
 
 let middleware = {
     mustLogin: () => {
