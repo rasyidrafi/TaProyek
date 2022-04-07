@@ -1,13 +1,15 @@
 let profile = localStorage.getItem("ta-proyek");
 if (profile) profile = JSON.parse(profile);
-let isLocal = false;
-let baseUrl = isLocal ? "" : "https://okok.my.id/ta-kel1";
 
 let middleware = {
     mustLogin: () => {
-        // if (!profile) return window.location.href = `https://okok.my.id/ta-kel1/login.html`;
+        if (!profile) {
+            window.location.replace(`${window.location.href}login.html`);
+        }
     },
-    redirectIfLogin: (to = `${baseUrl}/dashboard.html`) => {
-        if (profile) return window.location.href = to;
+    redirectIfLogin: (to = 'dashboard.html') => {
+        if (profile) {
+            window.location.replace(`${window.location.href}${to}`);
+        }
     }
 }
