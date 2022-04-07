@@ -5,7 +5,7 @@ let baseUrl = isLocal ? "" : "https://okok.my.id/ta-kel1";
 
 let middleware = {
     mustLogin: () => {
-        if (!profile) return window.location.href = `https://okok.my.id/ta-kel1/login.html`;
+        // if (!profile) return window.location.href = `https://okok.my.id/ta-kel1/login.html`;
     },
     redirectIfLogin: (to = `${baseUrl}/dashboard.html`) => {
         if (profile) return window.location.href = to;
