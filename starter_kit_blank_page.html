@@ -39,6 +39,8 @@
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
   </head>
   <body class="sidebar-noneoverflow">
+    <script src="./middleware/index.js"></script>
+
     <!--  BEGIN NAVBAR  -->
     <div class="header-container fixed-top">
       <header class="header navbar navbar-expand-sm">
@@ -201,7 +203,7 @@
                 </a>
               </div>
               <div class="dropdown-item">
-                <a href="auth_login.html">
+                <a href="javascript:middleware.logout()">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"

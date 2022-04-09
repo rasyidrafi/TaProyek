@@ -11,5 +11,9 @@ let middleware = {
         if (profile) {
             window.location.replace(`${window.location.href}${to}`);
         }
+    },
+    logout: () => {
+        localStorage.removeItem("ta-proyek");
+        window.location.replace(`login.html`);
     }
 }
