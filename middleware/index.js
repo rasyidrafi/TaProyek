@@ -12,6 +12,9 @@ let middleware = {
             window.location.replace(to);
         }
     },
+    redirect: (to = "dashboard.html") => {
+        window.location.replace(to);
+    },
     logout: () => {
         localStorage.removeItem("ta-proyek");
         window.location.replace(`login.html`);
