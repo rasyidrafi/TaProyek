@@ -185,7 +185,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
-                            <p>Please contact the administrator via whatsapp if you forget your password.</p>
+                            <p>Please contact the administrator if you forget your password.</p>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >
@@ -193,7 +193,7 @@
                               Close
                             </button>
                             <a href="https://api.whatsapp.com/send?phone=6287862139165&text=Excuse%20me%20admin,%20I%20have%20an%20account%20and%20forgot%20the%20password.%0A%0AUsername:%20...%0ANew%20Password:%20...%0A%0AThanks%20very+much." target="_blank" style="width: 100%;">
-                              <button type="button" class="btn btn-primary" >
+                              <button type="button" class="btn btn-success" >
                                 <i class="bi bi-whatsapp"></i>
                                 Contact Admin
                               </button>
