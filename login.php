@@ -97,6 +97,7 @@
 
     <!-- bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!-- bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
   
@@ -132,6 +133,8 @@
 
               <form action="" method="post" class="text-left">
                 <div class="form">
+
+                  <!-- email -->
                   <div id="email-field" class="field-wrapper input">
                     <label for="email">EMAIL</label>
                     <svg
@@ -158,15 +161,8 @@
                       placeholder="Input Email"
                     />
                   </div>
-
-                  <div
-                    id="email-required"
-                    class="alert alert-light-danger border-0 mb-4 d-none"
-                    role="alert"
-                  >
-                    Email is required
-                  </div>
-
+                  
+                  <!-- password -->
                   <div id="password-field" class="field-wrapper input mb-2">
                     <div class="d-flex justify-content-between">
                       <label for="password">PASSWORD</label>
@@ -174,9 +170,39 @@
                         href="javascript:void(0);"
                         class="bs-tooltip forgot-pass-link"
                         title="Contact your administrator"
+                        data-bs-toggle="modal" 
+                        data-bs-target="#exampleModal"
                         >Forgot Password?</a
                       >
                     </div>
+
+                    <!-- Forgot Password Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title fw-bold" id="exampleModalLabel">Peringatan!</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>Please contact the administrator via whatsapp if you forget your password.</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >
+                              <i class="bi bi-x-circle"></i>
+                              Close
+                            </button>
+                            <a href="https://api.whatsapp.com/send?phone=6287862139165&text=Excuse%20me%20admin,%20I%20have%20an%20account%20and%20forgot%20the%20password.%0A%0AUsername:%20...%0ANew%20Password:%20...%0A%0AThanks%20very+much." target="_blank" style="width: 100%;">
+                              <button type="button" class="btn btn-primary" >
+                                <i class="bi bi-whatsapp"></i>
+                                Contact Admin
+                              </button>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -224,14 +250,6 @@
                       ></path>
                       <circle cx="12" cy="12" r="3"></circle>
                     </svg>
-                  </div>
-
-                  <div
-                    id="password-required"
-                    class="alert alert-light-danger border-0 mb-4 d-none"
-                    role="alert"
-                  >
-                    Password is required
                   </div>
 
                   <div class="d-sm-flex justify-content-between">
@@ -288,3 +306,4 @@
     </script>
   </body>
 </html>
+
