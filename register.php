@@ -227,7 +227,7 @@ function cek_nama($username, $conn)
 
                 <p class="signup-link">
                   Was registered ?
-                  <a href="Login.php">Log in to your account</a>
+                  <a href="login.php">Log in to your account</a>
                 </p>
               </div>
             </form>
