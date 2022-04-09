@@ -42,6 +42,8 @@
                     if ($result) {
                         $_SESSION['username'] = $username;
                         $regis = true;
+                      
+                        header("Location: login.php"); // alihkan ke halaman login
                     
                     //jika gagal maka buatlah variabel berikut :
                     } else {
