@@ -11,7 +11,7 @@
     <link rel="icon" type="image/x-icon" href="./assets/img/favicon.ico" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link
-      href="https://fonts.googleapis.com/css?family=Nunito:400,600,700"
+      href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -24,18 +24,17 @@
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
-    <!-- <style>
-        /*
+    <style>
+      /*
             The below code is for DEMO purpose --- Use it if you are using this demo otherwise Remove it
         */
-        .navbar .navbar-item.navbar-dropdown {
+      /*.navbar .navbar-item.navbar-dropdown {
             margin-left: auto;
-        }
-        .layout-px-spacing {
-            min-height: calc(100vh - 96px)!important;
-        }
-
-    </style> -->
+        }*/
+      .layout-px-spacing {
+        min-height: calc(100vh - 140px) !important;
+      }
+    </style>
 
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
   </head>
@@ -43,37 +42,47 @@
     <!--  BEGIN NAVBAR  -->
     <div class="header-container fixed-top">
       <header class="header navbar navbar-expand-sm">
-        <a
-          href="javascript:void(0);"
-          class="sidebarCollapse"
-          data-placement="bottom"
-          ><svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-menu"
-          >
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line></svg
-        ></a>
-
-        <ul class="navbar-item flex-row">
-          <li class="nav-item align-self-center page-heading">
-            <div class="page-header">
-              <div class="page-title">
-                <h3>Blank Page</h3>
-              </div>
-            </div>
+        <ul class="navbar-nav theme-brand flex-row text-center">
+          <li class="nav-item theme-logo">
+            <a href="index.html">
+              <img
+                src="./assets/img/90x90.jpg"
+                class="navbar-logo"
+                alt="logo"
+              />
+            </a>
+          </li>
+          <li class="nav-item theme-text">
+            <a href="index.html" class="nav-link"> CORK </a>
+          </li>
+          <li class="nav-item toggle-sidebar">
+            <a
+              href="javascript:void(0);"
+              class="sidebarCollapse"
+              data-placement="bottom"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-list"
+              >
+                <line x1="8" y1="6" x2="21" y2="6"></line>
+                <line x1="8" y1="12" x2="21" y2="12"></line>
+                <line x1="8" y1="18" x2="21" y2="18"></line>
+                <line x1="3" y1="6" x2="3" y2="6"></line>
+                <line x1="3" y1="12" x2="3" y2="12"></line>
+                <line x1="3" y1="18" x2="3" y2="18"></line></svg
+            ></a>
           </li>
         </ul>
-        <ul class="navbar-item flex-row navbar-dropdown">
+
+        <ul class="navbar-item flex-row navbar-dropdown ml-auto">
           <li
             class="nav-item dropdown user-profile-dropdown order-lg-0 order-1"
           >
@@ -85,7 +94,23 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <img src="assets/img/90x90.jpg" alt="avatar" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-settings"
+              >
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                ></path>
+              </svg>
             </a>
             <div
               class="dropdown-menu position-absolute"
@@ -94,12 +119,12 @@
               <div class="user-profile-section">
                 <div class="media mx-auto">
                   <img
-                    src="assets/img/90x90.jpg"
+                    src="./assets/img/90x90.jpg"
                     class="img-fluid mr-2"
                     alt="avatar"
                   />
                   <div class="media-body">
-                    <h5>Xavier</h5>
+                    <h5>Sonia Shaw</h5>
                     <p>Project Leader</p>
                   </div>
                 </div>
@@ -121,7 +146,7 @@
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                     <circle cx="12" cy="7" r="4"></circle>
                   </svg>
-                  <span> Profile</span>
+                  <span>My Profile</span>
                 </a>
               </div>
               <div class="dropdown-item">
@@ -145,7 +170,7 @@
                       d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"
                     ></path>
                   </svg>
-                  <span> Inbox</span>
+                  <span>My Inbox</span>
                 </a>
               </div>
               <div class="dropdown-item">
@@ -206,35 +231,19 @@
     <!--  BEGIN MAIN CONTAINER  -->
     <div class="main-container" id="container">
       <div class="overlay"></div>
-      <div class="cs-overlay"></div>
       <div class="search-overlay"></div>
 
       <!--  BEGIN SIDEBAR  -->
       <div class="sidebar-wrapper sidebar-theme">
         <nav id="sidebar">
-          <ul class="navbar-nav theme-brand flex-row text-center">
-            <li class="nav-item theme-text">
-              <a href="index.html" class="nav-link"> CORK </a>
-            </li>
-            <li class="nav-item toggle-sidebar">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="feather sidebarCollapse feather-chevrons-left"
-              >
-                <polyline points="11 17 6 12 11 7"></polyline>
-                <polyline points="18 17 13 12 18 7"></polyline>
-              </svg>
-            </li>
-          </ul>
-
+          <div class="profile-info">
+            <figure class="user-cover-image"></figure>
+            <div class="user-info">
+              <img src="./assets/img/90x90.jpg" alt="avatar" />
+              <h6 class="">Sonia Shaw</h6>
+              <p class="">Project Leader</p>
+            </div>
+          </div>
           <div class="shadow-bottom"></div>
           <ul class="list-unstyled menu-categories" id="accordionExample">
             <li class="menu">
@@ -490,7 +499,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-12 layout-spacing">
               <div class="widget widget-content-area br-4">
                 <div class="widget-one">
-                  <h6>Kick Start you new project with ease!</h6>
+                  <h6>Blank Page - Kick Start you new project with ease!</h6>
 
                   <p class="mb-0 mt-3">
                     With CORK starter kit, you can begin your work without any
