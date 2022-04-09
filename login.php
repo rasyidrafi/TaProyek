@@ -113,7 +113,7 @@
       <div class="form-form">
         <div class="form-form-wrap">
           <div class="form-container">
-            <div class="form-content">
+            <div class="form-content shadow-lg p-3 mb-5 bg-body rounded mt-5 px-4">
               <h1 class="">Sign In</h1>
               <p class="">Log in to your account to continue.</p>
 
