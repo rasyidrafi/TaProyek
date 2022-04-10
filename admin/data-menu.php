@@ -1,3 +1,14 @@
+<?php
+    session_start();
+
+    // jika ada user yang berusaha masuk tanpa melalui login
+    if (!isset($_SESSION["login"])) {
+        header("Location: ../login.php"); // alihkan ke halaman login
+        exit;
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
