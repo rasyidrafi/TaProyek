@@ -122,12 +122,17 @@
               <?php if (isset($err1)) : ?>
                 <div class="alert alert-danger fw-bold" role="alert">
                   <i class="bi bi-exclamation-triangle-fill"></i> 
-                  &nbsp;&nbsp;Data tidak boleh kosong!
+                  &nbsp;&nbsp;Email / password yang anda masukkan salah!
                 </div>
               <?php elseif (isset($err2)) : ?>
                 <div class="alert alert-danger fw-bold" role="alert">
                   <i class="bi bi-exclamation-triangle-fill"></i> 
-                  &nbsp;&nbsp;Email / password yang anda masukkan salah!
+                  &nbsp;&nbsp;Data tidak boleh kosong!
+                </div>
+              <?php elseif (isset($err3)) : ?>
+                <div class="alert alert-danger fw-bold" role="alert">
+                  <i class="bi bi-exclamation-triangle-fill"></i> 
+                  &nbsp;&nbsp;Email belum terdaftar!
                 </div>
               <?php endif; ?>
 
