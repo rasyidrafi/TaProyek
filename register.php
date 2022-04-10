@@ -23,49 +23,49 @@ if (isset($_POST['register'])) {
   $repass = strtolower(stripslashes($_POST['repassword']));
   $repass = mysqli_real_escape_string($conn, $repass);
   //cek apakah nilai yang diinputkan pada form ada yang kosong atau tidak
-  if (!empty(trim($username)) && !empty(trim($password))) {
+        if( !empty(trim($email)) && !empty(trim($username)) && !empty(trim($password)) && !empty(trim($repass)) ){
 
-    // jika konfirmasi password tidak sama
-    if ($password == $repass) {
+            // jika konfirmasi password tidak sama
+            if ( $password == $repass) {
 
-      //memanggil method cek_nama untuk mengecek apakah user sudah terdaftar atau belum
-      if (cek_nama($username, $conn) == 0) {
+                //memanggil method cek_nama untuk mengecek apakah user sudah terdaftar atau belum
+                if( cek_email($email,$conn) == 0 ){
 
-        $pass  = password_hash($password, PASSWORD_DEFAULT); //enkripsi password sebelum disimpan didatabase
+                    $pass  = password_hash($password, PASSWORD_DEFAULT); //enkripsi password sebelum disimpan didatabase
 
-        //insert data ke database
-        $query = "INSERT INTO users (id, email, username, password ) VALUES (NULL,'$email','$username','$pass')";
-        $result   = mysqli_query($conn, $query);
-        $registrasi_info = true;
+                    //insert data ke database
+                    $query = "INSERT INTO users (id, email, username, password ) VALUES (NULL,'$email','$username','$pass')";
+                    $result   = mysqli_query($conn, $query);
+                    $registrasi_info = true;
 
-        //jika insert data berhasil maka akan menyimpan data username ke session
-        if ($result) {
-          $_SESSION['username'] = $username;
-          $regis = true;
+                    //jika insert data berhasil maka akan menyimpan data username ke session
+                    if ($result) {
+                        $_SESSION['username'] = $username;
+                        $regis = true;
 
-          header("Location: login.php"); // alihkan ke halaman login
-
-          //jika gagal maka buatlah variabel berikut :
-        } else {
-          $err1 = true;
-        }
-      } else {
-        $err2 = true;
+                        header("Location: login.php"); // alihkan ke halaman login
+                    
+                    //jika gagal maka buatlah variabel berikut :
+                    } else {
+                      $err1 = true;
+                  }
+              }else{
+                      $err2 = true;
+              }
+          }else{
+              $val = true;
+          }
+          
+      }else {
+          $err3 = true;
       }
-    } else {
-      $val = true;
+  } 
+    //fungsi untuk mengecek username apakah sudah terdaftar atau belum
+    function cek_email($email,$conn){
+        $email = mysqli_real_escape_string($conn, $email);
+        $query = "SELECT * FROM users WHERE email = '$email'";
+        if( $result = mysqli_query($conn, $query) ) return mysqli_num_rows($result);
     }
-  } else {
-    $err3 = true;
-  }
-}
-//fungsi untuk mengecek username apakah sudah terdaftar atau belum
-function cek_nama($username, $conn)
-{
-  $nama = mysqli_real_escape_string($conn, $username);
-  $query = "SELECT * FROM users WHERE username = '$nama'";
-  if ($result = mysqli_query($conn, $query)) return mysqli_num_rows($result);
-}
 ?>
 
 <!DOCTYPE html>
@@ -141,21 +141,21 @@ function cek_nama($username, $conn)
                 <p>Registrasi akun gagal!</p>
               </div>
 
-              <!-- jika username sudah ada -->
-            <?php elseif (isset($err2)) : ?>
-              <div class="alert alert-danger font-weight-bold" role="alert">
-                <i class="bi bi-exclamation-triangle-fill"></i>
-                &nbsp;&nbsp;Username ini sudah digunakan user lain!
-              </div>
+            <!-- jika email sudah ada -->
+            <?php elseif ( isset($err2) ): ?>
+               <div class="alert alert-danger font-weight-bold" role="alert">
+                <i class="bi bi-exclamation-triangle-fill"></i>  
+                &nbsp;&nbsp;Email ini sudah digunakan user lain!
+               </div>
 
-              <!-- jika salah satu form input kosong -->
+            <!-- jika salah satu form input kosong -->
             <?php elseif (isset($err3)) : ?>
               <div class="alert alert-danger font-weight-bold" role="alert">
                 <i class="bi bi-exclamation-triangle-fill"></i>
                 &nbsp;&nbsp;Data tidak boleh kosong!
               </div>
 
-              <!-- jika password dan konfirmasi password tidak sama -->
+            <!-- jika password dan konfirmasi password tidak sama -->
             <?php elseif (isset($val)) : ?>
               <div class="alert alert-danger font-weight-bold" role="alert">
                 <i class="bi bi-exclamation-triangle-fill"></i>
