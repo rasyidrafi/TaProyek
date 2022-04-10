@@ -2,6 +2,12 @@
   session_start();
 
   /* File ini hanya digunakan untuk membedakan apakah user yang login seorang admin, pegawai, atau seorang kasir */
+  
+  // jika ada user yang berusaha masuk tanpa melalui login
+  if (!isset($_SESSION["login"])) {
+    header("Location: login.php"); // alihkan ke halaman login
+    exit;
+  }
 
   // jika ada user yang login sebagai admin
   if ($_COOKIE["nama"] == "admin@gmail.com") {
