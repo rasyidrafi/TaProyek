@@ -1,6 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/okokmyid/public_html/tak-kel1/
-    - /bin/cp -R * $DEPLOYPATH
-    
+    - export DEPLOYPATH=/home/okokmyid/public_html/ta1
+    - /bin/cp -R images $DEPLOYPATH
