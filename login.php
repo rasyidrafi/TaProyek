@@ -3,7 +3,7 @@
   session_start();
 
   // membuat koneksi ke database
-  $conn = mysqli_connect("localhost","root","","db_kasir");
+  $conn = mysqli_connect("server2.jagoankodecloud.com","okokmyid_user_dev","rahasia721","okokmyid_ta1_dev");
 
     // cek koneksi database
     /* if (!$conn) {
