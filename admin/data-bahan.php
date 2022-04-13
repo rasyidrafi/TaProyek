@@ -33,18 +33,20 @@
                                         <th class="text-center sorting" tabindex="0" aria-controls="alter_pagination" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 54px;">Action</th></tr>
                                     </thead>
                                     <tbody>
+                                    
                                     <tr role="row">
-                                            <td class="">Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td class="sorting_1">$86,000</td>
+                                            <td class="">Kopi Bubuk Americano</td>
+                                            <td>3</td> 
+                                            <td>1</td>
+                                            <td>0</td>
+                                            <td class="sorting_1">2</td>
+                                            <td>KG</td>
                                             <td class="text-center">
                                                 <a href="javascript:void(0);" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-octagon table-cancel"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></a>
                                             </td>
-                                </tr>
-                                        </tr></tbody>
+                                    </tr>
+
+                                    </tbody>
                                     <tfoot>
                                     <tr><th rowspan="1" colspan="1">Nama Bahan</th>
                                         <th rowspan="1" colspan="1">Stok Awal</th>
@@ -52,7 +54,9 @@
                                         <th rowspan="1" colspan="1">Jumlah Tambahan</th>
                                         <th rowspan="1" colspan="1">Stok Sekarang</th>
                                         <th rowspan="1" colspan="1">Satuan</th>
-                                        <th rowspan="1" colspan="1"></th></tr>
+                                        <th rowspan="1" colspan="1"></th>
+                                        <th rowspan="1" colspan="1">Edit</th>
+                                    </tr>
                                     </tfoot>
                                 </table></div></div>
                                 <div class="row">
