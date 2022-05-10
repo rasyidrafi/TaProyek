@@ -1,40 +1,3 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
-  <title>Login</title>
-  <link rel="icon" type="image/x-icon" href="./assets/img/favicon.ico" />
-  <!-- BEGIN GLOBAL MANDATORY STYLES -->
-  <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet" />
-  <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="./assets/css/plugins.css" rel="stylesheet" type="text/css" />
-  <link href="./assets/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
-  <link href="./assets/css/authentication/form-2.css" rel="stylesheet" type="text/css" />
-  <!-- END GLOBAL MANDATORY STYLES -->
-  <link rel="stylesheet" type="text/css" href="./assets/css/forms/theme-checkbox-radio.css" />
-  <link rel="stylesheet" type="text/css" href="./assets/css/forms/switches.css" />
-
-  <link rel="stylesheet" href="./assets/css/elements/tooltip.css" />
-  <link rel="stylesheet" href="./assets/css/elements/alert.css" />
-
-  <!-- bootstrap CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <!-- bootstrap icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-
-  <script src="./assets/js/libs/jquery-3.1.1.min.js"></script>
-  <script src="./plugins/sweetalerts/promise-polyfill.js"></script>
-  <link href="./plugins/sweetalerts/sweetalert2.min.css" rel="stylesheet" type="text/css">
-  <link href="./plugins/sweetalerts/sweetalert.css" rel="stylesheet" type="text/css">
-  <link href="./assets/css/components/custom-sweetalert.css" rel="stylesheet" type="text/css">
-  <script src="plugins/sweetalerts/sweetalert2.min.js"></script>
-  <script src="plugins/sweetalerts/custom-sweetalert.js"></script>
-</head>
-
 <?php
 session_start();
 
@@ -45,11 +8,7 @@ $conn = mysqli_connect("server2.jagoankodecloud.com", "okokmyid_user_dev", "raha
 if (!$conn) {
 ?>
   <script>
-    swal({
-      type: 'error',
-      title: 'Koneksi Database Gagal',
-      text: '<?php echo mysqli_connect_error(); ?>',
-    }).then(() => location.reload())
+    alert('<?php echo mysqli_connect_error(); ?>')
   </script>
 <?php
 }
@@ -87,6 +46,43 @@ if (isset($_POST["login"])) {
 }
 
 ?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
+  <title>Login</title>
+  <link rel="icon" type="image/x-icon" href="./assets/img/favicon.ico" />
+  <!-- BEGIN GLOBAL MANDATORY STYLES -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet" />
+  <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="./assets/css/plugins.css" rel="stylesheet" type="text/css" />
+  <link href="./assets/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
+  <link href="./assets/css/authentication/form-2.css" rel="stylesheet" type="text/css" />
+  <!-- END GLOBAL MANDATORY STYLES -->
+  <link rel="stylesheet" type="text/css" href="./assets/css/forms/theme-checkbox-radio.css" />
+  <link rel="stylesheet" type="text/css" href="./assets/css/forms/switches.css" />
+
+  <link rel="stylesheet" href="./assets/css/elements/tooltip.css" />
+  <link rel="stylesheet" href="./assets/css/elements/alert.css" />
+
+  <!-- bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <!-- bootstrap icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+  <script src="./assets/js/libs/jquery-3.1.1.min.js"></script>
+  <script src="./plugins/sweetalerts/promise-polyfill.js"></script>
+  <link href="./plugins/sweetalerts/sweetalert2.min.css" rel="stylesheet" type="text/css">
+  <link href="./plugins/sweetalerts/sweetalert.css" rel="stylesheet" type="text/css">
+  <link href="./assets/css/components/custom-sweetalert.css" rel="stylesheet" type="text/css">
+  <script src="plugins/sweetalerts/sweetalert2.min.js"></script>
+  <script src="plugins/sweetalerts/custom-sweetalert.js"></script>
+</head>
 
 <body class="form">
   <div class="form-container outer">
