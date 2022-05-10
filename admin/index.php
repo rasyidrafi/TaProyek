@@ -214,7 +214,7 @@
                 </a>
               </div>
               <div class="dropdown-item">
-                <a href="javascript:middleware.logout()">
+                <a href="../logout.php">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
