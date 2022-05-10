@@ -44,7 +44,7 @@ if (!isset($_SESSION["role"])) {
 <body class="sidebar-noneoverflow">
 
   <!--  BEGIN NAVBAR  -->
-  <?php include"../component/_navbar.php" ?>
+  <?php include "component/_navbar.php" ?>
   <!--  END NAVBAR  -->
 
   <!--  BEGIN MAIN CONTAINER  -->
@@ -52,7 +52,7 @@ if (!isset($_SESSION["role"])) {
     <div class="overlay"></div>
     <div class="search-overlay"></div>
 
-    <?php include"../component/_sidebar.php"; ?>
+    <?php include "../component/_sidebar.php"; ?>
 
     <!-- CONTENT AREA -->
 
