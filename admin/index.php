@@ -4,7 +4,8 @@ session_start();
 // jika ada user yang berusaha masuk tanpa melalui login
 if (!isset($_SESSION["role"])) {
   header("Location: ../login.php"); // alihkan ke halaman login
-  exit;
+} else {
+  header("Location: data-menu.php");
 }
 
 ?>

@@ -44,7 +44,7 @@ if (!isset($_SESSION["role"])) {
 <body class="sidebar-noneoverflow">
 
   <!--  BEGIN NAVBAR  -->
-  <?php include "component/_navbar.php" ?>
+  <?php include "../component/_navbar.php" ?>
   <!--  END NAVBAR  -->
 
   <!--  BEGIN MAIN CONTAINER  -->
