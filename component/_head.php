@@ -7,12 +7,10 @@
 <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap" rel="stylesheet" />
 <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="../assets/css/plugins.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="../plugins/table/datatable/datatables.css">
-<link rel="stylesheet" type="text/css" href="../plugins/table/datatable/dt-global_style.css">
+<link href="assets/css/components/custom-modal.css" rel="stylesheet" type="text/css">
 <!-- END GLOBAL MANDATORY STYLES -->
 
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
 <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 <script src="../assets/js/libs/jquery-3.1.1.min.js"></script>
-<script src="../plugins/table/datatable/datatables.js"></script>

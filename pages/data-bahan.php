@@ -20,15 +20,19 @@ if ($result && mysqli_num_rows($result)) {
 
 ?>
 
+<link rel="stylesheet" type="text/css" href="../plugins/table/datatable/datatables.css">
+<link rel="stylesheet" type="text/css" href="../plugins/table/datatable/dt-global_style.css">
+<script src="../plugins/table/datatable/datatables.js"></script>
+
 <div id="content" class="main-content">
     <div class="layout-px-spacing">
-
         <div class="row layout-top-spacing" id="cancel-row">
 
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                 <div class="widget-content widget-content-area br-6">
                     <div class="col-12">
-                        <div class="table-responsive mb-4 mt-4">
+                        <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary mt-4 mb-2">Tambah Bahan</button>
+                        <div class="table-responsive mb-4">
                             <table id="zero-config" class="table table-hover" style="width:100%">
                                 <thead>
                                     <tr>
@@ -76,6 +80,26 @@ if ($result && mysqli_num_rows($result)) {
     </div>
     <!--  END CONTENT AREA  -->
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="../pages/add-bahan.php" method="POST">
+                        <div class="form-group mb-3">
+                            <input type="text" class="form-control" id="sEmail" aria-describedby="emailHelp1" placeholder="Nama Bahan" name="nama">
+                        </div>
+                        <div class="form-group mb-4">
+                            <input type="number" min="0" class="form-control" id="sPassword" placeholder="Stok Awal" name="stok_awal">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="text" class="form-control" id="sEmail" aria-describedby="emailHelp1" placeholder="Satuan" name="satuan">
+                        </div>
+                        <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>

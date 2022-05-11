@@ -11,7 +11,7 @@ if (!$conn) {
 }
 
 $data = [];
-$result = mysqli_query($conn, " SELECT * FROM menu");
+$result = mysqli_query($conn, " SELECT * FROM users");
 if ($result && mysqli_num_rows($result)) {
     while ($row = mysqli_fetch_assoc($result)) {
         $data[] = $row;
@@ -36,8 +36,9 @@ if ($result && mysqli_num_rows($result)) {
                             <table id="zero-config" class="table table-hover" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Nama Menu</th>
-                                        <th>Harga</th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Akses</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -47,8 +48,9 @@ if ($result && mysqli_num_rows($result)) {
                                     ?>
 
                                         <tr>
-                                            <td><?= $value['nama'] ?></td>
-                                            <td><?= $value['harga'] ?></td>
+                                            <td><?= $value['username'] ?></td>
+                                            <td><?= $value['email'] ?></td>
+                                            <td class="text-capitalize"><?= $value['role'] ?></td>
                                             <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
                                                     <circle cx="12" cy="12" r="10"></circle>
                                                     <line x1="15" y1="9" x2="9" y2="15"></line>

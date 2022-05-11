@@ -13,9 +13,7 @@ if (!isset($_SESSION["role"])) {
 <html lang="en">
 
 <head>
-  <?php include"../component/_head.php"; ?>
-
-  <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+  <?php include "../component/_head.php"; ?>
 </head>
 
 <body class="sidebar-noneoverflow">
@@ -33,10 +31,26 @@ if (!isset($_SESSION["role"])) {
 
     <!-- CONTENT AREA -->
 
-   <?php include "../pages/data-pegawai.php"; ?>
+    <div id="content" class="main-content">
+      <div class="layout-px-spacing">
+
+        <div class="row layout-top-spacing">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-12 layout-spacing">
+            <div class="widget widget-content-area br-4">
+              <div class="widget-one">
+
+              </div>
+            </div>
+          </div>
+
+          <!-- CONTENT AREA -->
+        </div>
+      </div>
+      <!--  END CONTENT AREA  -->
+    </div>
     <!-- END MAIN CONTAINER -->
 
-    <?php include"../component/_script.php"; ?>
+    <?php include "../component/_script.php"; ?>
 </body>
 
 </html>
