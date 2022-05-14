@@ -1,15 +1,6 @@
 <?php
 session_start();
 
-$conn = mysqli_connect("server2.jagoankodecloud.com", "okokmyid_user_dev", "rahasia721", "okokmyid_ta1_dev");
-
-$data_bahan = [];
-$result = mysqli_query($conn, "SELECT * FROM bahan");
-if ($result && mysqli_num_rows($result)) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $data_bahan[] = $row;
-    }
-}
 
 // jika ada user yang berusaha masuk tanpa melalui login
 if (!isset($_SESSION["role"])) {
@@ -17,26 +8,25 @@ if (!isset($_SESSION["role"])) {
     exit;
 }
 
-if (isset($_POST['harga'])) {
-    $nama = $_POST['nama'];
-    $harga = $_POST['harga'];
-    $kategori = $_POST['kategori'];
-    $allBahan = json_decode($_POST['bahan']);
+$conn = mysqli_connect("server2.jagoankodecloud.com", "okokmyid_user_dev", "rahasia721", "okokmyid_ta1_dev");
 
-    $conn = mysqli_connect("server2.jagoankodecloud.com", "okokmyid_user_dev", "rahasia721", "okokmyid_ta1_dev");
+$detail_menu_id = $_GET['id'];
 
-    $query = "INSERT INTO menu (nama, harga, kategori) VALUES ('$nama', '$harga', '$kategori')";
-    $result = mysqli_query($conn, $query);
+$menu_data;
 
-    // get last inserted id
-    $last_id = mysqli_insert_id($conn);
+$get_menu = mysqli_query($conn, "SELECT * FROM menu WHERE id = '$detail_menu_id'");
+if ($get_menu && mysqli_num_rows($get_menu)) {
+    $menu_data = mysqli_fetch_assoc($get_menu);
+}
 
-    foreach ($allBahan as $bahan) {
-        $query = "INSERT INTO menu_detail (id_menu, id_bahan, jumlah) VALUES ('$last_id', '$bahan->id', '$bahan->jumlah')";
-        $result = mysqli_query($conn, $query);
+// get detail menu all bahan
+$detail_menu_bahan = [];
+$res = mysqli_query($conn, "SELECT * FROM menu_detail LEFT JOIN bahan on id_bahan = bahan.id WHERE id_menu = '$detail_menu_id'");
+
+if ($res && mysqli_num_rows($res)) {
+    while ($row = mysqli_fetch_assoc($res)) {
+        $detail_menu_bahan[] = $row;
     }
-
-    header("Location: ../admin/data-menu.php");
 }
 
 ?>
@@ -91,39 +81,41 @@ if (isset($_POST['harga'])) {
 
                                 <!-- START ================== -->
 
-                                <h3 class="d-block">Tambah Menu Baru</h3>
+                                <h3 class="d-block">Detail Menu</h3>
                                 <form id="submit-menu-form" action="../pages/add-menu.php" method="POST" class="mb-4 row">
                                     <input type="hidden" id="bahan-input" name="bahan">
 
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <small class="form-text text-muted">Nama Menu</small>
-                                            <input name="nama" required type="nama" name="nama" class="form-control" placeholder="Nama Menu">
+                                            <span class="form-control text-capitalize">
+                                                <?= $menu_data['nama'] ?>
+                                            </span>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group mb-3">
                                             <small class="form-text text-muted">Harga</small>
-                                            <input name="harga" required type="text" oninput="event.target.value = formatRupiah(event.target.value)" name="harga" class="form-control" placeholder="Harga">
+                                            <span class="form-control text-capitalize">
+                                                <script>
+                                                    document.write(formatRupiah("<?= $menu_data['harga'] ?>"))
+                                                </script>
+                                            </span>
                                         </div>
                                     </div>
 
                                     <div class="col-12">
                                         <div class="form-group mb-3">
-                                            <small class="form-text text-muted">Pilih Kategori</small>
-                                            <select required name="kategori" class="form-control basic" multiple="multiple">
-                                                <option>Makanan</option>
-                                                <option>Minuman</option>
-                                                <option>Snack</option>
-                                            </select>
+                                            <small class="form-text text-muted">Kategori</small>
+                                            <span class="form-control text-capitalize">
+                                                <?= $menu_data['kategori'] ?>
+                                            </span>
                                         </div>
                                     </div>
 
 
                                     <div class="col-12">
-                                        <span data-toggle="modal" data-target="#addMenuModal" class="btn btn-success mb-4">Tambah Bahan</span>
-
                                         <div class="table-responsive">
                                             <table class="table table-bordered mb-4">
                                                 <thead>
@@ -134,16 +126,25 @@ if (isset($_POST['harga'])) {
                                                     </tr>
                                                 </thead>
                                                 <tbody id="table">
-
+                                                    <?php 
+                                                        foreach ($detail_menu_bahan as $key => $value) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td class="text-center"><?= $key + 1 ?></td>
+                                                                    <td>
+                                                                        <?= $value['nama'] ?>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <?= $value['jumlah'] ?>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php
+                                                        }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-
-                                    <div class="col-auto">
-                                        <span id="submit-menu" class="btn btn-primary mt-3">Submit</span>
-                                    </div>
-
                                 </form>
 
                                 <!-- END ================== -->
@@ -196,11 +197,11 @@ if (isset($_POST['harga'])) {
                 $(`#${id}`).remove();
             }
 
-            allBahan =  JSON.parse($("#data-bahan").html().trim());
+            allBahan = JSON.parse($("#data-bahan").html().trim());
 
             $("#add-bahan-form").submit(e => {
                 e.preventDefault();
-                
+
 
                 let id = $("#id-nya").val();
                 let jumlah = $("#jumlah-nya").val();
