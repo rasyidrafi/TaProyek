@@ -3,6 +3,14 @@ session_start();
 
 $conn = mysqli_connect("server2.jagoankodecloud.com", "okokmyid_user_dev", "rahasia721", "okokmyid_ta1_dev");
 
+$data_bahan = [];
+$result = mysqli_query($conn, "SELECT * FROM bahan");
+if ($result && mysqli_num_rows($result)) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $data_bahan[] = $row;
+    }
+}
+
 // jika ada user yang berusaha masuk tanpa melalui login
 if (!isset($_SESSION["role"])) {
     header("Location: ../login.php"); // alihkan ke halaman login
@@ -49,6 +57,7 @@ if (isset($_POST['tambah'])) {
 </script>
 
 <body class="sidebar-noneoverflow">
+    <span class="d-none" id="data-bahan"><?= json_encode($data_bahan); ?></span>
 
     <!--  BEGIN NAVBAR  -->
     <?php include "../component/_navbar.php" ?>
@@ -114,18 +123,7 @@ if (isset($_POST['tambah'])) {
                                                     </tr>
                                                 </thead>
                                                 <tbody id="table">
-                                                    <tr>
-                                                        <td class="text-center">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
-                                                                <polyline points="3 6 5 6 21 6"></polyline>
-                                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                                <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                                <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                            </svg>
-                                                        </td>
-                                                        <td>Nasi Goreng</td>
-                                                        <td class="text-center">320</td>
-                                                    </tr>
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -156,17 +154,20 @@ if (isset($_POST['tambah'])) {
                 <div class="modal-content">
                     <div class="modal-body">
                         <form id="add-bahan-form">
-                            <input type="hidden" id="id_bahan" name="id_bahan">
                             <div class="form-group mb-3">
+                                <input type="hidden" id="nama-nya">
                                 <small class="form-text text-muted">Pilih Bahan</small>
-                                <select class="form-control">
-                                    <option selected="selected">Nasi Putih</option>
-                                    <option>Bawang Merah</option>
+                                <select id="id-nya" class="form-control">
+                                    <?php
+                                    foreach ($data_bahan as $key => $value) {
+                                        echo "<option value='$value[id]'>$value[nama]</option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div class="form-group mb-3">
                                 <small class="form-text text-muted">Jumlah yg dibutuhkan</small>
-                                <input value="1" id="jumlah_butuh" name="jumlah" oninput="event.target.value = event.target.value.replace(/[^0-9]/g,'')" class="jumlah_butuh form-control" placeholder="Jumlah">
+                                <input id="jumlah-nya" value="1" id="jumlah_butuh" name="jumlah" oninput="event.target.value = event.target.value.replace(/[^0-9]/g,'')" class="jumlah_butuh form-control" placeholder="Jumlah">
                             </div>
                             <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
                         </form>
@@ -183,7 +184,23 @@ if (isset($_POST['tambah'])) {
             $("#add-bahan-form").submit(e => {
                 e.preventDefault();
 
+                let id = $("#id-nya").val();
+                let jumlah = $("#jumlah-nya").val();
 
+                $("#table").append(`
+                <tr id='bahan-${id}'>
+                    <td class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                        </svg>
+                    </td>
+                    <td></td>
+                    <td class="text-center">320</td>
+                </tr>
+                `);
             })
         </script>
 
