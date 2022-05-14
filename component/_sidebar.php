@@ -8,9 +8,8 @@
             </div>
         </div>
         <div class="shadow-bottom"></div>
-    <!-- BEGIN SIDEBAR ADMIN -->
-        <?php if ($_SESSION["role"] == "admin") {
-        ?>
+        <!-- BEGIN SIDEBAR ADMIN -->
+        <?php if ($_SESSION["role"] == "admin") { ?>
             <ul class="list-unstyled menu-categories" id="accordionExample">
                 <li class="menu">
                     <a href="data-bahan.php" aria-expanded="false" class="dropdown-toggle">
@@ -71,13 +70,11 @@
                     </ul>
                 </li>
             </ul>
-        <?php
+        <?php } ?>
+        <!-- END SIDEBAR ADMIN -->
 
-        } ?>
-    <!-- END SIDEBAR ADMIN -->
-
-    <!-- BEGIN SIDEBAR PEGAWAI -->
-        <?php if ($_SESSION["role"] == "pagawai-1") {
+        <!-- BEGIN SIDEBAR PEGAWAI -->
+        <?php if ($_SESSION["role"] == "pegawai-1") {
         ?>
 
             <ul class="list-unstyled menu-categories" id="accordionExample">
@@ -96,7 +93,7 @@
         <?php
 
         } ?>
-    <!-- END SIDEBAR PEGAWAI -->
+        <!-- END SIDEBAR PEGAWAI -->
 
     </nav>
 </div>
