@@ -16,6 +16,8 @@
 <link href="../plugins/sweetalerts/sweetalert.css" rel="stylesheet" type="text/css">
 <link href="../assets/css/components/custom-sweetalert.css" rel="stylesheet" type="text/css">
 
+<link href="../plugins/loaders/custom-loader.css" rel="stylesheet" type="text/css">
+
 <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 <script src="../assets/js/libs/jquery-3.1.1.min.js"></script>
 <script src="../plugins/sweetalerts/sweetalert2.min.js"></script>

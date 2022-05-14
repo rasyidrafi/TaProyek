@@ -93,7 +93,11 @@ if ($result && mysqli_num_rows($result)) {
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                 <div class="widget-content widget-content-area br-6">
                     <div class="col-12">
-                        <button data-toggle="modal" data-target="#addUserModal" class="btn btn-primary mb-2 mt-4">Tambah User</button>
+                        <?php if ($_SESSION['role'] == "admin") {
+                        ?>
+                            <button data-toggle="modal" data-target="#addUserModal" class="btn btn-primary mb-2 mt-4">Tambah User</button>
+                        <?php
+                        } ?>
                         <div class="table-responsive mb-4">
                             <table id="zero-config" class="table table-hover" style="width:100%">
                                 <thead>
@@ -155,13 +159,25 @@ if ($result && mysqli_num_rows($result)) {
     <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
+                <div class="modal-header" id="loginModalLabel">
+                    <h4 class="modal-title">Tambah User Baru</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg></button>
+                </div>
                 <div class="modal-body">
-                    <form id="add-user-form">
-                        <div class="form-group mb-3">
-                            <small class="form-text text-muted">Jumlah yg dibutuhkan</small>
-                            <input id="jumlah-nya" value="1" id="jumlah_butuh" name="jumlah" oninput="event.target.value = event.target.value.replace(/[^0-9]/g,'')" class="jumlah_butuh form-control" placeholder="Jumlah">
+                    <form id="add-user-form" class="mt-0">
+                        <div class="form-group">
+                            <input required name="email" type="email" class="form-control mb-2" id="exampleInputEmail1" placeholder="Email">
                         </div>
-                        <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
+                        <div class="form-group">
+                            <input required name="username" type="text" class="form-control mb-2" id="exampleInputEmail1" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                            <input required name="password" type="password" class="form-control mb-4" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                        <button id="add-user-btn" type="submit" class="btn btn-primary mt-2 mb-2 btn-block">Submit</button>
                     </form>
                 </div>
             </div>
@@ -191,6 +207,51 @@ if ($result && mysqli_num_rows($result)) {
             "pageLength": 10
         });
     }
+
+    $("#add-user-form").submit(e => {
+        e.preventDefault();
+
+        let formData = new FormData(e.target);
+        $.post({
+            url: "../pages/add-user.php",
+            data: {
+                email: formData.get("email"),
+                username: formData.get("username"),
+                password: formData.get("password")
+            },
+            beforeSend: () => {
+                $("#add-user-btn").html(`
+                    <div class="spinner-border spinner-border-reverse align-self-center loader-sm text-white">Loading...</div>
+                `);
+            },
+            success: () => {
+                // reset form
+                $("#add-user-form").trigger("reset");
+                $("#addUserModal").modal("hide");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: 'User berhasil ditambahkan',
+                    timer: 1500
+                });
+                $("#add-user-btn").html(`Submit`);
+                window.location.reload();
+            },
+            error: (err) => {
+                $("#add-user-form").trigger("reset");
+                $("#addUserModal").modal("hide");
+
+                let errorData = JSON.parse(err.responseText);
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    text: errorData.reason,
+                });
+                $("#add-user-btn").html(`Submit`);
+            },
+        })
+    })
 
     // renderDataTable on document ready
     $(document).ready(() => renderDataTable());
