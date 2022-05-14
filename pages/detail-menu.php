@@ -82,7 +82,7 @@ if ($res && mysqli_num_rows($res)) {
                                 <!-- START ================== -->
 
                                 <h3 class="d-block">Detail Menu</h3>
-                                <form id="submit-menu-form" action="../pages/add-menu.php" method="POST" class="mb-4 row">
+                                <form id="submit-menu-form" action="../admin/data-menu.php" method="POST" class="mb-4 row">
                                     <input type="hidden" id="bahan-input" name="bahan">
 
                                     <div class="col-md-6">

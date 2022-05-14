@@ -93,7 +93,8 @@ if ($result && mysqli_num_rows($result)) {
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                 <div class="widget-content widget-content-area br-6">
                     <div class="col-12">
-                        <div class="table-responsive mb-4 mt-4">
+                        <button data-toggle="modal" data-target="#addUserModal" class="btn btn-primary mb-2 mt-4">Tambah User</button>
+                        <div class="table-responsive mb-4">
                             <table id="zero-config" class="table table-hover" style="width:100%">
                                 <thead>
                                     <tr>
@@ -150,6 +151,22 @@ if ($result && mysqli_num_rows($result)) {
 
     </div>
     <!--  END CONTENT AREA  -->
+
+    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form id="add-user-form">
+                        <div class="form-group mb-3">
+                            <small class="form-text text-muted">Jumlah yg dibutuhkan</small>
+                            <input id="jumlah-nya" value="1" id="jumlah_butuh" name="jumlah" oninput="event.target.value = event.target.value.replace(/[^0-9]/g,'')" class="jumlah_butuh form-control" placeholder="Jumlah">
+                        </div>
+                        <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
