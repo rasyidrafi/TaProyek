@@ -21,6 +21,5 @@
 <script src="../plugins/sweetalerts/sweetalert2.min.js"></script>
 <script src="../plugins/sweetalerts/custom-sweetalert.js"></script>
 <script src="../plugins/select2/select2.min.js"></script>
-<script src="../plugins/select2/custom-select2.js"></script>
 
 <link rel="stylesheet" type="text/css" href="../plugins/select2/select2.min.css">
