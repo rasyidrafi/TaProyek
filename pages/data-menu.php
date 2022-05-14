@@ -32,7 +32,8 @@ if ($result && mysqli_num_rows($result)) {
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                 <div class="widget-content widget-content-area br-6">
                     <div class="col-12">
-                        <div class="table-responsive mb-4 mt-4">
+                        <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary mb-2 mt-4">Tambah Menu</button>
+                        <div class="table-responsive mb-4">
                             <table id="zero-config" class="table table-hover" style="width:100%">
                                 <thead>
                                     <tr>
