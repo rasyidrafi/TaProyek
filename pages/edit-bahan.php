@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['nama']) && isset($_POST['stok_awal']) && isset($_POST['satuan'])) {
+if (isset($_POST['id_bahan']) && isset($_POST['stok_tambahan'])) {
     $conn = mysqli_connect("server2.jagoankodecloud.com", "okokmyid_user_dev", "rahasia721", "okokmyid_ta1_dev");
 
     // cek koneksi database
@@ -10,18 +10,15 @@ if (isset($_POST['nama']) && isset($_POST['stok_awal']) && isset($_POST['satuan'
         </script>
 <?php
     } else {
-        $nama = $_POST['nama'];
-        $stok_awal = $_POST['stok_awal'];
-        $satuan = $_POST['satuan'];
+        $id = $_POST['id_bahan'];
+        $stok_tambahan = $_POST['stok_tambahan'];
 
-        $query = "INSERT INTO bahan (nama, stok_awal, satuan) VALUES ('$nama', '$stok_awal', '$satuan')";
+        $query = "UPDATE bahan SET jumlah_tambahan = jumlah_tambahan + '$stok_tambahan' WHERE id_bahan = '$id'";
         $result = mysqli_query($conn, $query);
 
         if ($result) {
             header("Location: ../admin/data-bahan.php");
         }
     }
-}  else {
-    header("Location: index.php");
-}
+} else header("Location: index.php");
 ?>

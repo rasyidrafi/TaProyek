@@ -24,6 +24,14 @@ if ($result && mysqli_num_rows($result)) {
 <link rel="stylesheet" type="text/css" href="../plugins/table/datatable/dt-global_style.css">
 <script src="../plugins/table/datatable/datatables.js"></script>
 
+<script>
+    let setBahanSaatIni = (id, nama, stok) => {
+        $("#id_bahan").val(id);
+        $(".nama_bahan").val(nama);
+        $(".stok_sekarang").val(stok);
+    }
+</script>
+
 <div id="content" class="main-content">
     <div class="layout-px-spacing">
         <div class="row layout-top-spacing" id="cancel-row">
@@ -31,7 +39,8 @@ if ($result && mysqli_num_rows($result)) {
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                 <div class="widget-content widget-content-area br-6">
                     <div class="col-12">
-                        <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary mt-4 mb-2">Tambah Bahan</button>
+                        <p class="mt-4">Jumlah tambahan stok akan direset setiap 1 bulan</p>
+                        <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary my-2">Tambah Bahan</button>
                         <div class="table-responsive mb-4">
                             <table id="zero-config" class="table table-hover" style="width:100%">
                                 <thead>
@@ -57,11 +66,21 @@ if ($result && mysqli_num_rows($result)) {
                                             <td><?= $value['jumlah_tambahan'] ?></td>
                                             <td><?= ($value['stok_awal'] + $value['jumlah_tambahan']) - $value['jumlah_terpakai'] ?></td>
                                             <td class="text-capitalize"><?= $value['satuan'] ?></td>
-                                            <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
-                                                    <circle cx="12" cy="12" r="10"></circle>
-                                                    <line x1="15" y1="9" x2="9" y2="15"></line>
-                                                    <line x1="9" y1="9" x2="15" y2="15"></line>
-                                                </svg></td>
+                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center" style="gap: 10px;">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle">
+                                                        <circle cx="12" cy="12" r="10"></circle>
+                                                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                                                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                                                    </svg>
+
+                                                    <div style="cursor: pointer;" data-toggle="modal" data-target="#addStokModal" onclick="setBahanSaatIni(`<?= $value['id'] ?>`, `<?= $value['nama'] ?>`, `<?= ($value['stok_awal'] + $value['jumlah_tambahan']) - $value['jumlah_terpakai'] ?>`)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+                                                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
 
                                     <?php
@@ -86,10 +105,10 @@ if ($result && mysqli_num_rows($result)) {
                 <div class="modal-body">
                     <form action="../pages/add-bahan.php" method="POST">
                         <div class="form-group mb-3">
-                            <input type="text" class="form-control" id="sEmail" aria-describedby="emailHelp1" placeholder="Nama Bahan" name="nama">
+                            <input required type="text" class="form-control" id="sEmail" aria-describedby="emailHelp1" placeholder="Nama Bahan" name="nama">
                         </div>
-                        <div class="form-group mb-4">
-                            <input type="number" min="0" class="form-control" id="sPassword" placeholder="Stok Awal" name="stok_awal">
+                        <div class="form-group mb-3">
+                            <input oninput="event.target.value = event.target.value.replace(/[^0-9]/g,'');" required type="number" min="0" class="form-control" id="sPassword" placeholder="Stok Awal" name="stok_awal">
                         </div>
                         <div class="form-group mb-3">
                             <input type="text" class="form-control" id="sEmail" aria-describedby="emailHelp1" placeholder="Satuan" name="satuan">
@@ -100,7 +119,37 @@ if ($result && mysqli_num_rows($result)) {
             </div>
         </div>
     </div>
+
+
+    <!-- Tambah Stok Modal -->
+    <div class="modal fade" id="addStokModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="../pages/edit-bahan.php" method="POST">
+                        <input type="hidden" id="id_bahan" name="id_bahan">
+                        <div class="form-group mb-3">
+                            <small class="form-text text-muted">Nama Bahan</small>
+                            <input readonly class="nama_bahan form-control" placeholder="Nama">
+                        </div>
+                        <div class="form-group mb-3">
+                            <small class="form-text text-muted">Stok Sekarang</small>
+                            <input readonly class="stok_sekarang form-control" placeholder="Stok Sekarang">
+                        </div>
+                        <div class="form-group mb-3">
+                            <input required type="number" min="0" oninput="event.target.value = event.target.value.replace(/[^0-9]/g,'');" class="form-control" placeholder="Stok Tambahan" name="stok_tambahan">
+                        </div>
+                        <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<form action="../pages/hapus-bahan.php" class="d-none">
+    <input type="number" name="id" id="id-hapus">
+</form>
 
 <script>
     let renderDataTable = () => {
@@ -122,6 +171,21 @@ if ($result && mysqli_num_rows($result)) {
             "lengthMenu": [7, 10, 20, 50],
             "pageLength": 10
         });
+    }
+
+    const hapusBahan = (id) => {
+        swal({
+            title: 'Anda Yakin?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            padding: '2em'
+        }).then(function(result) {
+            if (result.value) {
+
+            }
+        })
     }
 
     // renderDataTable on document ready
