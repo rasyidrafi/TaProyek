@@ -444,156 +444,146 @@
               <div class="widget widget-content-area br-4">
                 <div class="widget-one">
                 <div class="container">
-                    <a href="#" class="btn btn-success mt-3">TAMBAH DAFTAR MENU</a>
+                    <a href="#" class="btn btn-secondary mt-3">TAMBAH DAFTAR MENU</a>
                     <div class="row mt-3">
-                    <div class="col-md-3">
-                        <div class="card border-dark">
-                        <img src="images/bakso.jpeg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">Bakso Urat</h5>
-                        <label class="card-text harga">Rp. 13.000</label><br>
-                            <a href="#" class="btn btn-primary btn-sm">EDIT</a>
-                            <a href="#" class="btn btn-danger btn-sm">HAPUS</a>
-                        </div>
-                        </div>
-                    </div>
+                      <div class="col-md-3">
+                          <div class="card border-dark">
+                          <img src="../images/sateayam.jpg" class="card-img-top" alt="...">
+                          <div class="card-body" style="text-align: center;">
+                              <h5 class="card-title font-weight-bold">Sate Ayam</h5>
+                          <h6 class="card-text harga"><b>Rp. 13.000</b></h6><br>
+                              <a href="#" class="btn btn-secondary btn-sm">EDIT</a>
+                          </div>
+                          </div>
+                      </div>
 
-                    <div class="col-md-3">
-                        <div class="card border-dark">
-                        <img src="images/mieayam.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">Mie Ayam</h5>
-                        <label class="card-text">Rp. 13.000</label><br>
-                            <a href="#" class="btn btn-primary btn-sm">EDIT</a>
-                            <a href="#" class="btn btn-danger btn-sm">HAPUS</a>
-                        </div>
-                        </div>
-                    </div>
+                      <div class="col-md-3">
+                          <div class="card border-dark">
+                          <img src="../images/mieayam.jpg" class="card-img-top" alt="...">
+                          <div class="card-body" style="text-align: center;">
+                              <h5 class="card-title font-weight-bold">Mie Ayam</h5>
+                              <h6 class="card-text harga"><b>Rp. 13.000</b></h6><br>
+                              <a href="#" class="btn btn-secondary btn-sm">EDIT</a>
+                          </div>
+                          </div>
+                      </div>
 
-                    <div class="col-md-3">
-                        <div class="card border-dark">
-                        <img src="images/nasgor.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">Nasi Goreng</h5>
-                            <label class="card-text">Rp. 10.000</label><br>
-                            <a href="#" class="btn btn-primary btn-sm">EDIT</a>
-                            <a href="#" class="btn btn-danger btn-sm">HAPUS</a>
-                        </div>
-                        </div>
-                    </div>
+                      <div class="col-md-3">
+                          <div class="card border-dark">
+                          <img src="../images/nasgor.jpg" class="card-img-top" alt="...">
+                          <div class="card-body" style="text-align: center;">
+                              <h5 class="card-title font-weight-bold">Nasi Goreng</h5>
+                              <h6 class="card-text harga"><b>Rp. 10.000</b></h6><br>
+                              <a href="#" class="btn btn-secondary btn-sm">EDIT</a>
+                          </div>
+                          </div>
+                      </div>
 
-                    <div class="col-md-3">
-                        <div class="card border-dark">
-                        <img src="images/mieayambakso.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">Mie Ayam Bakso</h5>
-                            <label class="card-text">Rp. 15.000</label><br>
-                            <a href="#" class="btn btn-primary btn-sm">EDIT</a>
-                            <a href="#" class="btn btn-danger btn-sm">HAPUS</a>
-                        </div>
-                        </div>
-                    </div>
+                      <div class="col-md-3">
+                          <div class="card border-dark">
+                          <img src="../images/rawon.jpg" class="card-img-top" alt="...">
+                          <div class="card-body" style="text-align: center;">
+                              <h5 class="card-title font-weight-bold">Rawon</h5>
+                              <h6 class="card-text harga"><b>Rp. 15.000</b></h6><br>
+                              <a href="#" class="btn btn-secondary btn-sm">EDIT</a>
+                          </div>
+                          </div>
+                      </div>
                     </div>  
 
                     <div class="row mt-3">
-                    <div class="col-md-3">
-                        <div class="card border-dark">
-                        <img src="images/lele.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">Lele Bakar</h5>
-                            <label class="card-text">Rp. 12.000</label><br>
-                            <a href="#" class="btn btn-primary btn-sm">EDIT</a>
-                            <a href="#" class="btn btn-danger btn-sm">HAPUS</a>
-                        </div>
-                        </div>
-                    </div>
+                      <div class="col-md-3">
+                          <div class="card border-dark">
+                          <img src="../images/lele.jpg" class="card-img-top" alt="...">
+                          <div class="card-body" style="text-align: center;">
+                              <h5 class="card-title font-weight-bold">Lele Bakar</h5>
+                              <h6 class="card-text harga"><b>Rp. 12.000</b></h6><br>
+                              <a href="#" class="btn btn-secondary btn-sm">EDIT</a>
+                          </div>
+                          </div>
+                      </div>
 
-                    <div class="col-md-3">
-                        <div class="card border-dark">
-                        <img src="images/tehobeng.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">Teh Obeng</h5>
-                            <label class="card-text">Rp. 5.000</label><br>
-                            <a href="#" class="btn btn-primary btn-sm">EDIT</a>
-                            <a href="#" class="btn btn-danger btn-sm">HAPUS</a>
-                        </div>
-                        </div>
-                    </div>
+                      <div class="col-md-3">
+                          <div class="card border-dark">
+                          <img src="../images/tehobeng.jpg" class="card-img-top" alt="...">
+                          <div class="card-body" style="text-align: center;">
+                              <h5 class="card-title font-weight-bold">Teh</h5>
+                              <h6 class="card-text harga"><b>Rp. 5.000</b></h6><br>
+                              <a href="#" class="btn btn-secondary btn-sm">EDIT</a>
+                          </div>
+                          </div>
+                      </div>
 
-                    <div class="col-md-3">
-                        <div class="card border-dark">
-                        <img src="images/juspukat.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">Jus Alpukat</h5>
-                            <label class="card-text">Rp. 10.000</label><br>
-                            <a href="#" class="btn btn-primary btn-sm">EDIT</a>
-                            <a href="#" class="btn btn-danger btn-sm">HAPUS</a>
-                        </div>
-                        </div>
-                    </div>
+                      <div class="col-md-3">
+                          <div class="card border-dark">
+                          <img src="../images/juspukat.jpg" class="card-img-top" alt="...">
+                          <div class="card-body" style="text-align: center;">
+                              <h5 class="card-title font-weight-bold">Jus Alpukat</h5>
+                              <h6 class="card-text harga"><b>Rp. 10.000</b></h6><br>
+                              <a href="#" class="btn btn-secondary btn-sm">EDIT</a>
+                          </div>
+                          </div>
+                      </div>
 
-                    <div class="col-md-3">
-                        <div class="card border-dark">
-                        <img src="images/esjeruk.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">Es Jeruk</h5>
-                            <label class="card-text">Rp. 8.000</label><br>
-                            <a href="#" class="btn btn-primary btn-sm">EDIT</a>
-                            <a href="#" class="btn btn-danger btn-sm">HAPUS</a>
-                        </div>
-                        </div>
-                    </div>
+                      <div class="col-md-3">
+                          <div class="card border-dark">
+                          <img src="../images/esjeruk.jpg" class="card-img-top" alt="...">
+                          <div class="card-body" style="text-align: center;">
+                              <h5 class="card-title font-weight-bold">Es Jeruk</h5>
+                              <h6 class="card-text harga"><b>Rp. 8.000</b></h6><br>
+                              <a href="#" class="btn btn-secondary btn-sm">EDIT</a>
+                          </div>
+                          </div>
+                      </div>
                     </div>  
 
-                    <div class="row mt-3 mb-5">
-                    <div class="col-md-3">
-                        <div class="card border-dark">
-                        <img src="images/sanford.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">Air Minum Sanford</h5>
-                            <label class="card-text">Rp. 5.000</label><br>
-                            <a href="#" class="btn btn-primary btn-sm">EDIT</a>
-                            <a href="#" class="btn btn-danger btn-sm">HAPUS</a>
-                        </div>
-                        </div>
-                    </div>  
+                    <div class="row mt-3">
+                      <div class="col-md-3">
+                          <div class="card border-dark">
+                          <img src="../images/sanford.jpg" class="card-img-top" alt="...">
+                          <div class="card-body" style="text-align: center;">
+                              <h5 class="card-title font-weight-bold">Air Minum Sanford</h5>
+                              <h6 class="card-text harga"><b>Rp. 5.000</b></h6><br>
+                              <a href="#" class="btn btn-secondary btn-sm">EDIT</a>
+                          </div>
+                          </div>
+                      </div>  
 
-                    <div class="col-md-3">
-                        <div class="card border-dark ">
-                        <img src="images/nasi.jpeg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">Nasi Putih</h5>
-                            <label class="card-text">Rp. 3.000</label><br>
-                            <a href="#" class="btn btn-primary btn-sm">EDIT</a>
-                            <a href="#" class="btn btn-danger btn-sm">HAPUS</a>
-                        </div>
-                        </div>
-                    </div>        
+                      <div class="col-md-3">
+                          <div class="card border-dark ">
+                          <img src="../images/nasi.jpeg" class="card-img-top" alt="...">
+                          <div class="card-body" style="text-align: center;">
+                              <h5 class="card-title font-weight-bold">Nasi Putih</h5>
+                              <h6 class="card-text harga"><b>Rp. 3.000</b></h6><br>
+                              <a href="#" class="btn btn-secondary btn-sm">EDIT</a>
+                          </div>
+                          </div>
+                      </div>        
 
-                    <div class="col-md-3">
-                        <div class="card border-dark">
-                        <img src="images/jusmangga.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">Jus Mangga</h5>
-                            <label class="card-text">Rp. 8.000</label><br>
-                            <a href="#" class="btn btn-primary btn-sm">EDIT</a>
-                            <a href="#" class="btn btn-danger btn-sm">HAPUS</a>
-                        </div>
-                        </div>
-                    </div>   
-
-                    <div class="col-md-3">
-                        <div class="card border-dark">
-                        <img src="images/ayambakar.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title font-weight-bold">Ayam Bakar</h5>
-                            <label class="card-text">Rp. 17.000</label><br>
-                            <a href="#" class="btn btn-primary btn-sm">EDIT</a>
-                            <a href="#" class="btn btn-danger btn-sm">HAPUS</a>
-                        </div>
-                        </div>
-                    </div>   
-                    </div> 
+                      <div class="col-md-3">
+                          <div class="card border-dark">
+                          <img src="../images/jusmangga.jpg" class="card-img-top" alt="...">
+                          <div class="card-body" style="text-align: center;">
+                              <h5 class="card-title font-weight-bold">Jus Mangga</h5>
+                              <h6 class="card-text harga"><b>Rp. 8.000</b></h6><br>
+                              <a href="#" class="btn btn-secondary btn-sm">EDIT</a>
+                          </div>
+                          </div>
+                      </div>  
+                      
+                      <div class="col-md-3">
+                          <div class="card border-dark">
+                          <img src="../images/ayambakar.jpg" class="card-img-top" alt="...">
+                          <div class="card-body" style="text-align: center;">
+                              <h5 class="card-title font-weight-bold">Ayam Bakar</h5>
+                              <h6 class="card-text harga"><b>Rp. 17.000</b></h6><br>
+                              <a href="#" class="btn btn-secondary btn-sm">EDIT</a>
+                          </div>
+                          </div>
+                      </div>
+                    </div>
+                   </div>   
+                    </div>
                    </div>
                 </div>
               </div>
