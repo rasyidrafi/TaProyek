@@ -30,6 +30,22 @@ if ($result && mysqli_num_rows($result)) {
         $(".nama_bahan").val(nama);
         $(".stok_sekarang").val(stok);
     }
+
+    let hapusBahan = (id) => {
+        swal({
+            title: 'Anda Yakin?',
+            text: "Aksi ini tidak dapat dibatalkan",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            padding: '2em'
+        }).then(function(result) {
+            if (result.value) {
+                $("#id-hapus").val(id);
+                $("#hapus-form").submit();
+            }
+        })
+    }
 </script>
 
 <div id="content" class="main-content">
@@ -68,7 +84,7 @@ if ($result && mysqli_num_rows($result)) {
                                             <td class="text-capitalize"><?= $value['satuan'] ?></td>
                                             <td>
                                                 <div class="d-flex justify-content-center align-items-center" style="gap: 10px;">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle">
+                                                    <svg style="cursor: pointer;" onclick="hapusBahan(`<?= $value['id'] ?>`)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle">
                                                         <circle cx="12" cy="12" r="10"></circle>
                                                         <line x1="15" y1="9" x2="9" y2="15"></line>
                                                         <line x1="9" y1="9" x2="15" y2="15"></line>
@@ -147,8 +163,8 @@ if ($result && mysqli_num_rows($result)) {
     </div>
 </div>
 
-<form action="../pages/hapus-bahan.php" class="d-none">
-    <input type="number" name="id" id="id-hapus">
+<form id="hapus-form" method="POST" action="../pages/hapus-bahan.php" class="d-none">
+    <input type="number" name="id_bahan" id="id-hapus">
 </form>
 
 <script>

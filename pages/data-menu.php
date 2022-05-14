@@ -32,7 +32,8 @@ if ($result && mysqli_num_rows($result)) {
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                 <div class="widget-content widget-content-area br-6">
                     <div class="col-12">
-                        <div class="table-responsive mb-4 mt-4">
+                        <a href="../pages/add-menu.php" class="btn btn-primary mb-2 mt-4">Tambah Menu</a>
+                        <div class="table-responsive mb-4">
                             <table id="zero-config" class="table table-hover" style="width:100%">
                                 <thead>
                                     <tr>
@@ -49,11 +50,16 @@ if ($result && mysqli_num_rows($result)) {
                                         <tr>
                                             <td><?= $value['nama'] ?></td>
                                             <td><?= $value['harga'] ?></td>
-                                            <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle table-cancel">
-                                                    <circle cx="12" cy="12" r="10"></circle>
-                                                    <line x1="15" y1="9" x2="9" y2="15"></line>
-                                                    <line x1="9" y1="9" x2="15" y2="15"></line>
-                                                </svg></td>
+                                            <td>
+                                                <a href="../pages/detail-menu.php?id=<?= $value['id'] ?>">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-zoom-in">
+                                                        <circle cx="11" cy="11" r="8"></circle>
+                                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                                        <line x1="11" y1="8" x2="11" y2="14"></line>
+                                                        <line x1="8" y1="11" x2="14" y2="11"></line>
+                                                    </svg>
+                                                </a>
+                                            </td>
                                         </tr>
 
                                     <?php

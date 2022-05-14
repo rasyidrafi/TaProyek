@@ -21,7 +21,7 @@ if (isset($_POST['nama']) && isset($_POST['stok_awal']) && isset($_POST['satuan'
             header("Location: ../admin/data-bahan.php");
         }
     }
-}  else {
-    header("Location: index.php");
-}
+} else echo "
+<script>window.history.back();</script>
+";
 ?>
