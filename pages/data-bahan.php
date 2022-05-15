@@ -57,7 +57,7 @@ if ($result && mysqli_num_rows($result)) {
                     <div class="col-12">
                         <p class="mt-4">Jumlah tambahan stok akan direset setiap 1 bulan</p>
                         <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary my-2">Tambah Bahan</button>
-                        <div class="table-responsive mb-4">
+                        <div class="table-responsive my-4">
                             <table id="zero-config" class="table table-hover" style="width:100%">
                                 <thead>
                                     <tr>

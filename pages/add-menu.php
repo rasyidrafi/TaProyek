@@ -47,23 +47,6 @@ if (isset($_POST['harga'])) {
 <head>
     <?php include "../component/_head.php"; ?>
 </head>
-<script>
-    function formatRupiah(angka, prefix) {
-        var number_string = angka.replace(/[^,\d]/g, '').toString(),
-            split = number_string.split(','),
-            sisa = split[0].length % 3,
-            rupiah = split[0].substr(0, sisa),
-            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
-        }
-
-        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-    }
-</script>
 
 <body class="sidebar-noneoverflow">
     <span class="d-none" id="data-bahan"><?= json_encode($data_bahan); ?></span>
@@ -90,6 +73,7 @@ if (isset($_POST['harga'])) {
                             <div class="widget-one">
 
                                 <!-- START ================== -->
+                                <button onclick="window.history.back();" class="btn btn-primary mb-4">Kembali</button>
 
                                 <h3 class="d-block">Tambah Menu Baru</h3>
                                 <form id="submit-menu-form" action="../pages/add-menu.php" method="POST" class="mb-4 row">
@@ -112,7 +96,7 @@ if (isset($_POST['harga'])) {
                                     <div class="col-12">
                                         <div class="form-group mb-3">
                                             <small class="form-text text-muted">Pilih Kategori</small>
-                                            <select required name="kategori" class="form-control basic" multiple="multiple">
+                                            <select required name="kategori" class="form-control basic">
                                                 <option>Makanan</option>
                                                 <option>Minuman</option>
                                                 <option>Snack</option>
@@ -142,6 +126,7 @@ if (isset($_POST['harga'])) {
 
                                     <div class="col-auto">
                                         <span id="submit-menu" class="btn btn-primary mt-3">Submit</span>
+                                        <button type="submit" class="d-none" id="submit-menu-real"></button>
                                     </div>
 
                                 </form>
@@ -168,7 +153,7 @@ if (isset($_POST['harga'])) {
                             <div class="form-group mb-3">
                                 <input type="hidden" id="nama-nya">
                                 <small class="form-text text-muted">Pilih Bahan</small>
-                                <select id="id-nya" class="form-control">
+                                <select id="id-nya" class="form-control basic">
                                     <?php
                                     foreach ($data_bahan as $key => $value) {
                                         echo "<option value='$value[id]'>$value[nama]</option>";
@@ -176,9 +161,17 @@ if (isset($_POST['harga'])) {
                                     ?>
                                 </select>
                             </div>
+                            <script>
+                                let handleInput = (event) => {
+                                    event.target.value = event.target.value.replace(/[^0-9]/g,'')
+                                    if (event.target.value.startsWith('0')) {
+                                        event.target.value = event.target.value.substr(1)
+                                    }
+                                }
+                            </script>
                             <div class="form-group mb-3">
                                 <small class="form-text text-muted">Jumlah yg dibutuhkan</small>
-                                <input id="jumlah-nya" value="1" id="jumlah_butuh" name="jumlah" oninput="event.target.value = event.target.value.replace(/[^0-9]/g,'')" class="jumlah_butuh form-control" placeholder="Jumlah">
+                                <input id="jumlah-nya" value="1" id="jumlah_butuh" name="jumlah" oninput="handleInput(event)" class="jumlah_butuh form-control" placeholder="Jumlah">
                             </div>
                             <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
                         </form>
@@ -237,7 +230,7 @@ if (isset($_POST['harga'])) {
                 });
 
                 $("#bahan-input").val(JSON.stringify(allBahanSubmit));
-                $("#submit-menu-form").submit();
+                $("#submit-menu-real").click();
             });
         </script>
 
