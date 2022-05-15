@@ -53,3 +53,9 @@
         return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
 </script>
+<link href="../assets/css/apps/invoice-add.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../plugins/dropify/dropify.min.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/forms/theme-checkbox-radio.css">
+<link href="../plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="../plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
+<!--  END CUSTOM STYLE FILE  -->

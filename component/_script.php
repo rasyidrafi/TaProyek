@@ -12,6 +12,10 @@
 <script src="../assets/js/custom.js"></script>
 <!-- END GLOBAL MANDATORY SCRIPTS -->
 
+<script src="../plugins/dropify/dropify.min.js"></script>
+<script src="../plugins/flatpickr/flatpickr.js"></script>
+<script src="../assets/js/apps/invoice-add.js"></script>
+
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
