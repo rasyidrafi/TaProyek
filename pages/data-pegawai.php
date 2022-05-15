@@ -18,6 +18,14 @@ if ($result && mysqli_num_rows($result)) {
     }
 }
 
+$data_role = [];
+$res = mysqli_query($conn, "SELECT role FROM `users` GROUP by role");
+if ($res && mysqli_num_rows($res)) {
+    while ($row = mysqli_fetch_assoc($res)) {
+        $data_role[] = $row;
+    }
+}
+
 ?>
 
 <link rel="stylesheet" type="text/css" href="../plugins/table/datatable/datatables.css">
@@ -79,6 +87,12 @@ if ($result && mysqli_num_rows($result)) {
             allowOutsideClick: () => !Swal.isLoading()
         });
     }
+
+    let setUserSaatIni = (id, username, role) => {
+        $("#id_user").val(id);
+        $(".username_user").val(username);
+        $(".role_user").val(role);
+    }
 </script>
 
 <form id="hapus-form" method="POST" action="../pages/hapus-user.php" class="d-none">
@@ -134,9 +148,11 @@ if ($result && mysqli_num_rows($result)) {
                                                 <?php
                                                 } ?>
 
-                                                <svg style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
-                                                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-                                                </svg>
+                                                <div class="d-inline" style="cursor: pointer;" data-toggle="modal" data-target="#editUserModal" onclick="setUserSaatIni(`<?= $value['id'] ?>`, `<?= $value['username'] ?>`, `<?= $value['role'] ?>`)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+                                                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                                                    </svg>
+                                                </div>
                                             </td>
                                         </tr>
 
@@ -155,6 +171,33 @@ if ($result && mysqli_num_rows($result)) {
 
     </div>
     <!--  END CONTENT AREA  -->
+
+    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form id="edit-user-form" action="../pages/edit-user.php" method="POST">
+                        <input type="hidden" id="id_user" name="id">
+                        <div class="form-group mb-3">
+                            <small class="form-text text-muted">Username</small>
+                            <input name="username" required class="username_user form-control" placeholder="Username">
+                        </div>
+                        <div class="form-group mb-3">
+                            <small class="form-text text-muted">Akses</small>
+                            <select name="role" required class="role_user form-control basic">
+                                <?php
+                                foreach ($data_role as $key => $value) {
+                                    echo "<option value='$value[role]'>$value[role]</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
