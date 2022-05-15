@@ -25,3 +25,10 @@
 <script src="../plugins/select2/select2.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="../plugins/select2/select2.min.css">
+
+<link href="../assets/css/apps/invoice-add.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../plugins/dropify/dropify.min.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/forms/theme-checkbox-radio.css">
+<link href="../plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="../plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
+<!--  END CUSTOM STYLE FILE  -->
