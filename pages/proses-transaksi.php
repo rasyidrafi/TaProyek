@@ -66,9 +66,10 @@ if ($_POST['id']) {
         ?>
                     <script>
                         alert('<?php echo "Stok Bahan " . $bahan['nama'] . " Tidak Mencukupi"; ?>')
+                        window.location.assign('../pegawai/index.php');
                     </script>
                 <?php
-                    header("Location: ../pegawai/index.php");
+                    // header("Location: ../pegawai/index.php");
                     die();
                 }
             }
@@ -82,9 +83,10 @@ if ($_POST['id']) {
                 ?>
                 <script>
                     alert('<?php echo mysqli_error($conn); ?>')
+                    window.location.assign('../pegawai/index.php');
                 </script>
 <?php
-                header("Location: ../pegawai/index.php");
+                // header("Location: ../pegawai/index.php");
                 die();
             }
         }
@@ -97,8 +99,9 @@ if ($_POST['id']) {
         } else {
             echo "<scrip>
                 alert('Gagal mengubah status transaksi');
+                window.location.assign('../pegawai/index.php');
             </script>";
-            header("Location: ../pegawai/index.php");
+            // header("Location: ../pegawai/index.php");
         }
     }
 } else {

@@ -454,10 +454,10 @@ if (!isset($_SESSION["role"])) {
     }
 
     let proses = () => {
-        let status = "<?= $transaksi['tipe'] ?>";
-        status = status.trim();
+        let pembayaran = "<?= $transaksi['pembayaran'] ?>";
+        pembayaran = pembayaran.trim();
 
-        if (status == "bayar ditempat") {
+        if (pembayaran == "cash") {
             Swal.fire({
                 title: 'Anda yakin?',
                 text: "Transaksi akan langsung diproses!",
@@ -507,6 +507,32 @@ if (!isset($_SESSION["role"])) {
                             $("#proses-form").submit();
                         }
                     })
+                }
+            })
+        } else if (pembayaran == 'qris') {
+            let minimal = `
+                    <?php
+                    $total = 0;
+                    foreach ($detail_transaksi as $key => $value) {
+                        $harga = str_replace(".", "", $value['harga']);
+                        $total = $total + (int)$harga * (int)$value['jumlah'];
+                    }
+                    $totalPlusTax = $total + ($total * 0.1);
+                    echo $totalPlusTax;
+                    ?>
+                    `;
+            minimal = minimal.trim();
+
+            Swal.fire({
+                title: 'Silahkan Scan untuk Membayar',
+                html: `Tekan OK Jika Selesai!<br><br>Rp. ${formatRupiah(minimal)}`,
+                showCancelButton: true,
+                imageUrl: '../frame.png',
+                imageWidth: 200,
+            }).then((result) => {
+                if (result.value) {
+                    $("#uang-pembeli").val(minimal);
+                    $("#proses-form").submit();
                 }
             })
         }
