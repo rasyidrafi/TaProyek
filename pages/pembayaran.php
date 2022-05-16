@@ -469,7 +469,8 @@ if (!isset($_SESSION["role"])) {
                         $harga = str_replace(".", "", $value['harga']);
                         $total = $total + (int)$harga * (int)$value['jumlah'];
                     }
-                    echo $total;
+                    $totalPlusTax = $total + ($total * 0.1);
+                    echo $totalPlusTax;
                     ?>
                     `;
                     minimal = minimal.trim();
