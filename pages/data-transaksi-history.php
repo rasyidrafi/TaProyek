@@ -14,8 +14,8 @@ if (!$conn) {
 $data = [];
 if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
     $q = "SELECT transaksi.*, username  FROM `transaksi` LEFT JOIN users on pegawai_id = users.id";
-    if ($_SESSION['role'] == "kasir") {
-        $q .= " where status = 'menunggu'";
+    if ($_SESSION['role'] == 'kasir') {
+        $q .= " where status != 'menunggu'";
     }
     $result = mysqli_query($conn, $q);
     if ($result && mysqli_num_rows($result)) {
@@ -99,15 +99,6 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
                                                         </svg>
                                                     <?php
                                                     } ?>
-
-                                                    <?php if ($_SESSION['role'] == "kasir" && $value['status'] == "menunggu") {
-                                                    ?>
-                                                        <a href="../kasir/pembayaran.php?id=<?= $value['id'] ?>" class="btn btn-sm btn-success">
-                                                            Proses
-                                                        </a>
-                                                    <?php
-                                                    }
-                                                    ?>
 
                                                     <a class="d-inline" href="../pegawai/detail-transaksi.php?id=<?= $value['id'] ?>">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-zoom-in">

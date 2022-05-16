@@ -98,6 +98,15 @@ if (!isset($_SESSION["role"])) {
                                                 </div>
                                             </div>
 
+                                            <div class="col-md-3">
+                                                <div class="form-group mb-4">
+                                                    <label for="number">Status Transaksi</label>
+                                                    <span class="d-flex align-items-center form-control form-control-sm text-capitalize">
+                                                        <?= $transaksi['status'] ?>
+                                                    </span>
+                                                </div>
+                                            </div>
+
                                         </div>
 
                                     </div>
@@ -383,7 +392,25 @@ if (!isset($_SESSION["role"])) {
 
                             </div>
 
+                            <div class="invoice-actions-btn">
+                                <div class="invoice-action-btn">
 
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-4">
+                                            <a href="javascript:void(0);" onclick="proses()" class="btn btn-success btn-send">Proses</a>
+                                        </div>
+
+                                        <div class="col-xl-12 col-md-4">
+                                            <a href="javascript:void(0);" onclick="nota()" class="btn btn-primary btn-send">Nota</a>
+                                        </div>
+
+                                        <div class="col-xl-12 col-md-4">
+                                            <a href="javascript:void(0);" onclick="really()" class="btn btn-danger btn-send">Tolak</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
 
@@ -397,3 +424,45 @@ if (!isset($_SESSION["role"])) {
 
 </div>
 <!--  END CONTENT AREA  -->
+
+<form id="batal-form" class="d-none" action="../pages/batal-transaksi.php" method="POST">
+    <input type="text" value="<?= $transaksi['id'] ?>" name="id">
+    <button type="submit" id="submit-batal"></button>
+</form>
+
+<form id="proses-form" class="d-none" action="../pages/proses-transaksi.php" method="POST">
+    <input type="text" value="<?= $transaksi['id'] ?>" name="id">
+</form>
+
+<script>
+    let really = () => {
+        Swal.fire({
+            title: 'Anda yakin?',
+            text: "Anda akan membatalkan transaksi ini!",
+            icon: 'warning',
+            showCancelButton: true,
+        }).then((result) => {
+            if (result.value) {
+                $("#submit-batal").click();
+            }
+        })
+    }
+
+    let proses = () => {
+        let status = "<?= $transaksi['tipe'] ?>";
+        status = status.trim();
+
+        if (status == "bayar ditempat") {
+            Swal.fire({
+                title: 'Anda yakin?',
+                text: "Transaksi akan langsung diproses!",
+                icon: 'warning',
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.value) {
+                    $("#proses-form").submit();
+                }
+            })
+        }
+    }
+</script>
