@@ -1,6 +1,6 @@
 <!--  BEGIN NAVBAR  -->
 <div class="header-container fixed-top">
-    <header class="header navbar navbar-expand-sm">
+    <header class="header navbar navbar-expand-sm" id="header-nav">
         <ul class="navbar-nav theme-brand flex-row text-center">
             <li class="nav-item theme-logo">
                 <a href="Dashboard.html">
@@ -9,7 +9,7 @@
             <li class="nav-item theme-text">
                 <a href="index.php" class="nav-link"> Tugas Akhir </a>
             </li>
-            <li class="nav-item toggle-sidebar mx-2">
+            <li id="togle-pliss" class="nav-item toggle-sidebar mx-2">
                 <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
                         <line x1="8" y1="6" x2="21" y2="6"></line>
                         <line x1="8" y1="12" x2="21" y2="12"></line>
@@ -55,3 +55,16 @@
     </header>
 </div>
 <!--  END NAVBAR  -->
+
+<script>
+    let header = document.getElementById('header-nav');
+    $("#togle-pliss").click(() => {
+        if (header.classList.contains('expand-header')) {
+            header.classList.remove('expand-header');
+            $("#container").removeClass('sidebar-closed').removeClass("sbar-open");
+        } else {
+            header.classList.add('expand-header');
+            $("#container").addClass("sidebar-closed").addClass("sbar-open");
+        }
+    })
+</script>
