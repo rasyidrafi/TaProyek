@@ -32,6 +32,16 @@ if (!isset($_SESSION["role"])) {
 
 <body class="sidebar-noneoverflow">
 
+    <!-- BEGIN LOADER -->
+    <div id="load_screen">
+        <div class="loader"> 
+            <div class="loader-content">
+                <div class="spinner-grow align-self-center"></div>
+            </div>
+        </div>
+    </div>
+    <!--  END LOADER -->
+
   <!--  BEGIN NAVBAR  -->
   <?php include "../component/_navbar.php" ?>
   <!--  END NAVBAR  -->
