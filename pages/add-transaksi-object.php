@@ -12,6 +12,7 @@ if (isset($_POST['total_harga'])) {
     $ongkir = $_POST['ongkir'] ?? 0;
     $lokasi_pembeli = $_POST['lokasi_pembeli'] ?? "";
     $menu = json_decode($_POST['menu']);
+    $kasir_id = $_SESSION['id'];
 
     $conn = mysqli_connect("server2.jagoankodecloud.com", "okokmyid_user_dev", "rahasia721", "okokmyid_ta1_dev");
 
@@ -22,7 +23,7 @@ if (isset($_POST['total_harga'])) {
         </script>
         <?php
     } else {
-        $q = "INSERT into transaksi (total_harga, total_jumlah_pesanan, nama_pembeli, pembayaran, pajak, diskon, tipe, ongkir, lokasi_pembeli, pegawai_id) VALUES ('$total_harga', '$total_jumlah_pesanan', '$nama_pembeli', '$pembayaran', '$pajak', '$diskon', '$tipe', '$ongkir', '$lokasi_pembeli', '$pegawai_id')";
+        $q = "INSERT into transaksi (total_harga, total_jumlah_pesanan, nama_pembeli, pembayaran, pajak, diskon, tipe, ongkir, lokasi_pembeli, pegawai_id, kasir_id) VALUES ('$total_harga', '$total_jumlah_pesanan', '$nama_pembeli', '$pembayaran', '$pajak', '$diskon', '$tipe', '$ongkir', '$lokasi_pembeli', '$pegawai_id', '$kasir_id')";
         $result = mysqli_query($conn, $q);
 
         if (!$result) {
@@ -52,6 +53,8 @@ if (isset($_POST['total_harga'])) {
 
         if ($result) {
             header("Location: ../pegawai/add-transaksi.php");
+        } else {
+            echo "gagal";
         }
     }
 } else header("Location: ../pegawai/add-transaksi.php");

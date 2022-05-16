@@ -13,6 +13,7 @@ if ($_POST['id']) {
     } else {
         $id = $_POST['id'];
         $total_bayar = $_POST['total_bayar'];
+        $tipe = $_POST['tipe'];
 
         $detail_transaksi = [];
         $qd = "SELECT * FROM `transaksi_detail` LEFT JOIN menu on id_menu = menu.id where id_transaksi = '$id'";
@@ -91,7 +92,13 @@ if ($_POST['id']) {
             }
         }
 
-        $donequery = "UPDATE transaksi set status = 'selesai', total_bayar = '$total_bayar', total_kembali = '$total_bayar' - total_harga, kasir_id = '$_SESSION[id]' where id = '$id'";
+        $statusnya = 'selesai';
+
+        if ($tipe == 'online') {
+            $statusnya = "perlu dikirim";
+        }
+
+        $donequery = "UPDATE transaksi set status = '$statusnya', total_bayar = '$total_bayar', total_kembali = '$total_bayar' - total_harga, kasir_id = '$_SESSION[id]' where id = '$id'";
         $doneresult = mysqli_query($conn, $donequery);
 
         if ($doneresult) {

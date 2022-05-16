@@ -433,6 +433,7 @@ if (!isset($_SESSION["role"])) {
 <form id="proses-form" class="d-none" action="../pages/proses-transaksi.php" method="POST">
     <input type="text" value="<?= $transaksi['id'] ?>" name="id">
     <input type="text" id="uang-pembeli" name="total_bayar">
+    <input type="text" name="tipe" value="<?= $transaksi['tipe'] ?>">
 </form>
 
 <script>
