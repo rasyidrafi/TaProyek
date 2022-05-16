@@ -62,13 +62,10 @@
                     </a>
                     <ul class="collapse submenu list-unstyled" id="submenu2" data-parent="#accordionExample">
                         <li>
-                            <a href="../kasir/index.php"> Histori Penjualan </a>
+                            <a href="../admin/history-penjualan.php"> Histori Penjualan </a>
                         </li>
                         <li>
-                            <a href="laporan-keuangan.php"> Laporan Perbulan </a>
-                        </li>
-                        <li>
-                            <a href="laporan-keuangan-hari.php"> Laporan Perhari </a>
+                            <a href="../admin/laporan-keuangan.php"> Laporan Keuangan </a>
                         </li>
                     </ul>
                 </li>
