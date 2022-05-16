@@ -31,6 +31,10 @@
 <script src="../plugins/apex/apexcharts.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="../plugins/select2/select2.min.css">
+<!--  BEGIN CUSTOM STYLE FILE  -->
+<link href="../assets/css/apps/invoice-preview.css" rel="stylesheet" type="text/css" />
+<!--  END CUSTOM STYLE FILE  -->
+<link href="../assets/css/elements/tooltip.css" rel="stylesheet" type="text/css">
 
 <style>
     .select2-dropdown.select2-dropdown--below {

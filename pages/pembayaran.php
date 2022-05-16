@@ -449,6 +449,10 @@ if (!isset($_SESSION["role"])) {
         })
     }
 
+    let nota = () => {
+        window.location.assign("../pages/nota-transaksi.php?id=<?= $transaksi['id'] ?>");
+    }
+
     let proses = () => {
         let status = "<?= $transaksi['tipe'] ?>";
         status = status.trim();

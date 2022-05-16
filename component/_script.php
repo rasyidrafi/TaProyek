@@ -15,6 +15,8 @@
 <script src="../plugins/dropify/dropify.min.js"></script>
 <script src="../plugins/flatpickr/flatpickr.js"></script>
 <script src="../assets/js/apps/invoice-add.js"></script>
+<script src="../assets/js/apps/invoice-preview.js"></script>
+<script src="../assets/js/elements/tooltip.js"></script>
 
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 

@@ -392,6 +392,22 @@ if (!isset($_SESSION["role"])) {
 
                             </div>
 
+                          
+                                <div class="invoice-actions-btn">
+                                    <div class="invoice-action-btn">
+                                        <script>
+                                            let nota = () => {
+                                                window.location.assign("../pages/nota-transaksi.php?id=<?= $transaksi['id'] ?>");
+                                            }
+                                        </script>
+                                        <div class="row">
+                                            <div class="col-xl-12 col-md-4">
+                                                <a href="javascript:void(0);" onclick="nota()" class="btn btn-primary btn-send">Nota</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
 
                         </div>
                     </div>
