@@ -81,6 +81,8 @@ if ($res && mysqli_num_rows($res)) {
 
                                 <!-- START ================== -->
 
+                                <button onclick="window.history.back();" class="btn btn-primary mb-4">Kembali</button>
+
                                 <h3 class="d-block">Detail Menu</h3>
                                 <form id="submit-menu-form" action="../admin/data-menu.php" method="POST" class="mb-4 row">
                                     <input type="hidden" id="bahan-input" name="bahan">
@@ -169,7 +171,7 @@ if ($res && mysqli_num_rows($res)) {
                             <div class="form-group mb-3">
                                 <input type="hidden" id="nama-nya">
                                 <small class="form-text text-muted">Pilih Bahan</small>
-                                <select id="id-nya" class="form-control">
+                                <select required id="id-nya" class="form-control">
                                     <?php
                                     foreach ($data_bahan as $key => $value) {
                                         echo "<option value='$value[id]'>$value[nama]</option>";
@@ -179,7 +181,7 @@ if ($res && mysqli_num_rows($res)) {
                             </div>
                             <div class="form-group mb-3">
                                 <small class="form-text text-muted">Jumlah yg dibutuhkan</small>
-                                <input id="jumlah-nya" value="1" id="jumlah_butuh" name="jumlah" oninput="event.target.value = event.target.value.replace(/[^0-9]/g,'')" class="jumlah_butuh form-control" placeholder="Jumlah">
+                                <input required id="jumlah-nya" value="1" id="jumlah_butuh" name="jumlah" oninput="event.target.value = event.target.value.replace(/[^0-9]/g,'')" class="jumlah_butuh form-control" placeholder="Jumlah">
                             </div>
                             <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
                         </form>

@@ -57,7 +57,7 @@ if ($result && mysqli_num_rows($result)) {
                     <div class="col-12">
                         <p class="mt-4">Jumlah tambahan stok akan direset setiap 1 bulan</p>
                         <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary my-2">Tambah Bahan</button>
-                        <div class="table-responsive mb-4">
+                        <div class="table-responsive my-4">
                             <table id="zero-config" class="table table-hover" style="width:100%">
                                 <thead>
                                     <tr>
@@ -84,11 +84,15 @@ if ($result && mysqli_num_rows($result)) {
                                             <td class="text-capitalize"><?= $value['satuan'] ?></td>
                                             <td>
                                                 <div class="d-flex justify-content-center align-items-center" style="gap: 10px;">
-                                                    <svg style="cursor: pointer;" onclick="hapusBahan(`<?= $value['id'] ?>`)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle">
-                                                        <circle cx="12" cy="12" r="10"></circle>
-                                                        <line x1="15" y1="9" x2="9" y2="15"></line>
-                                                        <line x1="9" y1="9" x2="15" y2="15"></line>
-                                                    </svg>
+                                                    <?php if ($_SESSION["role"] == "admin") {
+                                                    ?>
+                                                        <svg style="cursor: pointer;" onclick="hapusBahan(`<?= $value['id'] ?>`)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle">
+                                                            <circle cx="12" cy="12" r="10"></circle>
+                                                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                                                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                                                        </svg>
+                                                    <?php
+                                                    } ?>
 
                                                     <div style="cursor: pointer;" data-toggle="modal" data-target="#addStokModal" onclick="setBahanSaatIni(`<?= $value['id'] ?>`, `<?= $value['nama'] ?>`, `<?= ($value['stok_awal'] + $value['jumlah_tambahan']) - $value['jumlah_terpakai'] ?>`)">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">

@@ -16,12 +16,15 @@ if ($_SESSION["role"] == "admin") {
   exit;
 
   // jika ada user yang login sebagai pegawai 1 atau pegawai 2
-} elseif ($_SESSION["role"] == "pagawai-1" || $_SESSION["role"] == "pagawai-2") {
+} elseif ($_SESSION["role"] == "pegawai-2") {
   header("Location: pegawai/index.php"); // alihkan ke halaman index pegawai
   exit;
   // jika ada user yang login sebagai selain admin atau pegawai
+} elseif ($_SESSION["role"] == "pegawai-1") {
+  header("Location: admin/data-bahan.php"); // alihkan ke halaman index kasir
+  exit;
 } else {
-  header("Location: kasir/index.php"); // alihkan ke halaman index kasir
+  header("Location: pegawai/index.php"); 
   exit;
 }
 

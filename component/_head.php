@@ -18,10 +18,55 @@
 <link href="../plugins/sweetalerts/sweetalert.css" rel="stylesheet" type="text/css">
 <link href="../assets/css/components/custom-sweetalert.css" rel="stylesheet" type="text/css">
 
+<link href="../plugins/loaders/custom-loader.css" rel="stylesheet" type="text/css">
+
+<!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+<link href="../plugins/apex/apexcharts.css" rel="stylesheet" type="text/css">
+<link href="../assets/css/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
+<!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+
 <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 <script src="../assets/js/libs/jquery-3.1.1.min.js"></script>
 <script src="../plugins/sweetalerts/sweetalert2.min.js"></script>
 <script src="../plugins/sweetalerts/custom-sweetalert.js"></script>
 <script src="../plugins/select2/select2.min.js"></script>
+<script src="../plugins/apex/apexcharts.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="../plugins/select2/select2.min.css">
+
+<style>
+    .select2-dropdown.select2-dropdown--below {
+        z-index: 2000 !important;
+    }
+</style>
+
+<script>
+    function formatRupiah(angka, prefix) {
+        if (angka[0] == '0') {
+            angka = angka.substr(1);
+        }
+
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
+</script>
+<link href="../assets/css/apps/invoice-add.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../plugins/dropify/dropify.min.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/forms/theme-checkbox-radio.css">
+<link href="../plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+<link href="../plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
+<!--  END CUSTOM STYLE FILE  -->
+
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>

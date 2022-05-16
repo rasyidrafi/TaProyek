@@ -1,12 +1,39 @@
+<?php
+session_start();
+
+// jika ada user yang berusaha masuk tanpa melalui login
+if (!isset($_SESSION["role"])) {
+  header("Location: ../login.php"); // alihkan ke halaman login
+  exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <?php include "../component/_head.php"; ?>
 </head>
-<body>
-    
+
+<body class="sidebar-noneoverflow">
+
+  <!--  BEGIN NAVBAR  -->
+  <?php include "../component/_navbar.php" ?>
+  <!--  END NAVBAR  -->
+
+  <!--  BEGIN MAIN CONTAINER  -->
+  <div class="main-container" id="container">
+    <div class="overlay"></div>
+    <div class="search-overlay"></div>
+
+    <?php include "../component/_sidebar.php"; ?>
+
+    <!-- CONTENT AREA -->
+
+    <?php include "../pages/pembayaran.php" ?>
+
+    <?php include "../component/_script.php"; ?>
 </body>
+
 </html>
