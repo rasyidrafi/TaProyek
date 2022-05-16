@@ -193,21 +193,6 @@ if ($result && mysqli_num_rows($result)) {
         });
     }
 
-    const hapusBahan = (id) => {
-        swal({
-            title: 'Anda Yakin?',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Delete',
-            padding: '2em'
-        }).then(function(result) {
-            if (result.value) {
-
-            }
-        })
-    }
-
     // renderDataTable on document ready
     $(document).ready(() => renderDataTable());
 </script>
