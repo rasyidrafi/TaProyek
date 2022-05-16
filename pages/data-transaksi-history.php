@@ -15,7 +15,7 @@ $data = [];
 if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
     $q = "SELECT transaksi.*, username  FROM `transaksi` LEFT JOIN users on pegawai_id = users.id";
     if ($_SESSION['role'] == 'kasir') {
-        $q .= " where status != 'menunggu'";
+        $q .= " where status != 'menunggu' AND kasir_id = '" . $_SESSION['id'] . "'";
     }
     $result = mysqli_query($conn, $q);
     if ($result && mysqli_num_rows($result)) {

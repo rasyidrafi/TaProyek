@@ -12,8 +12,7 @@ if ($_POST['id']) {
         <?php
     } else {
         $id = $_POST['id'];
-        $query = "UPDATE transaksi set status = 'selesai' where id = '$id'";
-        $result = mysqli_query($conn, $query);
+        $total_bayar = $_POST['total_bayar'];
 
         $detail_transaksi = [];
         $qd = "SELECT * FROM `transaksi_detail` LEFT JOIN menu on id_menu = menu.id where id_transaksi = '$id'";
@@ -90,7 +89,7 @@ if ($_POST['id']) {
             }
         }
 
-        $donequery = "UPDATE transaksi set status = 'selesai' where id = '$id'";
+        $donequery = "UPDATE transaksi set status = 'selesai', total_bayar = '$total_bayar', total_kembali = '$total_bayar' - total_harga, kasir_id = '$_SESSION[id]' where id = '$id'";
         $doneresult = mysqli_query($conn, $donequery);
 
         if ($doneresult) {

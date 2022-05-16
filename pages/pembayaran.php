@@ -432,6 +432,7 @@ if (!isset($_SESSION["role"])) {
 
 <form id="proses-form" class="d-none" action="../pages/proses-transaksi.php" method="POST">
     <input type="text" value="<?= $transaksi['id'] ?>" name="id">
+    <input type="text" id="uang-pembeli" name="total_bayar">
 </form>
 
 <script>
@@ -460,7 +461,47 @@ if (!isset($_SESSION["role"])) {
                 showCancelButton: true,
             }).then((result) => {
                 if (result.value) {
-                    $("#proses-form").submit();
+
+                    let minimal = `
+                    <?php
+                    $total = 0;
+                    foreach ($detail_transaksi as $key => $value) {
+                        $harga = str_replace(".", "", $value['harga']);
+                        $total = $total + (int)$harga * (int)$value['jumlah'];
+                    }
+                    echo $total;
+                    ?>
+                    `;
+                    minimal = minimal.trim();
+
+                    Swal.fire({
+                        title: `Masukkan Uang Pembeli - Minimal ${formatRupiah(minimal)}`,
+                        input: 'text',
+                        inputAttributes: {
+                            autocapitalize: 'off',
+                            autocomplete: 'off',
+                            min: minimal,
+                            type: 'number'
+                        },
+                        showCancelButton: true,
+                        showLoaderOnConfirm: true,
+                        preConfirm: (inputVal) => {
+                            inputVal = inputVal.replace(/[^0-9]/g, '');
+                            if (inputVal < minimal) {
+                                return Swal.showValidationError(
+                                    `Uang pembeli kurang dari ${formatRupiah(minimal)}`
+                                )
+                            } else {
+                                $("#uang-pembeli").val(parseInt(inputVal));
+                                return true;
+                            }
+                        },
+                        allowOutsideClick: () => !Swal.isLoading()
+                    }).then((result) => {
+                        if (result.value) {
+                            $("#proses-form").submit();
+                        }
+                    })
                 }
             })
         }
