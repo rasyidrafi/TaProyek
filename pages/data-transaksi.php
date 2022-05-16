@@ -12,7 +12,7 @@ if (!$conn) {
 }
 
 $data = [];
-if ($_SESSION['role'] == "admin") {
+if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
     $result = mysqli_query($conn, "SELECT transaksi.*, username  FROM `transaksi` LEFT JOIN users on pegawai_id = users.id");
     if ($result && mysqli_num_rows($result)) {
         while ($row = mysqli_fetch_assoc($result)) {
@@ -41,7 +41,7 @@ if ($_SESSION['role'] == "admin") {
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                 <div class="widget-content widget-content-area br-6">
                     <div class="col-12">
-                        <?php if ($_SESSION['role'] != "admin") {
+                        <?php if ($_SESSION['role'] == "pegawai-2") {
                         ?>
                             <a href="../pegawai/add-transaksi.php" class="btn btn-primary my-2">Tambah Transaksi</a>
                         <?php
@@ -51,7 +51,7 @@ if ($_SESSION['role'] == "admin") {
                                 <thead>
                                     <tr>
                                         <th>Nama Pembeli</th>
-                                        <?php if ($_SESSION["role"] == "admin") { ?>
+                                        <?php if ($_SESSION["role"] == "admin" || $_SESSION['role'] == "kasir") { ?>
                                             <th>Nama Pegawai</th>
                                         <?php } ?>
                                         <th>Tanggal Transaksi</th>
@@ -68,13 +68,13 @@ if ($_SESSION['role'] == "admin") {
                                     ?>
                                         <tr>
                                             <td><?= $value['nama_pembeli'] ?></td>
-                                            <?php if ($_SESSION['role'] == "admin") { ?>
+                                            <?php if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") { ?>
                                                 <td><?= $value['username'] ?></td>
                                             <?php } ?>
                                             <td><?= date("d/m/Y", strtotime($value['created_at'])); ?></td>
                                             <td>
                                                 <script>
-                                                    document.write(`<?= $value['total_harga'] ?>`);
+                                                    document.write(formatRupiah(`<?= $value['total_harga'] ?>`));
                                                 </script>
                                             </td>
                                             <td>
@@ -96,7 +96,16 @@ if ($_SESSION['role'] == "admin") {
                                                     <?php
                                                     } ?>
 
-                                                    <a class="d-inline" href="../pages/detail-transaksi.php?id=<?= $value['id'] ?>">
+                                                    <?php if ($_SESSION['role'] == "kasir" && $value['status'] == "menunggu") {
+                                                    ?>
+                                                        <a href="../kasir/pembayaran.php?id=<?= $value['id'] ?>" class="btn btn-sm btn-success">
+                                                            Proses
+                                                        </a>
+                                                    <?php
+                                                    }
+                                                    ?>
+
+                                                    <a class="d-inline" href="../pegawai/detail-transaksi.php?id=<?= $value['id'] ?>">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-zoom-in">
                                                             <circle cx="11" cy="11" r="8"></circle>
                                                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>

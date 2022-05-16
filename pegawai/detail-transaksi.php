@@ -31,7 +31,7 @@ if (!isset($_SESSION["role"])) {
 
     <!-- CONTENT AREA -->
 
-    <?php include "../pages/pembayaran.php" ?>
+    <?php include "../pages/detail-transaksi.php"; ?>
 
     <?php include "../component/_script.php"; ?>
 </body>

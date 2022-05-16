@@ -189,7 +189,13 @@ function AddTransaksi() {
                                                                 </td>
                                                                 <td className="text-right amount">
                                                                     <span className="d-flex align-items-center justify-content-center form-control form-control-sm">
-                                                                        {formatRupiahReact(item.harga * item.jumlah + "000")}
+                                                                        {function () {
+                                                                            let harga = item.harga.toString();
+                                                                            harga = harga.replace(/[.]/g, '');
+                                                                            harga = parseInt(harga);
+                                                                            let total = "" + harga * item.jumlah;
+                                                                            return formatRupiahReact(total);
+                                                                        }()}
                                                                     </span>
                                                                 </td>
                                                             </tr>
@@ -226,11 +232,14 @@ function AddTransaksi() {
                                                                 <div className="subtotal-amount">
                                                                     {function () {
                                                                         let total = 0;
-                                                                        menuList.map(item => {
-                                                                            total += item.harga * item.jumlah;
+                                                                        menuList.forEach(item => {
+                                                                            let harga = "" + item.harga;
+                                                                            harga = harga.replace(/[.]/g, '');
+                                                                            total = total + parseInt(harga) * parseInt(item.jumlah);
                                                                         });
-                                                                        if (!total) total = "0";
-                                                                        else total = total + "000";
+                                                                        total = "" + total;
+                                                                        // if (!total) total = "0";
+                                                                        // else total = total + "000";
                                                                         return formatRupiahReact(total);
                                                                     }()}
                                                                 </div>
@@ -273,10 +282,12 @@ function AddTransaksi() {
                                                                     {function () {
                                                                         let total = 0;
                                                                         menuList.map(item => {
-                                                                            total += item.harga * item.jumlah;
+                                                                            let harga = "" + item.harga;
+                                                                            harga = harga.replace(/[.]/g, '');
+                                                                            total = total + parseInt(harga) * parseInt(item.jumlah);
                                                                         });
 
-                                                                        let res = total + "000";
+                                                                        let res = total;
 
                                                                         // 10 % of res
                                                                         let tax = res * 0.1;
@@ -438,8 +449,9 @@ function AddTransaksi() {
                                                 <div className="row">
                                                     <div className="col-12">
                                                         <div className="form-group mb-0">
-                                                            <input onChange={(e) => {
+                                                            <input value={model.ongkir} onChange={(e) => {
                                                                 let val = formatRupiahReact(e.target.value);
+                                                                e.target.value = val;
                                                                 // let val = e.target.value
                                                                 setModel({
                                                                     ...model,
@@ -530,10 +542,10 @@ function AddTransaksi() {
                     function () {
                         let total = 0;
                         menuList.map(item => {
-                            total += item.harga * item.jumlah;
+                            let harga = "" + item.harga;
+                            harga = harga.replace(/[.]/g, '');
+                            total = total + (parseInt(harga) * parseInt(item.jumlah));
                         });
-                        if (!total) total = "0";
-                        else total = total + "000";
                         return total;
                     }()} />
 
@@ -550,7 +562,11 @@ function AddTransaksi() {
                 <input type="text" name="diskon" value={0} />
                 <input type="text" name="pajak" value={10} />
                 <input type="text" name="tipe" value={model.tipe} />
-                <input type="text" name="ongkir" value={model.ongkir} />
+                <input type="text" name="ongkir" value={function () {
+                    let a = "" + model.ongkir;
+                    a = a.replace(/[.]/g, '');
+                    return a;
+                }()} />
                 <input type="text" name="lokasi_pembeli" value={model.lokasi_pembeli} />
                 <input type="text" name="menu" value={JSON.stringify(menuList)} />
             </form>

@@ -298,7 +298,13 @@ function AddTransaksi() {
                                                                 React.createElement(
                                                                     "span",
                                                                     { className: "d-flex align-items-center justify-content-center form-control form-control-sm" },
-                                                                    formatRupiahReact(item.harga * item.jumlah + "000")
+                                                                    function () {
+                                                                        var harga = item.harga.toString();
+                                                                        harga = harga.replace(/[.]/g, '');
+                                                                        harga = parseInt(harga);
+                                                                        var total = "" + harga * item.jumlah;
+                                                                        return formatRupiahReact(total);
+                                                                    }()
                                                                 )
                                                             )
                                                         );
@@ -347,10 +353,14 @@ function AddTransaksi() {
                                                                 { className: "subtotal-amount" },
                                                                 function () {
                                                                     var total = 0;
-                                                                    menuList.map(function (item) {
-                                                                        total += item.harga * item.jumlah;
+                                                                    menuList.forEach(function (item) {
+                                                                        var harga = "" + item.harga;
+                                                                        harga = harga.replace(/[.]/g, '');
+                                                                        total = total + parseInt(harga) * parseInt(item.jumlah);
                                                                     });
-                                                                    if (!total) total = "0";else total = total + "000";
+                                                                    total = "" + total;
+                                                                    // if (!total) total = "0";
+                                                                    // else total = total + "000";
                                                                     return formatRupiahReact(total);
                                                                 }()
                                                             )
@@ -413,10 +423,12 @@ function AddTransaksi() {
                                                                 function () {
                                                                     var total = 0;
                                                                     menuList.map(function (item) {
-                                                                        total += item.harga * item.jumlah;
+                                                                        var harga = "" + item.harga;
+                                                                        harga = harga.replace(/[.]/g, '');
+                                                                        total = total + parseInt(harga) * parseInt(item.jumlah);
                                                                     });
 
-                                                                    var res = total + "000";
+                                                                    var res = total;
 
                                                                     // 10 % of res
                                                                     var tax = res * 0.1;
@@ -650,8 +662,9 @@ function AddTransaksi() {
                                                     React.createElement(
                                                         "div",
                                                         { className: "form-group mb-0" },
-                                                        React.createElement("input", { onChange: function onChange(e) {
+                                                        React.createElement("input", { value: model.ongkir, onChange: function onChange(e) {
                                                                 var val = formatRupiahReact(e.target.value);
+                                                                e.target.value = val;
                                                                 // let val = e.target.value
                                                                 setModel(Object.assign({}, model, {
                                                                     ongkir: val
@@ -789,9 +802,10 @@ function AddTransaksi() {
             React.createElement("input", { type: "text", name: "total_harga", value: function () {
                     var total = 0;
                     menuList.map(function (item) {
-                        total += item.harga * item.jumlah;
+                        var harga = "" + item.harga;
+                        harga = harga.replace(/[.]/g, '');
+                        total = total + parseInt(harga) * parseInt(item.jumlah);
                     });
-                    if (!total) total = "0";else total = total + "000";
                     return total;
                 }() }),
             React.createElement("input", { type: "text", name: "total_jumlah_pesanan", value: function () {
@@ -806,7 +820,11 @@ function AddTransaksi() {
             React.createElement("input", { type: "text", name: "diskon", value: 0 }),
             React.createElement("input", { type: "text", name: "pajak", value: 10 }),
             React.createElement("input", { type: "text", name: "tipe", value: model.tipe }),
-            React.createElement("input", { type: "text", name: "ongkir", value: model.ongkir }),
+            React.createElement("input", { type: "text", name: "ongkir", value: function () {
+                    var a = "" + model.ongkir;
+                    a = a.replace(/[.]/g, '');
+                    return a;
+                }() }),
             React.createElement("input", { type: "text", name: "lokasi_pembeli", value: model.lokasi_pembeli }),
             React.createElement("input", { type: "text", name: "menu", value: JSON.stringify(menuList) })
         )
