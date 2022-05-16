@@ -18,11 +18,17 @@
 
 <link href="../plugins/loaders/custom-loader.css" rel="stylesheet" type="text/css">
 
+<!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+<link href="../plugins/apex/apexcharts.css" rel="stylesheet" type="text/css">
+<link href="../assets/css/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
+<!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+
 <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 <script src="../assets/js/libs/jquery-3.1.1.min.js"></script>
 <script src="../plugins/sweetalerts/sweetalert2.min.js"></script>
 <script src="../plugins/sweetalerts/custom-sweetalert.js"></script>
 <script src="../plugins/select2/select2.min.js"></script>
+<script src="../plugins/apex/apexcharts.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="../plugins/select2/select2.min.css">
 
