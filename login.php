@@ -174,11 +174,6 @@ if (isset($_POST["login"])) {
                     <button class="btn btn-primary" type="submit" name="login" value="">Log In</button>
                   </div>
                 </div>
-
-                <p class="signup-link">
-                  Not registered ?
-                  <a href="register.php">Create an account</a>
-                </p>
               </div>
             </form>
           </div>

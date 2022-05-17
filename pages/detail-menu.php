@@ -123,7 +123,7 @@ if ($res && mysqli_num_rows($res)) {
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" style="width: 50px;">#</th>
-                                                        <th>Nama Menu</th>
+                                                        <th>Daftar Bahan</th>
                                                         <th class="text-center" style="width: 100px;">Jumlah</th>
                                                     </tr>
                                                 </thead>
