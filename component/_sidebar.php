@@ -65,10 +65,10 @@
                             <a href="../kasir/index.php"> Histori Penjualan </a>
                         </li>
                         <li>
-                            <a href="../admin/laporan-keuangan.php"> Laporan Perbulan </a>
+                            <a href="../admin/laporan-keuangan.php"> Laporan Tahunan </a>
                         </li>
                         <li>
-                            <a href="../admin/laporan-keuangan-hari.php"> Laporan Perhari </a>
+                            <a href="../admin/laporan-keuangan-hari.php"> Laporan Bulanan </a>
                         </li>
                     </ul>
                 </li>
