@@ -12,8 +12,9 @@ if (isset($_POST['id_bahan']) && isset($_POST['stok_tambahan'])) {
     } else {
         $id = $_POST['id_bahan'];
         $stok_tambahan = $_POST['stok_tambahan'];
+        $nama = $_POST['nama'];
 
-        $query = "UPDATE bahan SET jumlah_tambahan =  jumlah_tambahan + '$stok_tambahan' WHERE id = '$id'";
+        $query = "UPDATE bahan SET nama = '$nama', jumlah_tambahan = jumlah_tambahan + '$stok_tambahan' WHERE id = '$id'";
 
 
         $result = mysqli_query($conn, $query);

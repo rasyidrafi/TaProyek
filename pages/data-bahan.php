@@ -55,7 +55,6 @@ if ($result && mysqli_num_rows($result)) {
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                 <div class="widget-content widget-content-area br-6">
                     <div class="col-12">
-                        <p class="mt-4">Jumlah tambahan stok akan direset setiap 1 bulan</p>
                         <button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary my-2">Tambah Bahan</button>
                         <div class="table-responsive my-4">
                             <table id="zero-config" class="table table-hover" style="width:100%">
@@ -150,7 +149,7 @@ if ($result && mysqli_num_rows($result)) {
                         <input type="hidden" id="id_bahan" name="id_bahan">
                         <div class="form-group mb-3">
                             <small class="form-text text-muted">Nama Bahan</small>
-                            <input readonly class="nama_bahan form-control" placeholder="Nama">
+                            <input name="nama" class="nama_bahan form-control" placeholder="Nama">
                         </div>
                         <div class="form-group mb-3">
                             <small class="form-text text-muted">Stok Sekarang</small>

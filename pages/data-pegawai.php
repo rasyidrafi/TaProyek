@@ -89,6 +89,11 @@ if ($res && mysqli_num_rows($res)) {
     }
 
     let setUserSaatIni = (id, username, role) => {
+        if (role == 'admin') {
+            $("#edit-role").addClass("d-none");
+        } else {
+            $("#edit-role").removeClass("d-none");
+        }
         $("#id_user").val(id);
         $(".username_user").val(username);
         $(".role_user").val(role);
@@ -132,14 +137,18 @@ if ($res && mysqli_num_rows($res)) {
                                             <td><?= $value['email'] ?></td>
                                             <td class="text-capitalize"><?= $value['role'] ?></td>
                                             <td>
-                                                <svg onclick="hapusPegawai(`<?= $value['id'] ?>`)" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
-                                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                    <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                    <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                </svg>
+                                                <?php if ($value['role'] != 'admin') {
+                                                    ?>
+                                                    <svg onclick="hapusPegawai(`<?= $value['id'] ?>`)" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
+                                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                    </svg>
+                                                    <?php
+                                                }?>
 
-                                                <?php if ($_SESSION['role'] == 'admin') {
+                                                <?php if ($_SESSION['role'] == 'admin' && $value['role'] != 'admin') {
                                                 ?>
                                                     <svg onclick="resetPassword(`<?= $value['id'] ?>`)" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-unlock">
                                                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -182,7 +191,7 @@ if ($res && mysqli_num_rows($res)) {
                             <small class="form-text text-muted">Username</small>
                             <input name="username" required class="username_user form-control" placeholder="Username">
                         </div>
-                        <div class="form-group mb-3">
+                        <div id="edit-role" class="form-group mb-3">
                             <small class="form-text text-muted">Akses</small>
                             <select name="role" required class="role_user form-control basic">
                                 <?php
@@ -219,6 +228,14 @@ if ($res && mysqli_num_rows($res)) {
                         </div>
                         <div class="form-group">
                             <input required name="password" type="password" class="form-control mb-4" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+
+                        <div class="form-group">
+                            <select name="akses" id="akses" class="form-control mb-4">
+                                <option value="kasir">Kasir</option>
+                                <option value="pegawai-1">Pegawai 1</option>
+                                <option value="pegawai-2">Pegawai 2</option>
+                            </select>
                         </div>
                         <button id="add-user-btn" type="submit" class="btn btn-primary mt-2 mb-2 btn-block">Submit</button>
                     </form>

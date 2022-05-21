@@ -13,10 +13,11 @@ if (isset($_POST['email'])) {
         $email = $_POST['email'];
         $username = $_POST['username'];
         $rawPassword = $_POST['password'];
+        $akses = $_POST['akses'];
 
         $password = password_hash($rawPassword, PASSWORD_DEFAULT);
 
-        $query = "INSERT INTO users (email, username, password) VALUES ('$email', '$username', '$password')";
+        $query = "INSERT INTO users (email, username, password, role) VALUES ('$email', '$username', '$password', '$akses')";
         $result = mysqli_query($conn, $query);
 
         if ($result) {
