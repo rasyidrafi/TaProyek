@@ -58,6 +58,7 @@ if ($result && mysqli_num_rows($result)) {
                                         <th>Nama Menu</th>
                                         <th>Harga</th>
                                         <th>Kategori</th>
+                                        <th>Tanggal Dibuat</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -70,21 +71,15 @@ if ($result && mysqli_num_rows($result)) {
                                             <td><?= $value['nama'] ?></td>
                                             <td><?= $value['harga'] ?></td>
                                             <td><?= $value['kategori'] ?></td>
+                                            <td><?= date('d-m-Y H:i', strtotime($value['created_at'])) ?></td>
                                             <td>
-                                                <a class="d-inline" href="../pages/detail-menu.php?id=<?= $value['id'] ?>">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-zoom-in">
-                                                        <circle cx="11" cy="11" r="8"></circle>
-                                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                                        <line x1="11" y1="8" x2="11" y2="14"></line>
-                                                        <line x1="8" y1="11" x2="14" y2="11"></line>
-                                                    </svg>
+                                                <a class="btn btn-sm btn-primary" href="../pages/detail-menu.php?id=<?= $value['id'] ?>">
+                                                    Detail
                                                 </a>
 
-                                                <div class="d-inline" style="cursor: pointer;" data-toggle="modal" data-target="#editMenuModal" onclick="setMenuSaatIni(`<?= $value['id'] ?>`, `<?= $value['nama'] ?>`, `<?= $value['harga'] ?>`, `<?= $value['kategori'] ?>`)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
-                                                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-                                                    </svg>
-                                                </div>
+                                                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#editMenuModal" onclick="setMenuSaatIni(`<?= $value['id'] ?>`, `<?= $value['nama'] ?>`, `<?= $value['harga'] ?>`, `<?= $value['kategori'] ?>`)">
+                                                    Edit
+                                                </button>
                                             </td>
                                         </tr>
 
@@ -113,7 +108,7 @@ if ($result && mysqli_num_rows($result)) {
                 <form id="edit-menu-form" action="../pages/edit-menu.php" method="POST">
                     <input type="hidden" id="id_menu" name="id">
                     <div class="form-group mb-3">
-                        <small class="form-text text-muted">Nama Bahan</small>
+                        <small class="form-text text-muted">Nama Menu</small>
                         <input name="nama" required class="nama_menu form-control" placeholder="Nama">
                     </div>
                     <div class="form-group mb-3">
@@ -155,7 +150,8 @@ if ($result && mysqli_num_rows($result)) {
             },
             "stripeClasses": [],
             "lengthMenu": [7, 10, 20, 50],
-            "pageLength": 10
+            "pageLength": 10,
+            "order": [[3, 'desc']],
         });
     }
 

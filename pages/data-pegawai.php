@@ -124,6 +124,7 @@ if ($res && mysqli_num_rows($res)) {
                                         <th>Username</th>
                                         <th>Email</th>
                                         <th>Akses</th>
+                                        <th>Tgl Dibuat</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -136,32 +137,27 @@ if ($res && mysqli_num_rows($res)) {
                                             <td><?= $value['username'] ?></td>
                                             <td><?= $value['email'] ?></td>
                                             <td class="text-capitalize"><?= $value['role'] ?></td>
+                                            <td><?= date("d-m-Y H:i", strtotime($value['created_at'])) ?></td>
                                             <td>
                                                 <?php if ($value['role'] != 'admin') {
-                                                    ?>
-                                                    <svg onclick="hapusPegawai(`<?= $value['id'] ?>`)" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
-                                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                    </svg>
-                                                    <?php
-                                                }?>
-
-                                                <?php if ($_SESSION['role'] == 'admin' && $value['role'] != 'admin') {
                                                 ?>
-                                                    <svg onclick="resetPassword(`<?= $value['id'] ?>`)" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-unlock">
-                                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                                        <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
-                                                    </svg>
+                                                    <button class="btn btn-sm btn-danger" onclick="hapusPegawai(`<?= $value['id'] ?>`)">
+                                                        Hapus
+                                                    </button>
                                                 <?php
                                                 } ?>
 
-                                                <div class="d-inline" style="cursor: pointer;" data-toggle="modal" data-target="#editUserModal" onclick="setUserSaatIni(`<?= $value['id'] ?>`, `<?= $value['username'] ?>`, `<?= $value['role'] ?>`)">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
-                                                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-                                                    </svg>
-                                                </div>
+                                                <?php if ($_SESSION['role'] == 'admin' && $value['role'] != 'admin') {
+                                                ?>
+                                                    <button class="btn btn-sm" onclick="resetPassword(`<?= $value['id'] ?>`)">
+                                                        Reset Password
+                                                    </button>
+                                                <?php
+                                                } ?>
+
+                                                <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#editUserModal" onclick="setUserSaatIni(`<?= $value['id'] ?>`, `<?= $value['username'] ?>`, `<?= $value['role'] ?>`)">
+                                                    Edit
+                                                </button>
                                             </td>
                                         </tr>
 
@@ -264,7 +260,10 @@ if ($res && mysqli_num_rows($res)) {
             },
             "stripeClasses": [],
             "lengthMenu": [7, 10, 20, 50],
-            "pageLength": 10
+            "pageLength": 10,
+            "order": [
+                [3, 'desc']
+            ],
         });
     }
 

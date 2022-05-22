@@ -61,6 +61,7 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
                                         <th>Tanggal Transaksi</th>
                                         <th>Total Harga</th>
                                         <th>Total Bayar</th>
+                                        <th>Total Kembalian</th>
                                         <th>Jumlah Beli</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -75,7 +76,7 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
                                             <?php if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") { ?>
                                                 <td><?= $value['username'] ?></td>
                                             <?php } ?>
-                                            <td><?= date("d/m/Y", strtotime($value['created_at'])); ?></td>
+                                            <td><?= date("d-m-Y H:i", strtotime($value['created_at'])); ?></td>
                                             <td>
                                                 <script>
                                                     document.write(formatRupiah(`<?= $value['total_harga'] ?>`));
@@ -83,32 +84,32 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
                                             </td>
                                             <td>
                                                 <script>
-                                                    document.write(`<?= $value['total_bayar'] ?>`);
+                                                    document.write(formatRupiah(`<?= $value['total_bayar'] ?>`));
+                                                </script>
+                                            </td>
+                                            <td>
+                                                <script>
+                                                    document.write(formatRupiah(`<?= $value['total_kembali'] ?>`));
                                                 </script>
                                             </td>
                                             <td><?= $value['total_jumlah_pesanan'] ?></td>
                                             <td class="text-capitalize"><?= $value['status'] ?></td>
                                             <td>
-                                                <div class="d-flex justify-content-center align-items-center" style="gap: 10px;">
-                                                    <?php if ($_SESSION["role"] == "admin") {
-                                                    ?>
-                                                        <svg style="cursor: pointer;" onclick="hapusTransaksi(`<?= $value['id'] ?>`)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle">
-                                                            <circle cx="12" cy="12" r="10"></circle>
-                                                            <line x1="15" y1="9" x2="9" y2="15"></line>
-                                                            <line x1="9" y1="9" x2="15" y2="15"></line>
-                                                        </svg>
-                                                    <?php
-                                                    } ?>
+                                                <?php if ($_SESSION["role"] == "admin") {
+                                                ?>
+                                                    <button class="btn btn-sm btn-danger" onclick="hapusTransaksi(`<?= $value['id'] ?>`)">
+                                                        Hapus
+                                                    </button>
+                                                <?php
+                                                } ?>
 
-                                                    <a class="d-inline" href="../pegawai/detail-transaksi.php?id=<?= $value['id'] ?>">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-zoom-in">
-                                                            <circle cx="11" cy="11" r="8"></circle>
-                                                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                                            <line x1="11" y1="8" x2="11" y2="14"></line>
-                                                            <line x1="8" y1="11" x2="14" y2="11"></line>
-                                                        </svg>
-                                                    </a>
-                                                </div>
+                                                <a class="btn btn-sm btn-primary" href="../pegawai/detail-transaksi.php?id=<?= $value['id'] ?>">
+                                                    Detail
+                                                </a>
+
+                                                <a href="../pages/nota-transaksi.php?id=<?= $value['id'] ?>" class="btn btn-sm btn-primary">
+                                                    Nota
+                                                </a>
                                             </td>
                                         </tr>
 
@@ -151,7 +152,10 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
             },
             "stripeClasses": [],
             "lengthMenu": [7, 10, 20, 50],
-            "pageLength": 10
+            "pageLength": 10,
+            order: [
+                [2, "desc"]
+            ],
         });
     }
 

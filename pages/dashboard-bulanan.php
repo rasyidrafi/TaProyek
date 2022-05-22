@@ -95,8 +95,11 @@ if (!$conn) {
 
             <div class="col-12 layout-spacing">
                 <div class="widget widget-chart-one">
-                    <div class="widget-heading">
+                    <div class="widget-heading d-flex justify-content-between">
                         <h5 class="">Laporan Pendapatan Tahun Ini</h5>
+                        <button class="btn btn-sm btn-primary">
+                            Download
+                        </button>
                     </div>
 
                     <div class="widget-content">
