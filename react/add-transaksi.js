@@ -6,7 +6,7 @@ function AddTransaksi() {
     var _React$useState = React.useState({
         nama: "",
         jatuh_tempo: "",
-        tipe: "bayar ditempat",
+        tipe: "makan ditempat",
         pembayaran: "cash",
         lokasi_pembeli: "",
         ongkir: 0
@@ -74,7 +74,7 @@ function AddTransaksi() {
                         { className: "row" },
                         React.createElement(
                             "div",
-                            { className: "col-xl-9" },
+                            { className: "col-12" },
                             React.createElement(
                                 "div",
                                 { className: "invoice-content" },
@@ -93,7 +93,42 @@ function AddTransaksi() {
                                                 React.createElement(
                                                     "h4",
                                                     null,
-                                                    "Data Customer:"
+                                                    "Data Transaksi:"
+                                                ),
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "invoice-address-client-fields" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "form-group row mb-4" },
+                                                        React.createElement(
+                                                            "label",
+                                                            { htmlFor: "nama_pembeli", className: "col-sm-3 col-form-label col-form-label-sm" },
+                                                            "Tipe Pembelian"
+                                                        ),
+                                                        React.createElement(
+                                                            "div",
+                                                            { className: "col-sm-9" },
+                                                            React.createElement(
+                                                                "select",
+                                                                { onChange: function onChange(e) {
+                                                                        setModel(Object.assign({}, model, {
+                                                                            tipe: e.target.value
+                                                                        }));
+                                                                    }, defaultValue: "bayar ditempat", className: "custom-select custom-select-sm", name: "tipe" },
+                                                                React.createElement(
+                                                                    "option",
+                                                                    { value: "makan ditempat" },
+                                                                    "Makan Ditempat"
+                                                                ),
+                                                                React.createElement(
+                                                                    "option",
+                                                                    { value: "online" },
+                                                                    "Online"
+                                                                )
+                                                            )
+                                                        )
+                                                    )
                                                 ),
                                                 React.createElement(
                                                     "div",
@@ -104,7 +139,7 @@ function AddTransaksi() {
                                                         React.createElement(
                                                             "label",
                                                             { htmlFor: "nama_pembeli", className: "col-sm-3 col-form-label col-form-label-sm" },
-                                                            "Nama Pembeli"
+                                                            model.tipe == "online" ? "Nama Pembeli" : "Nomor Meja"
                                                         ),
                                                         React.createElement(
                                                             "div",
@@ -112,7 +147,7 @@ function AddTransaksi() {
                                                             React.createElement("input", { required: true, type: "text", value: model.nama, onChange: function onChange(e) {
                                                                     e.target.value = e.target.value.trimStart();
                                                                     setModel(Object.assign({}, model, { nama: e.target.value }));
-                                                                }, className: "form-control form-control-sm", placeholder: "Nama Pembeli" })
+                                                                }, className: "form-control form-control-sm", placeholder: model.tipe == "online" ? "Nama Pembeli" : "Nomor Meja" })
                                                         )
                                                     )
                                                 )
@@ -157,7 +192,7 @@ function AddTransaksi() {
                                                     React.createElement(
                                                         "span",
                                                         { className: "d-flex align-items-center form-control form-control-sm" },
-                                                        "Otomatis"
+                                                        new Date().toLocaleDateString().replace(/\//g, "-")
                                                     )
                                                 )
                                             ),
@@ -330,458 +365,11 @@ function AddTransaksi() {
                                         React.createElement(
                                             "div",
                                             { className: "row" },
-                                            React.createElement("div", { className: "col-md-6" }),
-                                            React.createElement(
-                                                "div",
-                                                { className: "col-md-6" },
-                                                React.createElement(
-                                                    "div",
-                                                    { className: "totals-row" },
-                                                    React.createElement(
-                                                        "div",
-                                                        { className: "invoice-totals-row invoice-summary-subtotal" },
-                                                        React.createElement(
-                                                            "div",
-                                                            { className: "invoice-summary-label" },
-                                                            "Subtotal"
-                                                        ),
-                                                        React.createElement(
-                                                            "div",
-                                                            { className: "invoice-summary-value" },
-                                                            React.createElement(
-                                                                "div",
-                                                                { className: "subtotal-amount" },
-                                                                function () {
-                                                                    var total = 0;
-                                                                    menuList.forEach(function (item) {
-                                                                        var harga = "" + item.harga;
-                                                                        harga = harga.replace(/[.]/g, '');
-                                                                        total = total + parseInt(harga) * parseInt(item.jumlah);
-                                                                    });
-                                                                    total = "" + total;
-                                                                    // if (!total) total = "0";
-                                                                    // else total = total + "000";
-                                                                    return formatRupiahReact(total);
-                                                                }()
-                                                            )
-                                                        )
-                                                    ),
-                                                    React.createElement(
-                                                        "div",
-                                                        { className: "invoice-totals-row invoice-summary-total" },
-                                                        React.createElement(
-                                                            "div",
-                                                            { className: "invoice-summary-label" },
-                                                            "Discount"
-                                                        ),
-                                                        React.createElement(
-                                                            "div",
-                                                            { className: "invoice-summary-value" },
-                                                            React.createElement(
-                                                                "div",
-                                                                { className: "total-amount" },
-                                                                "-"
-                                                            )
-                                                        )
-                                                    ),
-                                                    React.createElement(
-                                                        "div",
-                                                        { className: "invoice-totals-row invoice-summary-tax" },
-                                                        React.createElement(
-                                                            "div",
-                                                            { className: "invoice-summary-label" },
-                                                            "Pajak"
-                                                        ),
-                                                        React.createElement(
-                                                            "div",
-                                                            { className: "invoice-summary-value" },
-                                                            React.createElement(
-                                                                "div",
-                                                                { className: "tax-amount" },
-                                                                React.createElement(
-                                                                    "span",
-                                                                    null,
-                                                                    "10%"
-                                                                )
-                                                            )
-                                                        )
-                                                    ),
-                                                    React.createElement(
-                                                        "div",
-                                                        { className: "invoice-totals-row invoice-summary-balance-due" },
-                                                        React.createElement(
-                                                            "div",
-                                                            { className: "invoice-summary-label" },
-                                                            "Total"
-                                                        ),
-                                                        React.createElement(
-                                                            "div",
-                                                            { className: "invoice-summary-value" },
-                                                            React.createElement(
-                                                                "div",
-                                                                { className: "balance-due-amount" },
-                                                                function () {
-                                                                    var total = 0;
-                                                                    menuList.map(function (item) {
-                                                                        var harga = "" + item.harga;
-                                                                        harga = harga.replace(/[.]/g, '');
-                                                                        total = total + parseInt(harga) * parseInt(item.jumlah);
-                                                                    });
-
-                                                                    var res = total;
-
-                                                                    // 10 % of res
-                                                                    var tax = res * 0.1;
-
-                                                                    var hasil = parseInt(res) + parseInt(tax);
-
-                                                                    return formatRupiahReact(hasil + "");
-                                                                }()
-                                                            )
-                                                        )
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "col-xl-3" },
-                            React.createElement(
-                                "div",
-                                { className: "invoice-actions" },
-                                React.createElement(
-                                    "div",
-                                    { className: "invoice-action-tax mt-0 pt-0" },
-                                    React.createElement(
-                                        "h5",
-                                        null,
-                                        "Pajak"
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "invoice-action-tax-fields" },
-                                        React.createElement(
-                                            "div",
-                                            { className: "row" },
-                                            React.createElement(
-                                                "div",
-                                                { className: "col-6" },
-                                                React.createElement(
-                                                    "div",
-                                                    { className: "form-group mb-0" },
-                                                    React.createElement(
-                                                        "label",
-                                                        { htmlFor: "type" },
-                                                        "Type"
-                                                    ),
-                                                    React.createElement(
-                                                        "div",
-                                                        { className: "dropdown selectable-dropdown invoice-tax-select" },
-                                                        React.createElement(
-                                                            "a",
-                                                            { className: "dropdown-toggle" },
-                                                            React.createElement(
-                                                                "span",
-                                                                { className: "selectable-text" },
-                                                                "Total"
-                                                            )
-                                                        )
-                                                    )
-                                                )
-                                            ),
-                                            React.createElement(
-                                                "div",
-                                                { className: "col-6" },
-                                                React.createElement(
-                                                    "div",
-                                                    { className: "form-group mb-0 tax-rate-deducted" },
-                                                    React.createElement(
-                                                        "label",
-                                                        { htmlFor: "rate" },
-                                                        "Rate (%)"
-                                                    ),
-                                                    React.createElement("input", { readOnly: true, type: "number", className: "form-control input-rate", id: "rate", placeholder: "Rate", value: "10" })
-                                                )
-                                            )
-                                        )
-                                    )
-                                ),
-                                React.createElement(
-                                    "div",
-                                    { className: "invoice-action-discount" },
-                                    React.createElement(
-                                        "h5",
-                                        null,
-                                        "Pembayaran"
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "invoice-action-discount-fields" },
-                                        React.createElement(
-                                            "div",
-                                            { className: "row" },
-                                            React.createElement(
-                                                "div",
-                                                { className: "col-12" },
-                                                React.createElement(
-                                                    "div",
-                                                    { className: "form-group mb-0" },
-                                                    React.createElement(
-                                                        "div",
-                                                        { className: "custom-control custom-radio custom-control-inline" },
-                                                        React.createElement("input", { type: "radio", value: "debit", id: "debit", name: "pembayaran", className: "custom-control-input" }),
-                                                        React.createElement(
-                                                            "label",
-                                                            { className: "custom-control-label", htmlFor: "debit" },
-                                                            "Debit"
-                                                        )
-                                                    ),
-                                                    React.createElement(
-                                                        "div",
-                                                        { className: "custom-control custom-radio custom-control-inline" },
-                                                        React.createElement("input", { value: "cash", defaultChecked: true, type: "radio", id: "cash", name: "pembayaran", className: "custom-control-input" }),
-                                                        React.createElement(
-                                                            "label",
-                                                            { className: "custom-control-label", htmlFor: "cash" },
-                                                            "Cash"
-                                                        )
-                                                    ),
-                                                    React.createElement(
-                                                        "div",
-                                                        { className: "custom-control custom-radio custom-control-inline" },
-                                                        React.createElement("input", { value: "qris", type: "radio", id: "qris", name: "pembayaran", className: "custom-control-input" }),
-                                                        React.createElement(
-                                                            "label",
-                                                            { className: "custom-control-label", htmlFor: "qris" },
-                                                            "QRIS"
-                                                        )
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
-                                ),
-                                React.createElement(
-                                    "div",
-                                    { className: "invoice-action-discount" },
-                                    React.createElement(
-                                        "h5",
-                                        null,
-                                        "Tipe Pembelian"
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "invoice-action-discount-fields" },
-                                        React.createElement(
-                                            "div",
-                                            { className: "row" },
-                                            React.createElement(
-                                                "div",
-                                                { className: "col-12" },
-                                                React.createElement(
-                                                    "div",
-                                                    { className: "form-group mb-0" },
-                                                    React.createElement(
-                                                        "select",
-                                                        { onChange: function onChange(e) {
-                                                                setModel(Object.assign({}, model, {
-                                                                    tipe: e.target.value
-                                                                }));
-                                                            }, defaultValue: "bayar ditempat", className: "custom-select custom-select-sm", name: "tipe" },
-                                                        React.createElement(
-                                                            "option",
-                                                            { value: "bayar ditempat" },
-                                                            "Bayar Ditempat"
-                                                        ),
-                                                        React.createElement(
-                                                            "option",
-                                                            { value: "online" },
-                                                            "Online"
-                                                        )
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
-                                ),
-                                React.createElement(
-                                    "div",
-                                    { className: model.tipe == "online" ? "" : "d-none" },
-                                    React.createElement(
-                                        "div",
-                                        { className: "invoice-action-discount" },
-                                        React.createElement(
-                                            "h5",
-                                            null,
-                                            "Lokasi Pembeli"
+                                            React.createElement("div", { className: "col-12" })
                                         ),
                                         React.createElement(
                                             "div",
-                                            { className: "invoice-action-discount-fields" },
-                                            React.createElement(
-                                                "div",
-                                                { className: "row" },
-                                                React.createElement(
-                                                    "div",
-                                                    { className: "col-12" },
-                                                    React.createElement(
-                                                        "div",
-                                                        { className: "form-group mb-0" },
-                                                        React.createElement("textarea", { onChange: function onChange(e) {
-                                                                e.target.value = e.target.value.trimStart();
-                                                                setModel(Object.assign({}, model, {
-                                                                    lokasi_pembeli: e.target.value
-                                                                }));
-                                                            }, required: true, name: "lokasi_pembeli", className: "form-control", rows: "5" })
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "invoice-action-discount" },
-                                        React.createElement(
-                                            "h5",
-                                            null,
-                                            "Ongkir"
-                                        ),
-                                        React.createElement(
-                                            "div",
-                                            { className: "invoice-action-discount-fields" },
-                                            React.createElement(
-                                                "div",
-                                                { className: "row" },
-                                                React.createElement(
-                                                    "div",
-                                                    { className: "col-12" },
-                                                    React.createElement(
-                                                        "div",
-                                                        { className: "form-group mb-0" },
-                                                        React.createElement("input", { value: model.ongkir, onChange: function onChange(e) {
-                                                                var val = formatRupiahReact(e.target.value);
-                                                                e.target.value = val;
-                                                                // let val = e.target.value
-                                                                setModel(Object.assign({}, model, {
-                                                                    ongkir: val
-                                                                }));
-                                                            }, required: true, name: "ongkir", className: "form-control form-control-sm" })
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    ),
-                                    React.createElement(
-                                        "div",
-                                        { className: "invoice-action-discount" },
-                                        React.createElement(
-                                            "h5",
-                                            null,
-                                            "Diskon"
-                                        ),
-                                        React.createElement(
-                                            "div",
-                                            { className: "invoice-action-discount-fields" },
-                                            React.createElement(
-                                                "div",
-                                                { className: "row" },
-                                                React.createElement(
-                                                    "div",
-                                                    { className: "col-6" },
-                                                    React.createElement(
-                                                        "div",
-                                                        { className: "form-group mb-0" },
-                                                        React.createElement(
-                                                            "label",
-                                                            { htmlFor: "type" },
-                                                            "Type"
-                                                        ),
-                                                        React.createElement(
-                                                            "div",
-                                                            { className: "dropdown selectable-dropdown invoice-discount-select" },
-                                                            React.createElement(
-                                                                "a",
-                                                                { id: "currencyDropdown", className: "dropdown-toggle", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
-                                                                " ",
-                                                                React.createElement(
-                                                                    "span",
-                                                                    { className: "selectable-text" },
-                                                                    "None"
-                                                                ),
-                                                                " ",
-                                                                React.createElement(
-                                                                    "span",
-                                                                    { className: "selectable-arrow" },
-                                                                    React.createElement(
-                                                                        "svg",
-                                                                        { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2",
-                                                                            strokeLinecap: "round", strokeLinejoin: "round", className: "feather feather-chevron-down" },
-                                                                        React.createElement("polyline", { points: "6 9 12 15 18 9" })
-                                                                    )
-                                                                )
-                                                            ),
-                                                            React.createElement(
-                                                                "div",
-                                                                { className: "dropdown-menu", "aria-labelledby": "currencyDropdown" },
-                                                                React.createElement(
-                                                                    "a",
-                                                                    { className: "dropdown-item", "data-value": "Percent", href: "javascript:void(0);" },
-                                                                    "Percent"
-                                                                ),
-                                                                React.createElement(
-                                                                    "a",
-                                                                    { className: "dropdown-item", "data-value": "None", href: "javascript:void(0);" },
-                                                                    "None"
-                                                                )
-                                                            )
-                                                        )
-                                                    )
-                                                ),
-                                                React.createElement(
-                                                    "div",
-                                                    { className: "col-6" },
-                                                    React.createElement(
-                                                        "div",
-                                                        { className: "form-group mb-0 discount-amount", style: { display: "none" } },
-                                                        React.createElement(
-                                                            "label",
-                                                            { htmlFor: "rate" },
-                                                            "Amount"
-                                                        ),
-                                                        React.createElement("input", { type: "number", className: "form-control input-rate", id: "rate", placeholder: "Rate", value: "25" })
-                                                    ),
-                                                    React.createElement(
-                                                        "div",
-                                                        { className: "form-group mb-0 discount-percent", style: { display: "none" } },
-                                                        React.createElement(
-                                                            "label",
-                                                            { htmlFor: "rate" },
-                                                            "Percent"
-                                                        ),
-                                                        React.createElement("input", { type: "number", className: "form-control input-rate", id: "rate", placeholder: "Rate", value: "10" })
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            ),
-                            React.createElement(
-                                "div",
-                                { className: "invoice-actions-btn" },
-                                React.createElement(
-                                    "div",
-                                    { className: "invoice-action-btn" },
-                                    React.createElement(
-                                        "div",
-                                        { className: "row" },
-                                        React.createElement(
-                                            "div",
-                                            { onClick: handleSubmit, className: "col-xl-12 col-md-4" },
+                                            { onClick: handleSubmit, className: "" },
                                             React.createElement(
                                                 "a",
                                                 { href: "javascript:void(0);", className: "btn btn-primary btn-send" },
@@ -815,17 +403,8 @@ function AddTransaksi() {
                     });
                     return total;
                 }() }),
-            React.createElement("input", { type: "text", name: "nama_pembeli", value: model.nama }),
-            React.createElement("input", { type: "text", name: "pembayaran", value: model.pembayaran }),
-            React.createElement("input", { type: "text", name: "diskon", value: 0 }),
-            React.createElement("input", { type: "text", name: "pajak", value: 10 }),
+            React.createElement("input", { type: "text", name: "nomor_meja", value: model.nama }),
             React.createElement("input", { type: "text", name: "tipe", value: model.tipe }),
-            React.createElement("input", { type: "text", name: "ongkir", value: function () {
-                    var a = "" + model.ongkir;
-                    a = a.replace(/[.]/g, '');
-                    return a;
-                }() }),
-            React.createElement("input", { type: "text", name: "lokasi_pembeli", value: model.lokasi_pembeli }),
             React.createElement("input", { type: "text", name: "menu", value: JSON.stringify(menuList) })
         )
     );

@@ -44,7 +44,7 @@ if (!isset($_SESSION["role"])) {
                 <div class="doc-container">
 
                     <div class="row">
-                        <div class="col-xl-9">
+                        <div class="col-12">
 
                             <div class="invoice-content">
 
@@ -55,14 +55,33 @@ if (!isset($_SESSION["role"])) {
                                         <div class="row justify-content-between">
                                             <div class="col-12 invoice-address-client">
 
-                                                <h4>Data Customer:</h4>
+                                                <h4>Data Transaksi:</h4>
+
+                                                <div class="invoice-address-client-fields">
+                                                    <div class="form-group row mb-4">
+                                                        <label class="col-sm-3 col-form-label col-form-label-sm">Tipe Pembelian</label>
+                                                        <div class="col-sm-9">
+                                                            <span class="d-flex align-items-center form-control form-contorl-sm text-capitalize">
+                                                                <?= $transaksi['tipe']; ?>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                                 <div class="invoice-address-client-fields">
                                                     <div class="form-group row">
-                                                        <label for="nama_pembeli" class="col-sm-3 col-form-label col-form-label-sm">Nama Pembeli</label>
+                                                        <label for="nama_pembeli" class="col-sm-3 col-form-label col-form-label-sm">
+                                                            <?php
+                                                            if ($transaksi['tipe'] == 'online') {
+                                                                echo 'Nama Pembeli';
+                                                            } else {
+                                                                echo 'Nomor Meja';
+                                                            }
+                                                            ?>
+                                                        </label>
                                                         <div class="col-sm-9">
                                                             <span class="d-flex align-items-center form-control form-contorl-sm">
-                                                                <?= $transaksi['nama_pembeli']; ?>
+                                                                <?= $transaksi['nomor_meja']; ?>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -163,251 +182,9 @@ if (!isset($_SESSION["role"])) {
                                     </div>
 
 
-                                    <div class="invoice-detail-total">
-
-                                        <div class="row">
-
-                                            <div class="col-md-6">
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="totals-row">
-                                                    <div class="invoice-totals-row invoice-summary-subtotal">
-
-                                                        <div class="invoice-summary-label">Subtotal</div>
-
-                                                        <div class="invoice-summary-value">
-                                                            <div class="subtotal-amount">
-                                                                <?php
-                                                                $total = 0;
-                                                                foreach ($detail_transaksi as $key => $value) {
-                                                                    $harga = str_replace(".", "", $value['harga']);
-                                                                    $total = $total + (int)$harga * (int)$value['jumlah'];
-                                                                }
-                                                                echo "<script>
-                                                                        document.write(formatRupiah('$total'))
-                                                                    </script>";
-                                                                ?>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-
-
-
-                                                    <div class="invoice-totals-row invoice-summary-total">
-
-                                                        <div class="invoice-summary-label">Discount</div>
-
-                                                        <div class="invoice-summary-value">
-                                                            <div class="total-amount">
-                                                                -
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="invoice-totals-row invoice-summary-tax">
-
-                                                        <div class="invoice-summary-label">Pajak</div>
-
-                                                        <div class="invoice-summary-value">
-                                                            <div class="tax-amount">
-                                                                <span>10%</span>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="invoice-totals-row invoice-summary-balance-due">
-
-                                                        <div class="invoice-summary-label">Total</div>
-
-                                                        <div class="invoice-summary-value">
-                                                            <div class="balance-due-amount">
-                                                                <?php
-                                                                $total = 0;
-                                                                foreach ($detail_transaksi as $key => $value) {
-                                                                    $harga = str_replace(".", "", $value['harga']);
-                                                                    $total = $total + (int)$harga * (int)$value['jumlah'];
-                                                                }
-                                                                $totalPlusTax = $total + ($total * 0.1);
-                                                                echo "<script>
-                                                                document.write(formatRupiah('$totalPlusTax'))
-                                                            </script>";
-                                                                ?>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-
                                 </div>
 
                             </div>
-
-                        </div>
-
-                        <div class="col-xl-3">
-
-                            <div class="invoice-actions">
-
-                                <div class="invoice-action-tax mt-0 pt-0">
-
-                                    <h5>Pajak</h5>
-
-                                    <div class="invoice-action-tax-fields">
-
-                                        <div class="row">
-
-                                            <div class="col-6">
-
-                                                <div class="form-group mb-0">
-                                                    <label for="type">Type</label>
-
-                                                    <div class="dropdown selectable-dropdown invoice-tax-select">
-                                                        <a class="dropdown-toggle">
-                                                            <span class="selectable-text">Total</span>
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-6">
-                                                <div class="form-group mb-0 tax-rate-deducted">
-                                                    <label for="rate">Rate (%)</label>
-                                                    <input readonly type="number" class="form-control input-rate" id="rate" placeholder="Rate" value="10" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="invoice-action-discount">
-
-                                    <h5>Pembayaran</h5>
-
-                                    <div class="invoice-action-discount-fields">
-
-                                        <div class="row">
-
-                                            <div class="col-12">
-                                                <div class="form-group mb-0">
-                                                    <span class="form-control form-control-sm d-flex align-items-center">
-                                                        <?= $transaksi['pembayaran'] ?>
-                                                    </span>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="invoice-action-discount">
-
-                                    <h5>Tipe Pembelian</h5>
-
-                                    <div class="invoice-action-discount-fields">
-
-                                        <div class="row">
-
-                                            <div class="col-12">
-                                                <div class="form-group mb-0">
-                                                    <span class="form-control form-control-sm d-flex align-items-center">
-                                                        <?= $transaksi['tipe'] ?>
-                                                    </span>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <?php if ($transaksi['tipe'] == "online") {
-                                ?>
-                                    <div>
-
-                                        <div class="invoice-action-discount">
-
-                                            <h5>Lokasi Pembeli</h5>
-
-                                            <div class="invoice-action-discount-fields">
-
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="form-group mb-0">
-                                                            <span class="form-control form-control-sm d-flex align-items-center">
-                                                                <?= $transaksi['lokasi_pembeli'] ?>
-                                                            </span>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="invoice-action-discount">
-
-                                            <h5>Ongkir</h5>
-
-                                            <div class="invoice-action-discount-fields">
-
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="form-group mb-0">
-                                                            <span class="form-control form-control-sm d-flex align-items-center">
-                                                                <script>
-                                                                    document.write(formatRupiah(`<?= $transaksi['ongkir'] ?>`))
-                                                                </script>
-                                                            </span>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                <?php
-                                } ?>
-
-
-                            </div>
-
-                          
-                                <div class="invoice-actions-btn">
-                                    <div class="invoice-action-btn">
-                                        <script>
-                                            let nota = () => {
-                                                window.location.assign("../pages/nota-transaksi.php?id=<?= $transaksi['id'] ?>");
-                                            }
-                                        </script>
-                                        <div class="row">
-                                            <div class="col-xl-12 col-md-4">
-                                                <a href="javascript:void(0);" onclick="nota()" class="btn btn-primary btn-send">Nota</a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
 
                         </div>
                     </div>

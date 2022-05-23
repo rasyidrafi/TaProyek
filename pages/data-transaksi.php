@@ -54,14 +54,15 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
                             <table id="zero-config" class="table table-hover" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Nama Pembeli</th>
+                                        <th>Nomor Meja</th>
+                                        <th>Tipe Pembelian</th>
                                         <?php if ($_SESSION["role"] == "admin" || $_SESSION['role'] == "kasir") { ?>
                                             <th>Nama Pegawai</th>
+                                            <th>Total Harga</th>
+                                            <th>Total Bayar</th>
+                                            <th>Total Kembali</th>
                                         <?php } ?>
                                         <th>Tanggal Transaksi</th>
-                                        <th>Total Harga</th>
-                                        <th>Total Bayar</th>
-                                        <th>Total Kembali</th>
                                         <th>Jumlah Beli</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -72,26 +73,27 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
                                     foreach ($data as $key => $value) {
                                     ?>
                                         <tr>
-                                            <td><?= $value['nama_pembeli'] ?></td>
+                                            <td><?= $value['nomor_meja'] ?></td>
+                                            <td class="text-capitalize"><?= $value['tipe'] ?></td>
                                             <?php if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") { ?>
                                                 <td><?= $value['username'] ?></td>
+                                                <td>
+                                                    <script>
+                                                        document.write(formatRupiah(`<?= $value['total_harga'] ?>`));
+                                                    </script>
+                                                </td>
+                                                <td>
+                                                    <script>
+                                                        document.write(formatRupiah(`<?= $value['total_bayar'] ?>`));
+                                                    </script>
+                                                </td>
+                                                <td>
+                                                    <script>
+                                                        document.write(formatRupiah(`<?= $value['total_kembali'] ?>`));
+                                                    </script>
+                                                </td>
                                             <?php } ?>
                                             <td><?= date("d-m-Y H:i", strtotime($value['created_at'])); ?></td>
-                                            <td>
-                                                <script>
-                                                    document.write(formatRupiah(`<?= $value['total_harga'] ?>`));
-                                                </script>
-                                            </td>
-                                            <td>
-                                                <script>
-                                                    document.write(formatRupiah(`<?= $value['total_bayar'] ?>`));
-                                                </script>
-                                            </td>
-                                            <td>
-                                                <script>
-                                                    document.write(formatRupiah(`<?= $value['total_kembali'] ?>`));
-                                                </script>
-                                            </td>
                                             <td><?= $value['total_jumlah_pesanan'] ?></td>
                                             <td class="text-capitalize"><?= $value['status'] ?></td>
                                             <td>
@@ -174,7 +176,7 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
             "lengthMenu": [7, 10, 20, 50],
             "pageLength": 10,
             order: [
-                [1, "desc"]
+                [2, "desc"]
             ],
         });
     }

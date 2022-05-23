@@ -4,15 +4,14 @@ if (isset($_POST['total_harga'])) {
     $total_harga = $_POST['total_harga'];
     $total_jumlah_pesanan = $_POST['total_jumlah_pesanan'];
     $pegawai_id = $_SESSION['id'];
-    $nama_pembeli = $_POST['nama_pembeli'];
-    $pembayaran = $_POST['pembayaran'];
-    $pajak = $_POST['pajak'];
-    $diskon = $_POST['diskon'];
+    $nomor_meja = $_POST['nomor_meja'];
+    // $pembayaran = $_POST['pembayaran'];
+    // $pajak = $_POST['pajak'];
+    // $diskon = $_POST['diskon'];
     $tipe = $_POST['tipe'];
-    $ongkir = $_POST['ongkir'] ?? 0;
-    $lokasi_pembeli = $_POST['lokasi_pembeli'] ?? "";
+    // $ongkir = $_POST['ongkir'] ?? 0;
+    // $lokasi_pembeli = $_POST['lokasi_pembeli'] ?? "";
     $menu = json_decode($_POST['menu']);
-    $kasir_id = $_SESSION['id'];
 
     $conn = mysqli_connect("server2.jagoankodecloud.com", "okokmyid_user_dev", "rahasia721", "okokmyid_ta1_dev");
 
@@ -23,7 +22,7 @@ if (isset($_POST['total_harga'])) {
         </script>
         <?php
     } else {
-        $q = "INSERT into transaksi (total_harga, total_jumlah_pesanan, nama_pembeli, pembayaran, pajak, diskon, tipe, ongkir, lokasi_pembeli, pegawai_id, kasir_id) VALUES ('$total_harga', '$total_jumlah_pesanan', '$nama_pembeli', '$pembayaran', '$pajak', '$diskon', '$tipe', '$ongkir', '$lokasi_pembeli', '$pegawai_id', '$kasir_id')";
+        $q = "INSERT into transaksi (total_jumlah_pesanan, pegawai_id, nomor_meja, tipe, total_harga) VALUES ('$total_jumlah_pesanan', '$pegawai_id', '$nomor_meja', '$tipe', '$total_harga')";
         $result = mysqli_query($conn, $q);
 
         if (!$result) {

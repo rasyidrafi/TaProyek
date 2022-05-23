@@ -2,7 +2,7 @@ function AddTransaksi() {
     const [model, setModel] = React.useState({
         nama: "",
         jatuh_tempo: "",
-        tipe: "bayar ditempat",
+        tipe: "makan ditempat",
         pembayaran: "cash",
         lokasi_pembeli: "",
         ongkir: 0,
@@ -56,7 +56,7 @@ function AddTransaksi() {
                     <div className="doc-container">
 
                         <div className="row">
-                            <div className="col-xl-9">
+                            <div className="col-12">
 
                                 <div className="invoice-content">
 
@@ -67,16 +67,35 @@ function AddTransaksi() {
                                             <div className="row justify-content-between">
                                                 <div className="col-12 invoice-address-client">
 
-                                                    <h4>Data Customer:</h4>
+                                                    <h4>Data Transaksi:</h4>
+
+                                                    <div className="invoice-address-client-fields">
+                                                        <div className="form-group row mb-4">
+                                                            <label htmlFor="nama_pembeli" className="col-sm-3 col-form-label col-form-label-sm">Tipe Pembelian</label>
+                                                            <div className="col-sm-9">
+                                                                <select onChange={(e) => {
+                                                                    setModel({
+                                                                        ...model,
+                                                                        tipe: e.target.value
+                                                                    })
+                                                                }} defaultValue="bayar ditempat" className="custom-select custom-select-sm" name="tipe">
+                                                                    <option value="makan ditempat">Makan Ditempat</option>
+                                                                    <option value="online">Online</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
                                                     <div className="invoice-address-client-fields">
                                                         <div className="form-group row">
-                                                            <label htmlFor="nama_pembeli" className="col-sm-3 col-form-label col-form-label-sm">Nama Pembeli</label>
+                                                            <label htmlFor="nama_pembeli" className="col-sm-3 col-form-label col-form-label-sm">
+                                                                {model.tipe == "online" ? "Nama Pembeli" : "Nomor Meja"}
+                                                            </label>
                                                             <div className="col-sm-9">
                                                                 <input required type="text" value={model.nama} onChange={(e) => {
                                                                     e.target.value = e.target.value.trimStart();
                                                                     setModel({ ...model, nama: e.target.value });
-                                                                }} className="form-control form-control-sm" placeholder="Nama Pembeli" />
+                                                                }} className="form-control form-control-sm" placeholder={model.tipe == "online" ? "Nama Pembeli" : "Nomor Meja"} />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -106,7 +125,7 @@ function AddTransaksi() {
                                                     <div className="form-group mb-4">
                                                         <label htmlFor="number">Tgl Transaksi</label>
                                                         <span className="d-flex align-items-center form-control form-control-sm">
-                                                            Otomatis
+                                                            {new Date().toLocaleDateString().replace(/\//g, "-")}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -219,10 +238,10 @@ function AddTransaksi() {
 
                                             <div className="row">
 
-                                                <div className="col-md-6">
+                                                <div className="col-12">
                                                 </div>
 
-                                                <div className="col-md-6">
+                                                {/* <div className="col-md-6">
                                                     <div className="totals-row">
                                                         <div className="invoice-totals-row invoice-summary-subtotal">
 
@@ -301,8 +320,12 @@ function AddTransaksi() {
 
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> */}
 
+                                            </div>
+
+                                            <div onClick={handleSubmit} className="">
+                                                <a href="javascript:void(0);" className="btn btn-primary btn-send">Submit</a>
                                             </div>
 
                                         </div>
@@ -312,9 +335,11 @@ function AddTransaksi() {
 
                                 </div>
 
+
+
                             </div>
 
-                            <div className="col-xl-3">
+                            {/* <div className="col-xl-3">
 
                                 <div className="invoice-actions">
 
@@ -529,8 +554,11 @@ function AddTransaksi() {
 
                                 </div>
 
-                            </div>
+                            </div> */}
+
+
                         </div>
+
 
 
                     </div>
@@ -557,17 +585,17 @@ function AddTransaksi() {
                     return total;
                 }()} />
 
-                <input type="text" name="nama_pembeli" value={model.nama} />
-                <input type="text" name="pembayaran" value={model.pembayaran} />
-                <input type="text" name="diskon" value={0} />
-                <input type="text" name="pajak" value={10} />
+                <input type="text" name="nomor_meja" value={model.nama} />
+                {/* <input type="text" name="pembayaran" value={model.pembayaran} /> */}
+                {/* <input type="text" name="diskon" value={0} /> */}
+                {/* <input type="text" name="pajak" value={10} /> */}
                 <input type="text" name="tipe" value={model.tipe} />
-                <input type="text" name="ongkir" value={function () {
+                {/* <input type="text" name="ongkir" value={function () {
                     let a = "" + model.ongkir;
                     a = a.replace(/[.]/g, '');
                     return a;
-                }()} />
-                <input type="text" name="lokasi_pembeli" value={model.lokasi_pembeli} />
+                }()} /> */}
+                {/* <input type="text" name="lokasi_pembeli" value={model.lokasi_pembeli} /> */}
                 <input type="text" name="menu" value={JSON.stringify(menuList)} />
             </form>
         </React.Fragment>
