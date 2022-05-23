@@ -1,9 +1,28 @@
 <!--  BEGIN NAVBAR  -->
+<?php
+session_start();
+
+$conn = mysqli_connect("server2.jagoankodecloud.com", "okokmyid_user_dev", "rahasia721", "okokmyid_ta1_dev");
+
+if (!$conn) {
+?>
+    <script>
+        alert('<?php echo mysqli_connect_error(); ?>')
+    </script>
+<?php
+} else {
+    $result = mysqli_query($conn, "SELECT * FROM restoran");
+    $data_restoran = mysqli_fetch_assoc($result);
+    $_SESSION['restoran'] = $data_restoran;
+}
+?>
 <div class="header-container fixed-top">
     <header class="header navbar navbar-expand-sm" id="header-nav">
         <ul class="navbar-nav theme-brand flex-row text-center justify-content-between">
             <li class="nav-item theme-text ml-4">
-                <a href="index.php" class="nav-link" style="white-space: nowrap;"> Aplikasi Kasir </a>
+                <a href="index.php" class="nav-link text-capitalize" style="white-space: nowrap;">
+                    <?= $_SESSION['restoran']['nama_restoran'] ?>
+                </a>
             </li>
             <li id="togle-pliss" class="nav-item toggle-sidebar mx-2 mr-4">
                 <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">

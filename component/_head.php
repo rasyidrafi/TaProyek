@@ -71,6 +71,7 @@
 <link href="../plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
 <link href="../plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
 <!--  END CUSTOM STYLE FILE  -->
+<link href="assets/css/users/account-setting.css" rel="stylesheet" type="text/css" />
 
 <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>

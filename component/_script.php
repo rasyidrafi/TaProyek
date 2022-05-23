@@ -18,6 +18,9 @@
 <script src="../assets/js/apps/invoice-preview.js"></script>
 <script src="../assets/js/elements/tooltip.js"></script>
 
+<script src="plugins/blockui/jquery.blockUI.min.js"></script>
+<script src="assets/js/users/account-settings.js"></script>
+
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->

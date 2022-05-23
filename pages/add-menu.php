@@ -149,11 +149,30 @@ if (isset($_POST['harga'])) {
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
+                        <script>
+                            let handleInput = (event) => {
+                                event.target.value = event.target.value.replace(/[^0-9]/g, '')
+                                if (event.target.value.startsWith('0')) {
+                                    event.target.value = event.target.value.substr(1)
+                                }
+                            }
+
+                            let handleChange = () => {
+                                let allBahan = JSON.parse(document.getElementById('data-bahan').innerHTML);
+
+                                let id = document.getElementById('id-nya').value;
+                                let currentBahan = allBahan.find(bahan => bahan.id == id);
+                                let satuan_porsi = currentBahan.satuan_porsi;
+
+                                document.getElementById("satuan-porsi-nye").innerHTML = satuan_porsi;
+                            }
+                        </script>
+
                         <form id="add-bahan-form">
                             <div class="form-group mb-3">
                                 <input type="hidden" id="nama-nya">
                                 <small class="form-text text-muted">Pilih Bahan</small>
-                                <select id="id-nya" class="form-control basic">
+                                <select id="id-nya" class="form-control basic" onchange="handleChange()">
                                     <?php
                                     foreach ($data_bahan as $key => $value) {
                                         echo "<option value='$value[id]'>$value[nama]</option>";
@@ -161,17 +180,15 @@ if (isset($_POST['harga'])) {
                                     ?>
                                 </select>
                             </div>
-                            <script>
-                                let handleInput = (event) => {
-                                    event.target.value = event.target.value.replace(/[^0-9]/g,'')
-                                    if (event.target.value.startsWith('0')) {
-                                        event.target.value = event.target.value.substr(1)
-                                    }
-                                }
-                            </script>
+
                             <div class="form-group mb-3">
-                                <small class="form-text text-muted">Jumlah yg dibutuhkan</small>
-                                <input id="jumlah-nya" value="1" id="jumlah_butuh" name="jumlah" oninput="handleInput(event)" class="jumlah_butuh form-control" placeholder="Jumlah">
+                                <small class="form-text text-muted">Porsi yg dibutuhkan</small>
+                                <div class="input-group">
+                                    <input id="jumlah-nya" value="1" id="jumlah_butuh" name="jumlah" oninput="handleInput(event)" class="jumlah_butuh form-control" placeholder="Jumlah">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="satuan-porsi-nye"></span>
+                                    </div>
+                                </div>
                             </div>
                             <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
                         </form>
@@ -189,11 +206,11 @@ if (isset($_POST['harga'])) {
                 $(`#${id}`).remove();
             }
 
-            allBahan =  JSON.parse($("#data-bahan").html().trim());
+            allBahan = JSON.parse($("#data-bahan").html().trim());
 
             $("#add-bahan-form").submit(e => {
                 e.preventDefault();
-                
+
 
                 let id = $("#id-nya").val();
                 let jumlah = $("#jumlah-nya").val();
