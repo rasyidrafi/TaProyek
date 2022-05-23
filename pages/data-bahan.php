@@ -25,10 +25,13 @@ if ($result && mysqli_num_rows($result)) {
 <script src="../plugins/table/datatable/datatables.js"></script>
 
 <script>
-    let setBahanSaatIni = (id, nama, stok) => {
+    let setBahanSaatIni = (id, nama, porsi_saat_ini, satuan, satuan_porsi, porsi) => {
         $("#id_bahan").val(id);
         $(".nama_bahan").val(nama);
-        $(".stok_sekarang").val(stok);
+        $(".porsi_sekarang").val(porsi_saat_ini);
+        $("#satuan-porsi").html(satuan_porsi);
+        $(".satuan-bahan").html(satuan);
+        $(".porsi").html(porsi);
     }
 
     let hapusBahan = (id) => {
@@ -62,10 +65,12 @@ if ($result && mysqli_num_rows($result)) {
                                     <tr>
                                         <th>Nama Bahan</th>
                                         <th>Stok Awal</th>
-                                        <th>Jumlah Terpakai</th>
                                         <th>Jumlah Tambahan</th>
-                                        <th>Stok Sekarang</th>
                                         <th>Satuan</th>
+                                        <th>1 Bahan Menghasilkan Porsi</th>
+                                        <th>Porsi Terpakai</th>
+                                        <th>Porsi Saat Ini</th>
+                                        <th>Satuan Porsi</th>
                                         <th>Tgl Dibuat</th>
                                         <th>Action</th>
                                     </tr>
@@ -78,10 +83,12 @@ if ($result && mysqli_num_rows($result)) {
                                         <tr>
                                             <td><?= $value['nama'] ?></td>
                                             <td><?= $value['stok_awal'] ?></td>
-                                            <td><?= $value['jumlah_terpakai'] ?></td>
                                             <td><?= $value['jumlah_tambahan'] ?></td>
-                                            <td><?= ($value['stok_awal'] + $value['jumlah_tambahan']) - $value['jumlah_terpakai'] ?></td>
                                             <td class="text-capitalize"><?= $value['satuan'] ?></td>
+                                            <td><?= $value['porsi'] ?></td>
+                                            <td><?= $value['porsi_terpakai'] ?></td>
+                                            <td><?= ($value['stok_awal'] + $value['jumlah_tambahan']) * $value['porsi'] ?></td>
+                                            <td class="text-capitalize"><?= $value['satuan_porsi'] ?></td>
                                             <td><?= date("d-m-Y H:i", strtotime($value['created_at'])) ?></td>
                                             <td>
                                                 <div class="d-flex justify-content-center align-items-center" style="gap: 10px;">
@@ -93,7 +100,7 @@ if ($result && mysqli_num_rows($result)) {
                                                     <?php
                                                     } ?>
 
-                                                    <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#addStokModal" onclick="setBahanSaatIni(`<?= $value['id'] ?>`, `<?= $value['nama'] ?>`, `<?= ($value['stok_awal'] + $value['jumlah_tambahan']) - $value['jumlah_terpakai'] ?>`)">
+                                                    <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#addStokModal" onclick="setBahanSaatIni(`<?= $value['id'] ?>`, `<?= $value['nama'] ?>`, `<?= ($value['stok_awal'] + $value['jumlah_tambahan']) * $value['porsi'] ?>`, `<?= $value['satuan'] ?>`, `<?= $value['satuan_porsi'] ?>`, `<?= $value['porsi'] ?>`)">
                                                         Edit
                                                     </button>
                                                 </div>
@@ -128,7 +135,19 @@ if ($result && mysqli_num_rows($result)) {
                             <input oninput="event.target.value = event.target.value.replace(/[^0-9]/g,'');" required type="number" min="0" class="form-control" id="sPassword" placeholder="Stok Awal" name="stok_awal">
                         </div>
                         <div class="form-group mb-3">
-                            <input type="text" class="form-control" id="sEmail" aria-describedby="emailHelp1" placeholder="Satuan" name="satuan">
+                            <input type="text" class="form-control" id="sEmail" aria-describedby="emailHelp1" placeholder="Satuan Bahan" name="satuan">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <input type="number" class="form-control mb-1" id="porsi" aria-describedby="emailHelp1" placeholder="Porsi" name="porsi">
+                            <span>1 Bahan dapat menghasilkan berapa porsi</span><br>
+                            <span>Contoh: 1Kg daging menghasilkan 1000 Gram Daging</span><br>
+                            <span>Contoh: 1Kg Kopi Bubuk menghasilkan 10 Bungkus</span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <input type="text" class="form-control" id="sEmail" aria-describedby="emailHelp1" placeholder="Satuan Porsi" name="satuan_porsi">
+                            <span>Contoh: Bungkus, Gram, Lapis</span><br>
                         </div>
                         <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
                     </form>
@@ -150,11 +169,23 @@ if ($result && mysqli_num_rows($result)) {
                             <input name="nama" class="nama_bahan form-control" placeholder="Nama">
                         </div>
                         <div class="form-group mb-3">
-                            <small class="form-text text-muted">Stok Sekarang</small>
-                            <input readonly class="stok_sekarang form-control" placeholder="Stok Sekarang">
+                            <small class="form-text text-muted">Porsi Sekarang</small>
+                            <div class="input-group">
+                                <input readonly class="porsi_sekarang form-control" placeholder="Porsi Sekarang">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="satuan-porsi"></span>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="form-group mb-3">
-                            <input required type="number" min="0" oninput="event.target.value = event.target.value.replace(/[^0-9]/g,'');" class="form-control" placeholder="Stok Tambahan" name="stok_tambahan">
+                            <div class="input-group">
+                                <input required type="number" min="0" oninput="event.target.value = event.target.value.replace(/[^0-9]/g,'');" class="form-control" placeholder="Stok Tambahan" name="stok_tambahan">
+                                <div class="input-group-append">
+                                    <span class="input-group-text satuan-bahan"></span>
+                                </div>
+                            </div>
+                            <small>Setiap 1 <span class="satuan-bahan"></span> akan menambah sebanyak <span class="porsi"></span> Porsi</small>
                         </div>
                         <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
                     </form>
@@ -187,7 +218,9 @@ if ($result && mysqli_num_rows($result)) {
             "stripeClasses": [],
             "lengthMenu": [7, 10, 20, 50],
             "pageLength": 10,
-            "order": [[6, 'desc']],
+            "order": [
+                [6, 'desc']
+            ],
         });
     }
 
