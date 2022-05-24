@@ -15,8 +15,8 @@ if ($_SESSION["role"] == "admin") {
   header("Location: admin/index.php"); // alihkan ke halaman index admin
   exit;
 
-  // jika ada user yang login sebagai pegawai 1 atau pegawai 2
-} elseif ($_SESSION["role"] == "pegawai-2") {
+  // jika ada user yang login sebagai pegawai 1 atau Waiters
+} elseif ($_SESSION["role"] == "waiters") {
   header("Location: pegawai/index.php"); // alihkan ke halaman index pegawai
   exit;
   // jika ada user yang login sebagai selain admin atau pegawai
