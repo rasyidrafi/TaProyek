@@ -15,7 +15,7 @@ $data = [];
 if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
     $q = "SELECT transaksi.*, username  FROM `transaksi` LEFT JOIN users on pegawai_id = users.id";
     if ($_SESSION['role'] == 'kasir') {
-        $q .= " where status != 'menunggu' AND kasir_id = '" . $_SESSION['id'] . "'";
+        $q .= " where status != 'menunggu pembayaran' AND kasir_id = '" . $_SESSION['id'] . "'";
     }
     $result = mysqli_query($conn, $q);
     if ($result && mysqli_num_rows($result)) {
@@ -45,7 +45,7 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                 <div class="widget-content widget-content-area br-6">
                     <div class="col-12">
-                        <?php if ($_SESSION['role'] == "pegawai-2") {
+                        <?php if ($_SESSION['role'] == "waiters") {
                         ?>
                             <a href="../pegawai/add-transaksi.php" class="btn btn-primary my-2">Tambah Transaksi</a>
                         <?php
@@ -55,6 +55,7 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
                                 <thead>
                                     <tr>
                                         <th>Nama Pembeli</th>
+                                        <th>Tipe Pembelian</th>
                                         <?php if ($_SESSION["role"] == "admin" || $_SESSION['role'] == "kasir") { ?>
                                             <th>Nama Pegawai</th>
                                         <?php } ?>
@@ -72,7 +73,8 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
                                     foreach ($data as $key => $value) {
                                     ?>
                                         <tr>
-                                            <td><?= $value['nama_pembeli'] ?></td>
+                                            <td><?= $value['nomor_meja'] ?></td>
+                                            <td class="text-capitalize"><?= $value['tipe'] ?></td>
                                             <?php if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") { ?>
                                                 <td><?= $value['username'] ?></td>
                                             <?php } ?>
@@ -154,7 +156,7 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
             "lengthMenu": [7, 10, 20, 50],
             "pageLength": 10,
             order: [
-                [2, "desc"]
+                [3, "desc"]
             ],
         });
     }

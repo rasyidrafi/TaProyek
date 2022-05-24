@@ -1,7 +1,7 @@
 <!--  BEGIN SIDEBAR  -->
 <div class="sidebar-wrapper sidebar-theme">
     <nav id="sidebar">
-        <div class="profile-info">
+        <div class="profile-info" id="profile-info-panel">
             <div class="user-info py-0 h-100 pt-4">
                 <h6 class=""><?php echo $_SESSION["email"] ?></h6>
                 <p class=""><?php echo $_SESSION["role"] ?></p>
@@ -9,6 +9,29 @@
         </div>
         <div class="shadow-bottom"></div>
         <!-- BEGIN SIDEBAR ADMIN -->
+        <script>
+            let calculateHeight = () => {
+                let windowHeight = $(window).height();
+                let headerHeight = $("#header-nav").height();
+                let profileIndoHeight = $("#profile-info-panel").height();
+                let sidebarHeight = windowHeight - headerHeight - profileIndoHeight;
+                return sidebarHeight;
+            }
+
+            $(document).ready(function() {
+                let allNav = document.getElementsByClassName("menu-categories");
+                for (let i = 0; i < allNav.length; i++) {
+                    allNav[i].style.height = calculateHeight() + "px";
+                }
+
+                window.addEventListener("resize", function() {
+                    let allNav = document.getElementsByClassName("menu-categories");
+                    for (let i = 0; i < allNav.length; i++) {
+                        allNav[i].style.height = calculateHeight() + "px";
+                    }
+                });
+            })
+        </script>
         <?php if ($_SESSION["role"] == "admin") { ?>
             <ul class="list-unstyled menu-categories" id="accordionExample">
                 <li class="menu">
@@ -110,7 +133,7 @@
         } ?>
 
         <!-- BEGIN SIDEBAR PEGAWAI -->
-        <?php if ($_SESSION["role"] == "pegawai-2") {
+        <?php if ($_SESSION["role"] == "waiters") {
         ?>
 
             <ul class="list-unstyled menu-categories" id="accordionExample">

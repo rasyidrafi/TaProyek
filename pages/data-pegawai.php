@@ -230,7 +230,7 @@ if ($res && mysqli_num_rows($res)) {
                             <select name="akses" id="akses" class="form-control mb-4">
                                 <option value="kasir">Kasir</option>
                                 <option value="pegawai-1">Pegawai 1</option>
-                                <option value="pegawai-2">Pegawai 2</option>
+                                <option value="waiters">Waiters</option>
                             </select>
                         </div>
                         <button id="add-user-btn" type="submit" class="btn btn-primary mt-2 mb-2 btn-block">Submit</button>

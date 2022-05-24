@@ -81,7 +81,10 @@ if (!isset($_SESSION["role"])) {
                                                             <div class="row">
 
                                                                 <div class="col-sm-6 col-12 mr-auto">
-
+                                                                    <div class="d-flex">
+                                                                        <img class="company-logo" src="<?= $_SESSION['restoran']['logo'] ?>" alt="logo restoran">
+                                                                        <h3 class="in-heading align-self-center"><?= $_SESSION['restoran']['nama_restoran'] ?></h3>
+                                                                    </div>
                                                                 </div>
 
                                                                 <div class="col-sm-6 text-sm-right">
@@ -89,8 +92,11 @@ if (!isset($_SESSION["role"])) {
                                                                 </div>
 
                                                                 <div class="col-sm-6 align-self-center mt-3">
-
+                                                                    <p class="inv-street-addr"><?= $_SESSION['restoran']['alamat'] ?></p>
+                                                                    <!-- <p class="inv-email-address">info@company.com</p> -->
+                                                                    <p class="inv-email-address"><?= $_SESSION['restoran']['nomor'] ?></p>
                                                                 </div>
+
                                                                 <div class="col-sm-6 align-self-center mt-3 text-sm-right">
                                                                     <p class="inv-created-date"><span class="inv-title">Tanggal : </span> <span class="inv-date">
                                                                             <?= date('d-m-Y', strtotime($transaksi['created_at'])) ?>
@@ -115,7 +121,15 @@ if (!isset($_SESSION["role"])) {
 
                                                                 <div class="col-xl-8 col-lg-7 col-md-6 col-sm-4">
                                                                     <p class="inv-customer-name text-capitalize">
-                                                                        <?= $transaksi['nama_pembeli'] ?>
+                                                                        <?php
+                                                                        if ($transaksi['tipe'] == 'online') {
+                                                                            echo "Nama Pembeli";
+                                                                        } else {
+                                                                            echo "Nomor Meja";
+                                                                        }
+
+                                                                        ?>
+                                                                        <?= $transaksi['nomor_meja'] ?>
                                                                     </p>
                                                                 </div>
 
@@ -271,7 +285,7 @@ if (!isset($_SESSION["role"])) {
 
                                             <div class="row">
                                                 <?php
-                                                if ($transaksi['status'] != 'selesai' && $_SESSION['role'] == 'kasir' && $transaksi['status'] != 'menunggu') {
+                                                if ($transaksi['status'] != 'selesai' && $_SESSION['role'] == 'kasir' && $transaksi['status'] != 'menunggu pembayaran') {
                                                 ?>
                                                     <div class="col-xl-12 col-md-3 col-sm-6">
                                                         <a href="javascript:void(0);" class="btn btn-success btn-send">Proses</a>
@@ -286,9 +300,9 @@ if (!isset($_SESSION["role"])) {
                                                         <span class="text-danger text-center d-block">perlu diproses terlebih dahulu</span>
                                                     <?php
                                                     } else {
-                                                        ?> 
+                                                    ?>
                                                         <a href="javascript:void(0);" class="btn btn-secondary btn-print  action-print">Print</a>
-                                                        <?php
+                                                    <?php
                                                     } ?>
                                                 </div>
                                             </div>

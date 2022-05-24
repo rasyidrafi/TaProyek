@@ -1,5 +1,4 @@
 <?php
-session_start();
 $conn = mysqli_connect("server2.jagoankodecloud.com", "okokmyid_user_dev", "rahasia721", "okokmyid_ta1_dev");
 
 // cek koneksi database
@@ -54,10 +53,13 @@ if (!$conn) {
 
         <div class="row layout-top-spacing">
 
-            <div class="col-12 layout-spacing">
+            <div class="col-12 layout-spacing" id="pendapatan-bulan">
                 <div class="widget widget-chart-one">
                     <div class="widget-heading">
                         <h5 class="">Laporan Pendapatan Bulan Ini</h5>
+                        <button id="download-bulan" class="btn btn-sm btn-primary">
+                            Download
+                        </button>
                     </div>
 
                     <div class="widget-content">
@@ -67,10 +69,13 @@ if (!$conn) {
             </div>
 
 
-            <div class="col-12 layout-spacing">
+            <div class="col-12 layout-spacing" id="penjualan-bulan">
                 <div class="widget widget-chart-one">
                     <div class="widget-heading">
                         <h5 class="">Laporan Penjualan Bulan Ini</h5>
+                        <button id="download-bulan-2" class="btn btn-sm btn-primary">
+                            Download
+                        </button>
                     </div>
 
                     <div class="widget-content">
@@ -82,6 +87,8 @@ if (!$conn) {
 
     </div>
 </div>
+
+<div id="canvas-holder" class="d-none"></div>
 
 <script>
     var options1 = {
@@ -530,4 +537,30 @@ if (!$conn) {
 
     chart1.render();
     chart2.render();
+
+    var downloadCanvas = function() {
+        var link = document.createElement('a');
+        link.download = 'report.png';
+        let canvasHolderEL = document.getElementById("canvas-holder");
+        let canvasEl = canvasHolderEL.getElementsByTagName("canvas")[0];
+        link.href = canvasEl.toDataURL()
+        link.click();
+    }
+
+    $(document).ready(function() {
+        $("#download-bulan").click(() => {
+            html2canvas(document.getElementById('pendapatan-bulan')).then(function(canvas) {
+                $("#canvas-holder").empty();
+                $("#canvas-holder").append(canvas);
+                downloadCanvas();
+            });
+        })
+        $("#download-bulan-2").click(() => {
+            html2canvas(document.getElementById('penjualan-bulan')).then(function(canvas) {
+                $("#canvas-holder").empty();
+                $("#canvas-holder").append(canvas);
+                downloadCanvas();
+            });
+        })
+    })
 </script>

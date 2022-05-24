@@ -15,7 +15,7 @@ $data = [];
 if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
     $q = "SELECT transaksi.*, username  FROM `transaksi` LEFT JOIN users on pegawai_id = users.id";
     if ($_SESSION['role'] == "kasir") {
-        $q .= " where status = 'menunggu'";
+        $q .= " where status = 'menunggu pembayaran'";
     }
     $result = mysqli_query($conn, $q);
     if ($result && mysqli_num_rows($result)) {
@@ -45,7 +45,7 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
                 <div class="widget-content widget-content-area br-6">
                     <div class="col-12">
-                        <?php if ($_SESSION['role'] == "pegawai-2") {
+                        <?php if ($_SESSION['role'] == "waiters") {
                         ?>
                             <a href="../pegawai/add-transaksi.php" class="btn btn-primary my-2">Tambah Transaksi</a>
                         <?php
@@ -106,7 +106,7 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
                                                     <?php
                                                     } ?>
 
-                                                    <?php if ($_SESSION['role'] == "kasir" && $value['status'] == "menunggu") {
+                                                    <?php if ($_SESSION['role'] == "kasir" && $value['status'] == "menunggu pembayaran") {
                                                     ?>
                                                         <a class="btn btn-sm btn-warning" href="../kasir/pembayaran.php?id=<?= $value['id'] ?>">
                                                             Proses
@@ -115,7 +115,7 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
                                                     }
                                                     ?>
 
-                                                    <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'pegawai-2') {
+                                                    <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'waiters') {
                                                     ?>
                                                         <a class="btn btn-sm btn-primary" href="../pegawai/detail-transaksi.php?id=<?= $value['id'] ?>">
                                                             Detail

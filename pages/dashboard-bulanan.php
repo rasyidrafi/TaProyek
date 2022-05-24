@@ -1,5 +1,4 @@
 <?php
-session_start();
 $conn = mysqli_connect("server2.jagoankodecloud.com", "okokmyid_user_dev", "rahasia721", "okokmyid_ta1_dev");
 
 // cek koneksi database
@@ -93,11 +92,11 @@ if (!$conn) {
 
         <div class="row layout-top-spacing">
 
-            <div class="col-12 layout-spacing">
+            <div class="col-12 layout-spacing" id="pendapatan-tahun">
                 <div class="widget widget-chart-one">
                     <div class="widget-heading d-flex justify-content-between">
                         <h5 class="">Laporan Pendapatan Tahun Ini</h5>
-                        <button class="btn btn-sm btn-primary">
+                        <button id="download-tahun" class="btn btn-sm btn-primary">
                             Download
                         </button>
                     </div>
@@ -109,10 +108,13 @@ if (!$conn) {
             </div>
 
 
-            <div class="col-12 layout-spacing">
+            <div class="col-12 layout-spacing" id="penjualan-tahun">
                 <div class="widget widget-chart-one">
                     <div class="widget-heading">
                         <h5 class="">Laporan Penjualan Tahun Ini</h5>
+                        <button id="download-tahun-2" class="btn btn-sm btn-primary">
+                            Download
+                        </button>
                     </div>
 
                     <div class="widget-content">
@@ -124,6 +126,8 @@ if (!$conn) {
 
     </div>
 </div>
+
+<div id="canvas-holder" class="d-none"></div>
 
 <script>
     var options1 = {
@@ -572,4 +576,30 @@ if (!$conn) {
 
     chart1.render();
     chart2.render();
+
+    var downloadCanvas = function() {
+        var link = document.createElement('a');
+        link.download = 'report.png';
+        let canvasHolderEL = document.getElementById("canvas-holder");
+        let canvasEl = canvasHolderEL.getElementsByTagName("canvas")[0];
+        link.href = canvasEl.toDataURL()
+        link.click();
+    }
+
+    $(document).ready(function() {
+        $("#download-tahun").click(() => {
+            html2canvas(document.getElementById('pendapatan-tahun')).then(function(canvas) {
+                $("#canvas-holder").empty();
+                $("#canvas-holder").append(canvas);
+                downloadCanvas();
+            });
+        })
+        $("#download-tahun-2").click(() => {
+            html2canvas(document.getElementById('penjualan-tahun')).then(function(canvas) {
+                $("#canvas-holder").empty();
+                $("#canvas-holder").append(canvas);
+                downloadCanvas();
+            });
+        })
+    })
 </script>
