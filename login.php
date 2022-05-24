@@ -13,6 +13,10 @@ if (!$conn) {
 <?php
 }
 
+
+$result = mysqli_query($conn, "SELECT * FROM restoran");
+$data_restoran = mysqli_fetch_assoc($result);
+
 //apabila tombol login ditekan
 if (isset($_POST["login"])) {
 
@@ -54,7 +58,7 @@ if (isset($_POST["login"])) {
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
-  <title>Login</title>
+  <title><?= $data_restoran['nama_restoran'] ?></title>
   <link rel="icon" type="image/x-icon" href="./assets/img/favicon.ico" />
   <!-- BEGIN GLOBAL MANDATORY STYLES -->
   <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet" />
@@ -90,7 +94,7 @@ if (isset($_POST["login"])) {
       <div class="form-form-wrap">
         <div class="form-container">
           <div class="form-content shadow-lg p-3 mb-5 bg-body rounded mt-5 px-4">
-            <h1 class="">Aplikasi Kasir</h1>
+            <h1 class="text-capitalize"><?= $data_restoran['nama_restoran'] ?></h1>
             <p class="">Log in to your account to continue.</p>
 
             <!-- Jika Email / password salah, tampilkan pesan kesalahan -->

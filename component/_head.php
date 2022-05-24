@@ -1,7 +1,15 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
-<title>Aplikasi Kasir</title>
+<title><?php
+    if (isset($data_restoran['nama_restoran'])) {
+        echo $data_restoran['nama_restoran'];
+    } else if (isset($_SESSION['restoran']['nama_restoran'])) {
+        echo $_SESSION['restoran']['nama_restoran'];
+    } else {
+        echo "Aplikasi Kasir";
+    }
+?></title>
 <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" />
 <link href="../assets/css/loader.css" rel="stylesheet" type="text/css" />
 <script src="../assets/js/loader.js"></script>
