@@ -217,7 +217,7 @@ if (!isset($_SESSION["role"])) {
                                                                                 </p>
                                                                             </div>
                                                                             <div class="col-sm-8 col-7">
-                                                                                <p class="">Pajak: </p>
+                                                                                <p class="">Pajak <?= $transaksi['pajak'] ?>%:</p>
                                                                             </div>
                                                                             <div class="col-sm-4 col-5">
                                                                                 <p class="">
@@ -226,7 +226,7 @@ if (!isset($_SESSION["role"])) {
                                                                                     foreach ($detail_transaksi as $key => $value) {
                                                                                         $harga = str_replace(".", "", $value['harga']);
                                                                                         $total = $total + (int)$harga * (int)$value['jumlah'];
-                                                                                        $total = ($total * 0.1);
+                                                                                        $total = ($total * ($transaksi['pajak'] / 100));
                                                                                     }
                                                                                     echo "<script>
                                                                         document.write(formatRupiah('$total'))
@@ -238,8 +238,20 @@ if (!isset($_SESSION["role"])) {
                                                                                 <p class=" discount-rate">Discount:</p>
                                                                             </div>
                                                                             <div class="col-sm-4 col-5">
-                                                                                <p class="">-</p>
+                                                                                <p class=""><?= $transaksi['diskon'] ?></p>
                                                                             </div>
+                                                                            <!--  -->
+                                                                            <?php if ($transaksi['tipe'] == 'online') {
+                                                                            ?>
+                                                                                <div class="col-sm-8 col-7">
+                                                                                    <p class=" discount-rate">Ongkir:</p>
+                                                                                </div>
+                                                                                <div class="col-sm-4 col-5">
+                                                                                    <p class=""><?= $transaksi['ongkir'] ?></p>
+                                                                                </div>
+                                                                            <?php
+                                                                            } ?>
+                                                                            <!--  -->
                                                                             <div class="col-sm-8 col-7 grand-total-title">
                                                                                 <h4 class="">Grand Total : </h4>
                                                                             </div>
@@ -250,8 +262,10 @@ if (!isset($_SESSION["role"])) {
                                                                                     foreach ($detail_transaksi as $key => $value) {
                                                                                         $harga = str_replace(".", "", $value['harga']);
                                                                                         $total = $total + (int)$harga * (int)$value['jumlah'];
-                                                                                        $total =  $total + ($total * 0.1);
                                                                                     }
+                                                                                    $subtotal = $total - $transaksi['diskon'];
+                                                                                    $real = $subtotal + ($subtotal * ($transaksi['pajak'] / 100));
+                                                                                    $total = $real + $transaksi['ongkir'];
                                                                                     echo "<script>
                                                                         document.write(formatRupiah('$total'))
                                                                     </script>";
@@ -284,17 +298,8 @@ if (!isset($_SESSION["role"])) {
                                         <div class="invoice-action-btn">
 
                                             <div class="row">
-                                                <?php
-                                                if ($transaksi['status'] != 'selesai' && $_SESSION['role'] == 'kasir' && $transaksi['status'] != 'menunggu pembayaran') {
-                                                ?>
-                                                    <div class="col-xl-12 col-md-3 col-sm-6">
-                                                        <a href="javascript:void(0);" class="btn btn-success btn-send">Proses</a>
-                                                    </div>
-                                                <?php
-                                                }
-                                                ?>
                                                 <div class="col-xl-12 col-md-3 col-sm-6">
-                                                    <?php if ($transaksi['status'] != 'selesai') {
+                                                    <?php if ($transaksi['status'] != 'selesai' && $transaksi['status'] != "perlu dikirim") {
                                                     ?>
                                                         <a href="javascript:void(0);" class="disabled  mb-0 btn btn-secondary btn-print  action-print">Print</a>
                                                         <span class="text-danger text-center d-block">perlu diproses terlebih dahulu</span>

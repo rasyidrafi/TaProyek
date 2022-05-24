@@ -117,7 +117,7 @@ if (!isset($_SESSION["role"])) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-3">
+                                            <div class="col-auto">
                                                 <div class="form-group mb-4">
                                                     <label for="number">Status Transaksi</label>
                                                     <span class="d-flex align-items-center form-control form-control-sm text-capitalize">

@@ -123,7 +123,7 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
                                                     <?php
                                                     } ?>
 
-                                                    <?php if ($value['status'] != "menunggu") {
+                                                    <?php if ($value['status'] != "menunggu pembayaran") {
                                                     ?>
                                                         <a class="btn btn-sm btn-primary" href="../pages/nota-transaksi.php?id=<?= $value['id'] ?>">
                                                             Nota
@@ -176,7 +176,7 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
             "lengthMenu": [7, 10, 20, 50],
             "pageLength": 10,
             order: [
-                [2, "desc"]
+                [<?= $_SESSION['role'] == 'waiters' ? '2' : '6' ?>, "desc"]
             ],
         });
     }

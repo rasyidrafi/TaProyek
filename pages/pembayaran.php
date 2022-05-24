@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 $conn = mysqli_connect("server2.jagoankodecloud.com", "okokmyid_user_dev", "rahasia721", "okokmyid_ta1_dev");
 
 $data_menu = [];
@@ -38,6 +36,9 @@ if (!isset($_SESSION["role"])) {
 <div id="content" class="main-content">
     <span id="all-menu" class="d-none"><?= json_encode($data_menu); ?></span>
     <div class="layout-px-spacing" id="root">
+        <script>
+            let globalDiskon = 0;
+        </script>
         <div class="row invoice layout-top-spacing layout-spacing">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
@@ -55,14 +56,25 @@ if (!isset($_SESSION["role"])) {
                                         <div class="row justify-content-between">
                                             <div class="col-12 invoice-address-client">
 
-                                                <h4>Data Customer:</h4>
+                                                <h4>Data Transaksi:</h4>
+
+                                                <div class="invoice-address-client-fields">
+                                                    <div class="form-group row mb-4">
+                                                        <label class="col-sm-3 col-form-label col-form-label-sm">Tipe Pembelian</label>
+                                                        <div class="col-sm-9">
+                                                            <span class="d-flex align-items-center form-control form-contorl-sm text-capitalize">
+                                                                <?= $transaksi['tipe']; ?>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                                 <div class="invoice-address-client-fields">
                                                     <div class="form-group row">
-                                                        <label for="nama_pembeli" class="col-sm-3 col-form-label col-form-label-sm">Nama Pembeli</label>
+                                                        <label for="nama_pembeli" class="col-sm-3 col-form-label col-form-label-sm"><?= $transaksi['tipe'] == 'online' ? "Nama Pembeli" : "Nomor Meja" ?></label>
                                                         <div class="col-sm-9">
                                                             <span class="d-flex align-items-center form-control form-contorl-sm">
-                                                                <?= $transaksi['nama_pembeli']; ?>
+                                                                <?= $transaksi['nomor_meja']; ?>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -98,7 +110,7 @@ if (!isset($_SESSION["role"])) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-3">
+                                            <div class="col-auto">
                                                 <div class="form-group mb-4">
                                                     <label for="number">Status Transaksi</label>
                                                     <span class="d-flex align-items-center form-control form-control-sm text-capitalize">
@@ -177,31 +189,30 @@ if (!isset($_SESSION["role"])) {
                                                         <div class="invoice-summary-label">Subtotal</div>
 
                                                         <div class="invoice-summary-value">
-                                                            <div class="subtotal-amount">
-                                                                <?php
-                                                                $total = 0;
-                                                                foreach ($detail_transaksi as $key => $value) {
-                                                                    $harga = str_replace(".", "", $value['harga']);
-                                                                    $total = $total + (int)$harga * (int)$value['jumlah'];
-                                                                }
-                                                                echo "<script>
-                                                                        document.write(formatRupiah('$total'))
-                                                                    </script>";
-                                                                ?>
+                                                            <div class="subtotal-amount" id="subtotal-real">
                                                             </div>
                                                         </div>
 
+                                                        <?php
+                                                        $total = 0;
+                                                        foreach ($detail_transaksi as $key => $value) {
+                                                            $harga = str_replace(".", "", $value['harga']);
+                                                            $total = $total + (int)$harga * (int)$value['jumlah'];
+                                                        }
+                                                        echo "<script>
+                                                            $('#subtotal-real').html(formatRupiah('$total'))
+                                                        </script>";
+                                                        ?>
+
                                                     </div>
-
-
 
                                                     <div class="invoice-totals-row invoice-summary-total">
 
                                                         <div class="invoice-summary-label">Discount</div>
 
                                                         <div class="invoice-summary-value">
-                                                            <div class="total-amount">
-                                                                -
+                                                            <div class="total-amount" id="diskon-real">
+                                                                0
                                                             </div>
                                                         </div>
 
@@ -213,25 +224,39 @@ if (!isset($_SESSION["role"])) {
 
                                                         <div class="invoice-summary-value">
                                                             <div class="tax-amount">
-                                                                <span>10%</span>
+                                                                <span id="pajak-real"><?= $_SESSION['restoran']['pajak'] ?></span>%
                                                             </div>
                                                         </div>
 
                                                     </div>
+
+                                                    <?php if ($transaksi['tipe'] == 'online') {
+                                                    ?>
+                                                        <div class="invoice-totals-row invoice-summary-tax">
+                                                            <div class="invoice-summary-label">Ongkir</div>
+                                                            <div class="invoice-summary-value">
+                                                                <div class="tax-amount">
+                                                                    <span id="ongkir-tampilan">0</span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    <?php
+                                                    } ?>
 
                                                     <div class="invoice-totals-row invoice-summary-balance-due">
 
                                                         <div class="invoice-summary-label">Total</div>
 
                                                         <div class="invoice-summary-value">
-                                                            <div class="balance-due-amount">
+                                                            <div class="balance-due-amount" id="total-real">
                                                                 <?php
                                                                 $total = 0;
                                                                 foreach ($detail_transaksi as $key => $value) {
                                                                     $harga = str_replace(".", "", $value['harga']);
                                                                     $total = $total + (int)$harga * (int)$value['jumlah'];
                                                                 }
-                                                                $totalPlusTax = $total + ($total * 0.1);
+                                                                $totalPlusTax = $total + ($total * ($_SESSION['restoran']['pajak'] / 100));
                                                                 echo "<script>
                                                                 document.write(formatRupiah('$totalPlusTax'))
                                                             </script>";
@@ -266,25 +291,10 @@ if (!isset($_SESSION["role"])) {
 
                                         <div class="row">
 
-                                            <div class="col-6">
-
-                                                <div class="form-group mb-0">
-                                                    <label for="type">Type</label>
-
-                                                    <div class="dropdown selectable-dropdown invoice-tax-select">
-                                                        <a class="dropdown-toggle">
-                                                            <span class="selectable-text">Total</span>
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-6">
+                                            <div class="col-12">
                                                 <div class="form-group mb-0 tax-rate-deducted">
-                                                    <label for="rate">Rate (%)</label>
-                                                    <input readonly type="number" class="form-control input-rate" id="rate" placeholder="Rate" value="10" />
+                                                    <label>Rate (%)</label>
+                                                    <input readonly type="number" class="form-control input-rate" placeholder="Rate" value="<?= $_SESSION['restoran']['pajak'] ?>" />
                                                 </div>
                                             </div>
                                         </div>
@@ -297,14 +307,22 @@ if (!isset($_SESSION["role"])) {
                                     <h5>Pembayaran</h5>
 
                                     <div class="invoice-action-discount-fields">
-
                                         <div class="row">
-
                                             <div class="col-12">
                                                 <div class="form-group mb-0">
-                                                    <span class="form-control form-control-sm d-flex align-items-center">
-                                                        <?= $transaksi['pembayaran'] ?>
-                                                    </span>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" required value="debit" id="debit" name="pembayaran" class="custom-control-input" />
+                                                        <label class="custom-control-label" for="debit">Debit</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input value="cash" required checked type="radio" id="cash" name="pembayaran" class="custom-control-input" />
+                                                        <label class="custom-control-label" for="cash">Cash</label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input value="qris" required type="radio" id="qris" name="pembayaran" class="custom-control-input" />
+                                                        <label class="custom-control-label" for="qris">QRIS</label>
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -317,19 +335,16 @@ if (!isset($_SESSION["role"])) {
 
                                 <div class="invoice-action-discount">
 
-                                    <h5>Tipe Pembelian</h5>
+                                    <h5>Diskon</h5>
 
                                     <div class="invoice-action-discount-fields">
 
                                         <div class="row">
-
                                             <div class="col-12">
-                                                <div class="form-group mb-0">
-                                                    <span class="form-control form-control-sm d-flex align-items-center">
-                                                        <?= $transaksi['tipe'] ?>
-                                                    </span>
+                                                <div class="form-group mb-0 discount-amount">
+                                                    <label for="rate">Nominal</label>
+                                                    <input type="number" class="form-control input-rate" id="rate" placeholder="Diskon" value="0" />
                                                 </div>
-
                                             </div>
 
                                         </div>
@@ -337,6 +352,7 @@ if (!isset($_SESSION["role"])) {
                                     </div>
 
                                 </div>
+
 
                                 <?php if ($transaksi['tipe'] == "online") {
                                 ?>
@@ -351,9 +367,7 @@ if (!isset($_SESSION["role"])) {
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group mb-0">
-                                                            <span class="form-control form-control-sm d-flex align-items-center">
-                                                                <?= $transaksi['lokasi_pembeli'] ?>
-                                                            </span>
+                                                            <textarea id="lokasi-real" class="form-control form-control-sm" rows="10"></textarea>
                                                         </div>
 
                                                     </div>
@@ -372,11 +386,7 @@ if (!isset($_SESSION["role"])) {
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group mb-0">
-                                                            <span class="form-control form-control-sm d-flex align-items-center">
-                                                                <script>
-                                                                    document.write(formatRupiah(`<?= $transaksi['ongkir'] ?>`))
-                                                                </script>
-                                                            </span>
+                                                            <input type="number" id="ongkir-real" class="form-control form-control-sm" oninput="event.target.value = event.target.value.replace(/[^0-9]/g,'')">
                                                         </div>
 
                                                     </div>
@@ -400,9 +410,9 @@ if (!isset($_SESSION["role"])) {
                                             <a href="javascript:void(0);" onclick="proses()" class="btn btn-success btn-send">Proses</a>
                                         </div>
 
-                                        <div class="col-xl-12 col-md-4">
+                                        <!-- <div class="col-xl-12 col-md-4">
                                             <a href="javascript:void(0);" onclick="nota()" class="btn btn-primary btn-send">Nota</a>
-                                        </div>
+                                        </div> -->
 
                                         <div class="col-xl-12 col-md-4">
                                             <a href="javascript:void(0);" onclick="really()" class="btn btn-danger btn-send">Tolak</a>
@@ -433,10 +443,58 @@ if (!isset($_SESSION["role"])) {
 <form id="proses-form" class="d-none" action="../pages/proses-transaksi.php" method="POST">
     <input type="text" value="<?= $transaksi['id'] ?>" name="id">
     <input type="text" id="uang-pembeli" name="total_bayar">
+    <input type="text" id="pembayaran-real" name="pembayaran">
+    <input type="text" id="diskon-final" name="diskon">
+    <input type="text" id="pajak-final" name="pajak">
+    <input type="text" id="lokasi-final" name="lokasi_pembeli">
+    <input type="text" id="ongkir-final" name="ongkir" value="0">
     <input type="text" name="tipe" value="<?= $transaksi['tipe'] ?>">
+    <input type="text" id="minimun-final" name="minimum">
 </form>
 
 <script>
+    let renderTotalReal = () => {
+        let diskon = $("#diskon-real").text().replace(/[^0-9]/g, '');
+        let subtotal = $("#subtotal-real").text().replace(/[^0-9]/g, '');
+        let pajak = $("#pajak-real").text().replace(/[^0-9]/g, '');
+        let totalPajak = (parseInt(subtotal) - parseInt(diskon)) * (parseInt(pajak) / 100);
+        let total = (parseInt(subtotal) - parseInt(diskon)) + parseInt(totalPajak);
+        let tipeIsReal = "<?= $transaksi['tipe']; ?>".trim();
+        if ("online" == tipeIsReal) {
+            let ongkir = $("#ongkir-real").val();
+            total = total + parseInt(ongkir);
+        }
+        $("#total-real").html(formatRupiah("" + total));
+    }
+
+    <?php
+    if ($transaksi['tipe'] == "online") {
+        ?>
+        document.getElementById("ongkir-real").addEventListener("input", function(e) {
+            let ongkir = e.target.value.replace(/[^0-9]/g, '');
+            $("#ongkir-final").val(ongkir);
+            if (!ongkir) ongkir = "0";
+            $("#ongkir-tampilan").html(formatRupiah("" + ongkir));
+            renderTotalReal();
+        });
+        <?php
+    }
+    ?>
+
+
+    document.getElementById("rate").addEventListener("input", (e) => {
+        let val = ("" + e.target.value).replace(/[^0-9]/g, "");
+        console.log(val);
+        e.target.value = val;
+        if (val == "" || val == "0") {
+            $("#diskon-real").html("0");
+        } else {
+            $("#diskon-real").html(formatRupiah(val));
+        }
+
+        renderTotalReal()
+    });
+
     let really = () => {
         Swal.fire({
             title: 'Anda yakin?',
@@ -455,8 +513,13 @@ if (!isset($_SESSION["role"])) {
     }
 
     let proses = () => {
-        let pembayaran = "<?= $transaksi['pembayaran'] ?>";
+        let selectedRadio = $("input[name='pembayaran']:checked").val();
+        let pembayaran = selectedRadio;
         pembayaran = pembayaran.trim();
+        $("#pembayaran-real").val(pembayaran);
+        $("#diskon-final").val($("#diskon-real").text().replace(/[^0-9]/g, ''));
+        $("#pajak-final").val($("#pajak-real").text().replace(/[^0-9]/g, ''));
+        $("#lokasi-final").val($("#lokasi-real").val());
 
         if (pembayaran == "cash") {
             Swal.fire({
@@ -467,18 +530,10 @@ if (!isset($_SESSION["role"])) {
             }).then((result) => {
                 if (result.value) {
 
-                    let minimal = `
-                    <?php
-                    $total = 0;
-                    foreach ($detail_transaksi as $key => $value) {
-                        $harga = str_replace(".", "", $value['harga']);
-                        $total = $total + (int)$harga * (int)$value['jumlah'];
-                    }
-                    $totalPlusTax = $total + ($total * 0.1);
-                    echo $totalPlusTax;
-                    ?>
-                    `;
+                    let minimal = "" + $("#total-real").text().replace(/[^0-9]/g, '');
                     minimal = minimal.trim();
+
+                    $("#minimun-final").val(minimal);
 
                     Swal.fire({
                         title: `Masukkan Uang Pembeli - Minimal ${formatRupiah(minimal)}`,
@@ -511,18 +566,10 @@ if (!isset($_SESSION["role"])) {
                 }
             })
         } else if (pembayaran == 'qris') {
-            let minimal = `
-                    <?php
-                    $total = 0;
-                    foreach ($detail_transaksi as $key => $value) {
-                        $harga = str_replace(".", "", $value['harga']);
-                        $total = $total + (int)$harga * (int)$value['jumlah'];
-                    }
-                    $totalPlusTax = $total + ($total * 0.1);
-                    echo $totalPlusTax;
-                    ?>
-                    `;
+            let minimal = "" + $("#total-real").text().replace(/[^0-9]/g, '');
             minimal = minimal.trim();
+
+            $("#minimun-final").val(minimal);
 
             Swal.fire({
                 title: 'Silahkan Scan untuk Membayar',

@@ -81,7 +81,12 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
                                             <td><?= date("d-m-Y H:i", strtotime($value['created_at'])); ?></td>
                                             <td>
                                                 <script>
-                                                    document.write(formatRupiah(`<?= $value['total_harga'] ?>`));
+                                                    document.write(formatRupiah(`<?php
+                                                                                    $subtotal = (int)$value['total_harga'] - (int)$value['diskon'];
+                                                                                    $real = $subtotal + ($subtotal * ($value['pajak'] / 100));
+                                                                                    $total = $real + $value['ongkir'];
+                                                                                    echo $total;
+                                                                                    ?>`));
                                                 </script>
                                             </td>
                                             <td>
@@ -109,9 +114,14 @@ if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "kasir") {
                                                     Detail
                                                 </a>
 
-                                                <a href="../pages/nota-transaksi.php?id=<?= $value['id'] ?>" class="btn btn-sm btn-primary">
-                                                    Nota
-                                                </a>
+                                                <?php if ($value['status'] == 'selesai' || $value['status'] == 'perlu dikirim') {
+                                                ?>
+                                                    <a href="../pages/nota-transaksi.php?id=<?= $value['id'] ?>" class="btn btn-sm btn-primary">
+                                                        Nota
+                                                    </a>
+                                                <?php
+                                                } ?>
+
                                             </td>
                                         </tr>
 

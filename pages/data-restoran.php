@@ -37,6 +37,17 @@
                                                             <label for="profession">Alamat Restoran</label>
                                                             <textarea placeholder="Alamat Restoran" name="alamat" class="form-control mb-4" id="profession" rows="10"><?= $_SESSION['restoran']['alamat'] ?></textarea>
                                                         </div>
+
+                                                        <div class="form-group">
+                                                            <label for="pajak">Pajak Restoran</label>
+                                                            <div class="input-group mb-5">
+                                                                <input oninput="event.target.value = event.target.value.replace(/[^0-9]/g,'')" class="form-control" type="number" name="pajak" id="pajak" value="<?= $_SESSION['restoran']['pajak'] ?>">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text" id="basic-addon6">%</span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -63,10 +74,11 @@
 </div>
 
 <form id="form-real" action="../pages/edit-restoran.php" class="d-none" method="POST">
-    <input type="text" name="logo" id="logo-real" value="">
+    <input type="text" name="logo" id="logo-real" value="<?= $_SESSION['restoran']['logo'] ?>">
     <input type="hidden" name="nama_restoran" id="nama_restoran-real" value="">
     <input type="hidden" name="nomor" id="nomor-real"" value="">
     <input type=" hidden" name="alamat" id="alamat-real" value="">
+    <input type="hidden" name="pajak" id="pajak-real" value="">
 </form>
 
 <script>
@@ -118,11 +130,13 @@
             let nama_restoran = $("#fullName").val();
             let nomor = $("#nomor").val();
             let alamat = $("#profession").val();
+            let pajak = $("#pajak").val();
 
             $("#logo-real").val(logo);
             $("#nama_restoran-real").val(nama_restoran);
             $("#nomor-real").val(nomor);
             $("#alamat-real").val(alamat);
+            $("#pajak-real").val(pajak);
 
             $("#form-real").submit();
         });

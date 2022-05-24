@@ -6,10 +6,11 @@
         $logo = $_POST['logo'];
         $alamat = $_POST['alamat'];
         $nomor = $_POST['nomor'];
+        $pajak = $_POST['pajak'];
 
         $conn = mysqli_connect("server2.jagoankodecloud.com", "okokmyid_user_dev", "rahasia721", "okokmyid_ta1_dev");
 
-        $sql = "UPDATE restoran SET nama_restoran = '$nama_restoran', logo = '$logo', alamat = '$alamat', nomor = '$nomor' WHERE id = 1";
+        $sql = "UPDATE restoran SET nama_restoran = '$nama_restoran', logo = '$logo', alamat = '$alamat', nomor = '$nomor', pajak = '$pajak' WHERE id = 1";
 
         $result = mysqli_query($conn, $sql);
 

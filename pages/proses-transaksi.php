@@ -13,6 +13,11 @@ if ($_POST['id']) {
     } else {
         $id = $_POST['id'];
         $total_bayar = $_POST['total_bayar'];
+        $pembayaran = $_POST['pembayaran'];
+        $diskon = $_POST['diskon'];
+        $pajak = $_POST['pajak'];
+        $lokasi_pembeli = $_POST['lokasi_pembeli'];
+        $ongkir = $_POST['ongkir'];
         $tipe = $_POST['tipe'];
 
         $detail_transaksi = [];
@@ -62,11 +67,11 @@ if ($_POST['id']) {
             $resultbhn = mysqli_query($conn, $qbhn);
             if ($resultbhn && mysqli_num_rows($resultbhn)) {
                 $bahan = mysqli_fetch_assoc($resultbhn);
-                $isNotEnaugh = (($bahan['stok_awal'] + $bahan['jumlah_tambahan']) - $bahan['jumlah_terpakai']) <= $dibutuhakan;
+                $isNotEnaugh = ((($bahan['stok_awal'] + $bahan['jumlah_tambahan']) * $bahan['porsi'] ) - $bahan['porsi_terpakai']) <= $dibutuhakan;
                 if ($isNotEnaugh) {
         ?>
                     <script>
-                        alert('<?php echo "Stok Bahan " . $bahan['nama'] . " Tidak Mencukupi"; ?>')
+                        alert('<?php echo "Porsi Bahan " . $bahan['nama'] . " Tidak Mencukupi"; ?>')
                         window.location.assign('../pegawai/index.php');
                     </script>
                 <?php
@@ -77,7 +82,7 @@ if ($_POST['id']) {
         }
 
         foreach ($list_all_bahan as $id_bahan => $dibutuhakan) {
-            $updtq = "UPDATE bahan set jumlah_terpakai = jumlah_terpakai + '$dibutuhakan' where id = '$id_bahan'";
+            $updtq = "UPDATE bahan set porsi_terpakai = porsi_terpakai + '$dibutuhakan' where id = '$id_bahan'";
             $updtqr = mysqli_query($conn, $updtq);
 
             if (!$updtqr) {
@@ -98,7 +103,10 @@ if ($_POST['id']) {
             $statusnya = "perlu dikirim";
         }
 
-        $donequery = "UPDATE transaksi set status = '$statusnya', total_bayar = '$total_bayar', total_kembali = '$total_bayar' - total_harga, kasir_id = '$_SESSION[id]' where id = '$id'";
+        $minimum = $_POST['minimum'];
+        $total_kembali = (int)$total_bayar - (int)$minimum;
+
+        $donequery = "UPDATE transaksi set status = '$statusnya', total_bayar = '$total_bayar', pembayaran = '$pembayaran', diskon = '$diskon', pajak = '$pajak', lokasi_pembeli = '$lokasi_pembeli', ongkir = '$ongkir', kasir_id = '$_SESSION[id]', total_kembali = '$total_kembali' where id = '$id'";
         $doneresult = mysqli_query($conn, $donequery);
 
         if ($doneresult) {
