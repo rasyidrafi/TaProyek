@@ -155,7 +155,6 @@ function AddTransaksi() {
                                                         <tr>
                                                             <th className=""></th>
                                                             <th>Menu</th>
-                                                            <th className="">Harga</th>
                                                             <th className="">Jumlah</th>
                                                         </tr>
                                                     </thead>
@@ -189,11 +188,11 @@ function AddTransaksi() {
                                                                         ))}
                                                                     </select>
                                                                 </td>
-                                                                <td className="rate">
+                                                                {/* <td className="rate">
                                                                     <span className="form-control form-control-sm d-flex align-items-center">
                                                                         {item.harga}
                                                                     </span>
-                                                                </td>
+                                                                </td> */}
                                                                 <td className="text-right qty">
                                                                     <input type="number" onInput={(e) => {
                                                                         e.target.value = e.target.value.trim().replace(/[^0-9]/g, '');

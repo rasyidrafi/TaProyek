@@ -240,11 +240,6 @@ function AddTransaksi() {
                                                         React.createElement(
                                                             "th",
                                                             { className: "" },
-                                                            "Harga"
-                                                        ),
-                                                        React.createElement(
-                                                            "th",
-                                                            { className: "" },
                                                             "Jumlah"
                                                         )
                                                     )
@@ -298,15 +293,6 @@ function AddTransaksi() {
                                                                             v.nama
                                                                         );
                                                                     })
-                                                                )
-                                                            ),
-                                                            React.createElement(
-                                                                "td",
-                                                                { className: "rate" },
-                                                                React.createElement(
-                                                                    "span",
-                                                                    { className: "form-control form-control-sm d-flex align-items-center" },
-                                                                    item.harga
                                                                 )
                                                             ),
                                                             React.createElement(
