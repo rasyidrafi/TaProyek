@@ -246,11 +246,6 @@ function AddTransaksi() {
                                                             "th",
                                                             { className: "" },
                                                             "Jumlah"
-                                                        ),
-                                                        React.createElement(
-                                                            "th",
-                                                            { className: "text-right" },
-                                                            "Total"
                                                         )
                                                     )
                                                 ),
@@ -326,21 +321,6 @@ function AddTransaksi() {
                                                                         menuList[index].jumlah = e.target.value;
                                                                         setMenuList([].concat(_toConsumableArray(menuList)));
                                                                     }, className: "form-control form-control-sm", placeholder: "Jumlah" })
-                                                            ),
-                                                            React.createElement(
-                                                                "td",
-                                                                { className: "text-right amount" },
-                                                                React.createElement(
-                                                                    "span",
-                                                                    { className: "d-flex align-items-center justify-content-center form-control form-control-sm" },
-                                                                    function () {
-                                                                        var harga = item.harga.toString();
-                                                                        harga = harga.replace(/[.]/g, '');
-                                                                        harga = parseInt(harga);
-                                                                        var total = "" + harga * item.jumlah;
-                                                                        return formatRupiahReact(total);
-                                                                    }()
-                                                                )
                                                             )
                                                         );
                                                     })

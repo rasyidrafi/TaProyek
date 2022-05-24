@@ -157,7 +157,6 @@ function AddTransaksi() {
                                                             <th>Menu</th>
                                                             <th className="">Harga</th>
                                                             <th className="">Jumlah</th>
-                                                            <th className="text-right">Total</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -205,17 +204,6 @@ function AddTransaksi() {
                                                                         menuList[index].jumlah = e.target.value;
                                                                         setMenuList([...menuList]);
                                                                     }} className="form-control form-control-sm" placeholder="Jumlah" />
-                                                                </td>
-                                                                <td className="text-right amount">
-                                                                    <span className="d-flex align-items-center justify-content-center form-control form-control-sm">
-                                                                        {function () {
-                                                                            let harga = item.harga.toString();
-                                                                            harga = harga.replace(/[.]/g, '');
-                                                                            harga = parseInt(harga);
-                                                                            let total = "" + harga * item.jumlah;
-                                                                            return formatRupiahReact(total);
-                                                                        }()}
-                                                                    </span>
                                                                 </td>
                                                             </tr>
                                                         ))}

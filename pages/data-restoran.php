@@ -18,6 +18,11 @@
                                                         <input type="file" name="File" id="input-file-max-fs" class="dropify" data-max-file-size="2M" />
                                                         <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i> Logo Restoran</p>
                                                     </div>
+
+                                                    <div class="upload mt-4 pr-md-4">
+                                                        <input type="file" name="File2" id="input-file-max-fs2" class="dropify" data-max-file-size="2M" />
+                                                        <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i> QRCODE QRIS</p>
+                                                    </div>
                                                 </div>
                                                 <div class="col-xl-9 col-lg-12 col-md-8 mt-md-0 mt-4">
                                                     <div class="form">
@@ -48,6 +53,22 @@
                                                             </div>
 
                                                         </div>
+
+                                                        <div class="form-group">
+                                                            <label for="rekening">Nomor Rekening Restoran</label>
+                                                            <div class="input-group mb-5">
+                                                                <input oninput="event.target.value = event.target.value.replace(/[^0-9]/g,'')" class="form-control" type="number" name="rekening_restoran" id="rekening" value="<?= $_SESSION['restoran']['rekening_restoran'] ?>">
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="rekening">Nama Bank</label>
+                                                            <div class="input-group mb-5">
+                                                                <input oninput="event.target.value = event.target.value.trim()" class="form-control" type="text" name="nama_bank" id="nama-bank" value="<?= $_SESSION['restoran']['nama_bank'] ?>">
+                                                            </div>
+
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -75,10 +96,13 @@
 
 <form id="form-real" action="../pages/edit-restoran.php" class="d-none" method="POST">
     <input type="text" name="logo" id="logo-real" value="<?= $_SESSION['restoran']['logo'] ?>">
+    <input type="text" name="qris" id="qr-real" value="<?= $_SESSION['restoran']['qris'] ?>">
     <input type="hidden" name="nama_restoran" id="nama_restoran-real" value="">
     <input type="hidden" name="nomor" id="nomor-real"" value="">
-    <input type=" hidden" name="alamat" id="alamat-real" value="">
+    <input type="hidden" name="alamat" id="alamat-real" value="">
     <input type="hidden" name="pajak" id="pajak-real" value="">
+    <input type="hidden" name="rekening_restoran" id="rekening-real" value="">
+    <input type="hidden" name="nama_bank" id="nama-bank-real" value="">
 </form>
 
 <script>
@@ -109,9 +133,24 @@
 
     function resetPreview(src, fname = '') {
         let input = $(`#input-file-max-fs`);
-        let wrapper = $('.dropify-wrapper');
-        let preview = $('.dropify-preview');
-        let filename = $('.dropify-filename-inner');
+        let wrapper = input.closest('.dropify-wrapper');
+        let preview = wrapper.find('.dropify-preview');
+        let filename = wrapper.find('.dropify-filename-inner');
+        let render = wrapper.find('.dropify-render').html('');
+
+        input.val('').attr('title', fname);
+        wrapper.removeClass('has-error').addClass('has-preview');
+        filename.html(fname);
+
+        render.append($('<img />').attr('src', src).css('max-height', input.data('height') || ''));
+        preview.fadeIn();
+    }
+
+    function resetPreview2(src, fname = '') {
+        let input = $(`#input-file-max-fs2`);
+        let wrapper = input.closest('.dropify-wrapper');
+        let preview = wrapper.find('.dropify-preview');
+        let filename = wrapper.find('.dropify-filename-inner');
         let render = wrapper.find('.dropify-render').html('');
 
         input.val('').attr('title', fname);
@@ -131,14 +170,23 @@
             let nomor = $("#nomor").val();
             let alamat = $("#profession").val();
             let pajak = $("#pajak").val();
+            let rekening = $("#rekening").val();
+            let nama_bank = $("#nama-bank").val();
 
             $("#logo-real").val(logo);
             $("#nama_restoran-real").val(nama_restoran);
             $("#nomor-real").val(nomor);
             $("#alamat-real").val(alamat);
             $("#pajak-real").val(pajak);
+            $("#rekening-real").val(rekening);
+            $("#nama-bank-real").val(nama_bank);
 
-            $("#form-real").submit();
+            let qrFile = document.getElementById("input-file-max-fs2").files;
+            filesToBase64(qrFile).then((resb64) => {
+                let qr = resb64[0];
+                $("#qr-real").val(qr);
+                $("#form-real").submit();
+            });
         });
     })
 </script>
@@ -150,6 +198,8 @@ if (isset($_SESSION['restoran']['logo'])) {
         $(function() {
             resetPreview("<?= $_SESSION['restoran']['logo'] ?>",
                 'logo.jpg');
+            resetPreview2("<?= $_SESSION['restoran']['qris'] ?>",
+                'qr.jpg');
         });
     </script>
 <?php

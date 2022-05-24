@@ -4,13 +4,16 @@
     if (isset($_POST['nama_restoran'])) {
         $nama_restoran = $_POST['nama_restoran'];
         $logo = $_POST['logo'];
+        $qris = $_POST['qris'];
         $alamat = $_POST['alamat'];
         $nomor = $_POST['nomor'];
         $pajak = $_POST['pajak'];
+        $rekening_restoran = $_POST['rekening_restoran'];
+        $nama_bank = $_POST['nama_bank'];
 
         $conn = mysqli_connect("server2.jagoankodecloud.com", "okokmyid_user_dev", "rahasia721", "okokmyid_ta1_dev");
 
-        $sql = "UPDATE restoran SET nama_restoran = '$nama_restoran', logo = '$logo', alamat = '$alamat', nomor = '$nomor', pajak = '$pajak' WHERE id = 1";
+        $sql = "UPDATE restoran SET nama_restoran = '$nama_restoran', logo = '$logo', alamat = '$alamat', nomor = '$nomor', pajak = '$pajak', qris = '$qris', rekening_restoran = '$rekening_restoran', nama_bank = '$nama_bank' WHERE id = 1";
 
         $result = mysqli_query($conn, $sql);
 

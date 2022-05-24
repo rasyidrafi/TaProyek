@@ -250,19 +250,20 @@ if (!isset($_SESSION["role"])) {
 
                                                         <div class="invoice-summary-value">
                                                             <div class="balance-due-amount" id="total-real">
-                                                                <?php
-                                                                $total = 0;
-                                                                foreach ($detail_transaksi as $key => $value) {
-                                                                    $harga = str_replace(".", "", $value['harga']);
-                                                                    $total = $total + (int)$harga * (int)$value['jumlah'];
-                                                                }
-                                                                $totalPlusTax = $total + ($total * ($_SESSION['restoran']['pajak'] / 100));
-                                                                echo "<script>
-                                                                document.write(formatRupiah('$totalPlusTax'))
-                                                            </script>";
-                                                                ?>
                                                             </div>
                                                         </div>
+
+                                                        <?php
+                                                        $total = 0;
+                                                        foreach ($detail_transaksi as $key => $value) {
+                                                            $harga = str_replace(".", "", $value['harga']);
+                                                            $total = $total + (int)$harga * (int)$value['jumlah'];
+                                                        }
+                                                        $totalPlusTax = $total + ($total * ($_SESSION['restoran']['pajak'] / 100));
+                                                        echo "<script>
+                                                              $('#total-real').html(formatRupiah('$totalPlusTax'))
+                                                            </script>";
+                                                        ?>
 
                                                     </div>
                                                 </div>
@@ -323,6 +324,17 @@ if (!isset($_SESSION["role"])) {
                                                         <input value="qris" required type="radio" id="qris" name="pembayaran" class="custom-control-input" />
                                                         <label class="custom-control-label" for="qris">QRIS</label>
                                                     </div>
+
+                                                    <?php
+                                                    if ($transaksi['tipe'] == 'online') {
+                                                    ?>
+                                                        <div class="custom-control custom-radio custom-control-inline">
+                                                            <input value="transfer" required type="radio" id="transfer" name="pembayaran" class="custom-control-input" />
+                                                            <label class="custom-control-label" for="transfer">Transfer</label>
+                                                        </div>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </div>
 
                                             </div>
@@ -469,7 +481,7 @@ if (!isset($_SESSION["role"])) {
 
     <?php
     if ($transaksi['tipe'] == "online") {
-        ?>
+    ?>
         document.getElementById("ongkir-real").addEventListener("input", function(e) {
             let ongkir = e.target.value.replace(/[^0-9]/g, '');
             $("#ongkir-final").val(ongkir);
@@ -477,7 +489,7 @@ if (!isset($_SESSION["role"])) {
             $("#ongkir-tampilan").html(formatRupiah("" + ongkir));
             renderTotalReal();
         });
-        <?php
+    <?php
     }
     ?>
 
@@ -537,7 +549,7 @@ if (!isset($_SESSION["role"])) {
 
                     Swal.fire({
                         title: `Masukkan Uang Pembeli - Minimal ${formatRupiah(minimal)}`,
-                        input: 'text',
+                        input: 'number',
                         inputAttributes: {
                             autocapitalize: 'off',
                             autocomplete: 'off',
@@ -571,12 +583,96 @@ if (!isset($_SESSION["role"])) {
 
             $("#minimun-final").val(minimal);
 
+            let imgUrl = '<?= $_SESSION['restoran']['qris'] ?>';
+            if (!imgUrl) imgUrl = "../frame.png"
+
             Swal.fire({
                 title: 'Silahkan Scan untuk Membayar',
                 html: `Tekan OK Jika Selesai!<br><br>Rp. ${formatRupiah(minimal)}`,
                 showCancelButton: true,
-                imageUrl: '../frame.png',
+                imageUrl: imgUrl,
                 imageWidth: 200,
+            }).then((result) => {
+                if (result.value) {
+                    $("#uang-pembeli").val(minimal);
+                    $("#proses-form").submit();
+                }
+            })
+        } else if (pembayaran == 'debit') {
+            let minimal = "" + $("#total-real").text().replace(/[^0-9]/g, '');
+            minimal = minimal.trim();
+
+            $("#minimun-final").val(minimal);
+
+            // ============
+
+            Swal.fire({
+                title: `Masukkan Nomor Rekening\nTagihan anda sebesar Rp. ${formatRupiah(minimal)}`,
+                input: 'number',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                    autocomplete: 'off',
+                    min: minimal,
+                    type: 'number'
+                },
+                showCancelButton: true,
+                showLoaderOnConfirm: true,
+                preConfirm: (inputVal) => {
+                    inputVal = inputVal.replace(/[^0-9]/g, '');
+                    if (!inputVal) {
+                        return Swal.showValidationError(
+                            `Nomor Rekening Tidak Valid`
+                        )
+                    } else {
+                        $("#uang-pembeli").val(minimal);
+                        return true;
+                    }
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.value) {
+                    Swal.fire({
+                        title: `Masukkan Nama Bank`,
+                        input: 'text',
+                        inputAttributes: {
+                            autocapitalize: 'off',
+                            autocomplete: 'off',
+                        },
+                        showCancelButton: true,
+                        showLoaderOnConfirm: true,
+                        preConfirm: (inputVal) => {
+                            inputVal = inputVal.trim();
+                            if (!inputVal) {
+                                return Swal.showValidationError(
+                                    `Nama Bank Tidak Valid`
+                                )
+                            } else {
+                                return true;
+                            }
+                        },
+                        allowOutsideClick: () => !Swal.isLoading()
+                    }).then((result) => {
+                        if (result.value) {
+                            $("#proses-form").submit();
+                        }
+                    })
+                }
+            })
+        } else if (pembayaran == 'transfer') {
+            let minimal = "" + $("#total-real").text().replace(/[^0-9]/g, '');
+            minimal = minimal.trim();
+
+            $("#minimun-final").val(minimal);
+            Swal.fire({
+                title: 'Silahkan Transfer ke rekening berikut',
+                html: `Tagihan Anda Sebesar<br><br>Rp. ${formatRupiah(minimal)}
+                <br><br>
+                <small>Nama Bank</small>
+                <div class='mt-1 mb-3 d-flex justify-content-center align-items-center form-control form-control-sm'><?= $_SESSION['restoran']['nama_bank'] ?></div>
+                <small>Nomor Rekening</small>
+                <div class='mt-1 d-flex justify-content-center align-items-center form-control form-control-sm'><?= $_SESSION['restoran']['rekening_restoran'] ?></div>
+                `,
+                showCancelButton: true,
             }).then((result) => {
                 if (result.value) {
                     $("#uang-pembeli").val(minimal);
