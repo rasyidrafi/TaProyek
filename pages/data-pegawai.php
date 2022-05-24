@@ -19,7 +19,7 @@ if ($result && mysqli_num_rows($result)) {
 }
 
 $data_role = [];
-$res = mysqli_query($conn, "SELECT role FROM `users` GROUP by role");
+$res = mysqli_query($conn, "SELECT role FROM `users` where role != 'admin' GROUP by role");
 if ($res && mysqli_num_rows($res)) {
     while ($row = mysqli_fetch_assoc($res)) {
         $data_role[] = $row;
@@ -276,7 +276,8 @@ if ($res && mysqli_num_rows($res)) {
             data: {
                 email: formData.get("email"),
                 username: formData.get("username"),
-                password: formData.get("password")
+                password: formData.get("password"),
+                akses: formData.get("akses")
             },
             beforeSend: () => {
                 $("#add-user-btn").html(`
