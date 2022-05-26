@@ -20,7 +20,8 @@ if (!$conn) {
     <header class="header navbar navbar-expand-sm" id="header-nav">
         <ul class="navbar-nav theme-brand flex-row text-center justify-content-between">
             <li class="nav-item theme-text ml-4">
-                <a href="index.php" class="nav-link text-capitalize" style="white-space: nowrap;">
+                <!-- <a href="index.php" class="nav-link text-capitalize" style="white-space: nowrap;"> -->
+                <a href="index.php" class="nav-link text-capitalize" style="white-space: nowrap; overflow: hidden; width: 169px;">
                     <?= $_SESSION['restoran']['nama_restoran'] ?>
                 </a>
             </li>
