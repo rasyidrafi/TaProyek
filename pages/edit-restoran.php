@@ -13,7 +13,17 @@
 
         $conn = mysqli_connect("server2.jagoankodecloud.com", "okokmyid_user_dev", "rahasia721", "okokmyid_ta1_dev");
 
-        $sql = "UPDATE restoran SET nama_restoran = '$nama_restoran', logo = '$logo', alamat = '$alamat', nomor = '$nomor', pajak = '$pajak', qris = '$qris', rekening_restoran = '$rekening_restoran', nama_bank = '$nama_bank' WHERE id = 1";
+        $sql = "UPDATE restoran SET nama_restoran = '$nama_restoran', alamat = '$alamat', nomor = '$nomor', pajak = '$pajak', rekening_restoran = '$rekening_restoran', nama_bank = '$nama_bank'";
+
+        if ($logo != '') {
+            $sql = $sql . ", logo = '$logo'";
+        }
+
+        if ($qris != '') {
+            $sql = $sql . ", qris = '$qris'";
+        }
+
+        $sql = $sql . " WHERE id = 1";
 
         $result = mysqli_query($conn, $sql);
 
